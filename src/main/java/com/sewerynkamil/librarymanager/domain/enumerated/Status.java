@@ -1,4 +1,4 @@
-package com.sewerynkamil.librarymanager.domain;
+package com.sewerynkamil.librarymanager.domain.enumerated;
 
 /**
  * Author Kamil Seweryn

@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.domain;
 
+import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
