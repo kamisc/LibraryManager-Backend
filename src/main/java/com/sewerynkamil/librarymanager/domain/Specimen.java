@@ -15,8 +15,8 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "BOOKS")
-public class Book {
+@Table(name = "SPECIMENS")
+public class Specimen {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,31 +25,22 @@ public class Book {
     private Long id;
 
     @NotNull
-    @Length(min = 3)
-    private String author;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @NotNull
     @Length(min = 2)
-    private String title;
+    private String publisher;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Category category;
-
-    @NotNull
-    private Integer yearOfFirstPublication;
-
-    @NotNull
-    private Integer isbn;
+    private Integer yearOfPublication;
 
     @NotNull
     private LocalDate creationDate = LocalDate.now();
 
-    public Book(String author, String title, Category category, Integer yearOfFirstPublication, Integer isbn) {
-        this.author = author;
-        this.title = title;
-        this.category = category;
-        this.yearOfFirstPublication = yearOfFirstPublication;
-        this.isbn = isbn;
+    public Specimen(Status status, String publisher, Integer yearOfPublication) {
+        this.status = status;
+        this.publisher = publisher;
+        this.yearOfPublication = yearOfPublication;
     }
 }

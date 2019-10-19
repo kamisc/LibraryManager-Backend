@@ -1,20 +1,10 @@
 package com.sewerynkamil.librarymanager.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-import java.util.List;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
-
 /**
  * Author Kamil Seweryn
  */
 
-@Getter
-@AllArgsConstructor
-public enum  Category {
+public enum Category {
     ACTION("Action"),
     ADVENTURE("Adventure"),
     AUTOBIOGRAPHY("Autobiography"),
@@ -36,5 +26,18 @@ public enum  Category {
     THRILLER("Thriller"),
     TRAGEDY("Tragedy");
 
-    String name;
+    String category;
+
+    Category(String category) {
+        this.category = category;
+    }
+
+    public String getCategory(String category) {
+        for (Category c : Category.values()) {
+            if (c.category == category) {
+                return category;
+            }
+        }
+        return null;
+    }
 }
