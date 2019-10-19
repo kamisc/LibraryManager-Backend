@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author Kamil Seweryn
@@ -45,6 +47,12 @@ public class Book {
 
     @NotNull
     private LocalDate creationDate = LocalDate.now();
+
+    @OneToMany(targetEntity = Specimen.class,
+               mappedBy = "book",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.EAGER)
+    private List<Specimen> specimenList = new ArrayList<>();
 
     public Book(String author, String title, Category category, Integer yearOfFirstPublication, Integer isbn) {
         this.author = author;

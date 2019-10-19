@@ -39,9 +39,15 @@ public class Specimen {
     @NotNull
     private LocalDate creationDate = LocalDate.now();
 
-    public Specimen(Status status, String publisher, Integer yearOfPublication) {
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    private Book book;
+
+    public Specimen(Status status, String publisher, Integer yearOfPublication, Book book) {
         this.status = status;
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;
+        this.book = book;
     }
 }
