@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author Kamil Seweryn
@@ -26,7 +28,7 @@ public class User {
 
     @NotNull
     @Column(unique = true)
-    private String accountId = generateAccountId();
+    private String accountId;
 
     @NotNull
     private String name;
@@ -48,12 +50,19 @@ public class User {
     @NotNull
     private LocalDate accountCreationDate = LocalDate.now();
 
+    @OneToMany(targetEntity = Rent.class,
+               mappedBy = "user",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.EAGER)
+    private List<Rent> rentList = new ArrayList<>();
+
     public User(String name, String surname, String email, Integer phoneNumber, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.accountId = generateAccountId();
     }
 
     private String generateAccountId() {

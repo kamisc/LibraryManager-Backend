@@ -32,9 +32,15 @@ public class Rent {
     @JoinColumn(name = "specimen_id")
     private Specimen specimen;
 
-    public Rent(Specimen specimen) {
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public Rent(Specimen specimen, User user) {
         this.rentDate = LocalDate.now();
         this.returnDate = rentDate.plusDays(30);
         this.specimen = specimen;
+        this.user = user;
     }
 }
