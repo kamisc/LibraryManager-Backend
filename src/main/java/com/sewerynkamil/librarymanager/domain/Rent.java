@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.domain;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,13 +11,12 @@ import java.time.LocalDate;
  */
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "RENTS")
 public class Rent {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(unique = true)
     private Long id;
