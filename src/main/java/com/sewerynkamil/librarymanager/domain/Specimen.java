@@ -8,6 +8,8 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author Kamil Seweryn
@@ -43,6 +45,12 @@ public class Specimen {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
+
+    @OneToMany(targetEntity = Rent.class,
+               mappedBy = "specimen",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.LAZY)
+    private List<Rent> rentList = new ArrayList<>();
 
     public Specimen(Status status, String publisher, Integer yearOfPublication, Book book) {
         this.status = status;

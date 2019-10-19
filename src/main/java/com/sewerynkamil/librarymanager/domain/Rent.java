@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
  */
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "RENTS")
 public class Rent {
@@ -25,8 +27,14 @@ public class Rent {
 
     private LocalDate returnDate;
 
-    public Rent() {
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "specimen_id")
+    private Specimen specimen;
+
+    public Rent(Specimen specimen) {
         this.rentDate = LocalDate.now();
         this.returnDate = rentDate.plusDays(30);
+        this.specimen = specimen;
     }
 }
