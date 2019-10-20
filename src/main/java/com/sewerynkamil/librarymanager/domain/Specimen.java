@@ -22,7 +22,7 @@ import java.util.List;
 public class Specimen {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(unique = true)
     private Long id;
@@ -39,7 +39,7 @@ public class Specimen {
     private Integer yearOfPublication;
 
     @NotNull
-    private LocalDate creationDate = LocalDate.now();
+    private LocalDate creationDate;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,5 +57,6 @@ public class Specimen {
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;
         this.book = book;
+        this.creationDate = LocalDate.now();
     }
 }
