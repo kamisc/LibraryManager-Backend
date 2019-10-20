@@ -22,10 +22,10 @@ public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
     List<Specimen> findAllByStatusAndBookId(Status status, Long id);
 
     @Override
-    Specimen save(Specimen specimen);
+    Optional<Specimen> findById(Long id);
 
     @Override
-    Optional<Specimen> findById(Long id);
+    Specimen save(Specimen specimen);
 
     @Override
     void delete(Specimen specimen);

@@ -21,14 +21,10 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(unique = true)
     private Long id;
-
-    @NotNull
-    @Column(unique = true)
-    private String accountId;
 
     @NotNull
     private String name;
@@ -40,7 +36,6 @@ public class User {
     private String email;
 
     @NotNull
-    @Length(max = 9)
     private Integer phoneNumber;
 
     @NotNull
@@ -62,10 +57,5 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.accountId = generateAccountId();
-    }
-
-    private String generateAccountId() {
-        return ("000000000" + id).substring(id.toString().length() - 1);
     }
 }
