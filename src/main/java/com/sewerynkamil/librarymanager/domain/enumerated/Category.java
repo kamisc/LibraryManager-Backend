@@ -32,7 +32,7 @@ public enum Category {
         this.category = category;
     }
 
-    public String getCategory(String category) {
+    public static String getCategory(String category) {
         for (Category c : Category.values()) {
             if (c.category == category) {
                 return category;

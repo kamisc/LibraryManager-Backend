@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 public class Book {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(unique = true)
     private Long id;
@@ -36,17 +37,16 @@ public class Book {
     private String title;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    private String category;
 
     @NotNull
     private Integer yearOfFirstPublication;
 
     @NotNull
-    private Integer isbn;
+    private Long isbn;
 
     @NotNull
-    private LocalDate creationDate = LocalDate.now();
+    private LocalDate creationDate;
 
     @OneToMany(targetEntity = Specimen.class,
                mappedBy = "book",
@@ -54,11 +54,12 @@ public class Book {
                fetch = FetchType.EAGER)
     private List<Specimen> specimenList = new ArrayList<>();
 
-    public Book(String author, String title, Category category, Integer yearOfFirstPublication, Integer isbn) {
+    public Book(String author, String title, String category, Integer yearOfFirstPublication, Long isbn) {
         this.author = author;
         this.title = title;
         this.category = category;
         this.yearOfFirstPublication = yearOfFirstPublication;
         this.isbn = isbn;
+        this.creationDate = LocalDate.now();
     }
 }
