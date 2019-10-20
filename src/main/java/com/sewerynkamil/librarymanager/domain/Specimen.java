@@ -39,7 +39,7 @@ public class Specimen {
     private Integer yearOfPublication;
 
     @NotNull
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -57,6 +57,5 @@ public class Specimen {
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;
         this.book = book;
-        this.creationDate = LocalDate.now();
     }
 }

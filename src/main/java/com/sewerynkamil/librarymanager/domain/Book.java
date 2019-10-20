@@ -46,7 +46,7 @@ public class Book {
     private Long isbn;
 
     @NotNull
-    private LocalDate creationDate;
+    private LocalDate creationDate = LocalDate.now();
 
     @OneToMany(targetEntity = Specimen.class,
                mappedBy = "book",
@@ -60,6 +60,5 @@ public class Book {
         this.category = category;
         this.yearOfFirstPublication = yearOfFirstPublication;
         this.isbn = isbn;
-        this.creationDate = LocalDate.now();
     }
 }
