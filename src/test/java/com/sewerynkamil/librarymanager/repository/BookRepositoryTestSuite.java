@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 /**
  * Author Kamil Seweryn
  */
@@ -22,22 +25,131 @@ public class BookRepositoryTestSuite {
     private BookRepository bookRepository;
 
     @Test
-    public void testSaveBook() throws NotFound {
+    @Transactional
+    public void testFindAllBooks() {
         // Given
-        Book book = new Book("Andrzej Pilipiuk",
-                "Wampir z M-3",
-                Category.getCategory("Fantasy"),
-                2011,
-                9788375748758L);
+        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        // When
+        List<Book> books = bookRepository.findAll();
+
+        // Then
+        Assert.assertEquals(2, books.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByTitleStartsWithIgnoreCase() {
+        // Given
+        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Tite2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        // When
+        List<Book> booksTit = bookRepository.findByTitleStartsWithIgnoreCase("Tit");
+        List<Book> booksTitl = bookRepository.findByTitleStartsWithIgnoreCase("Titl");
+
+        // Then
+        Assert.assertEquals(2, booksTit.size());
+        Assert.assertEquals(1, booksTitl.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByAuthorStartsWithIgnoreCase() {
+        // Given
+        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book2 = new Book("Auhor2", "Title2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        // When
+        List<Book> booksAu = bookRepository.findByAuthorStartsWithIgnoreCase("Au");
+        List<Book> booksAut = bookRepository.findByAuthorStartsWithIgnoreCase("Aut");
+
+        // Then
+        Assert.assertEquals(2, booksAu.size());
+        Assert.assertEquals(1, booksAut.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByCategoryStartsWithIgnoreCase() {
+        // Given
+        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        // When
+        List<Book> booksFa = bookRepository.findByCategoryStartsWithIgnoreCase("Fa");
+        List<Book> booksFab = bookRepository.findByCategoryStartsWithIgnoreCase("Fab");
+
+        // Then
+        Assert.assertEquals(2, booksFa.size());
+        Assert.assertEquals(1, booksFab.size());
+    }
+
+    @Test
+    @Transactional
+    public void testSaveBookAndFindById() throws Exception {
+        // Given
+        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
         bookRepository.save(book);
 
         // When
-        Book getBook = bookRepository.findById(book.getId()).orElseThrow(NotFound::new);
+        Book getBook = bookRepository.findById(book.getId()).orElseThrow(Exception::new);
 
         // Then
-        Assert.assertEquals("Andrzej Pilipiuk", getBook.getAuthor());
-        Assert.assertEquals("Wampir z M-3", getBook.getTitle());
+        Assert.assertEquals("Author", getBook.getAuthor());
+        Assert.assertEquals("Title", getBook.getTitle());
         Assert.assertEquals("Fantasy", getBook.getCategory());
     }
 
+    @Test
+    @Transactional
+    public void testDeleteBook() {
+        // Given
+        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        bookRepository.save(book);
+
+        // When
+        bookRepository.delete(book);
+        List<Book> books = bookRepository.findAll();
+
+        // Then
+        Assert.assertEquals(0, books.size());
+    }
+
+    @Test
+    @Transactional
+    public void testIsExistsByTitleBook() {
+        // Given
+        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        bookRepository.save(book);
+
+        // When
+        boolean isExist = bookRepository.existsByTitle("Title");
+
+        // Then
+        Assert.assertTrue(isExist);
+    }
+
+    @Test
+    @Transactional
+    public void testIsNotExistsByTitleBook() {
+        // Given
+        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        bookRepository.save(book);
+
+        // When
+        boolean isExist = bookRepository.existsByTitle("Tilte");
+
+        // Then
+        Assert.assertFalse(isExist);
+    }
 }
