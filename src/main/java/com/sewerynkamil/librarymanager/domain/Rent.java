@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Rent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
     @Column(unique = true)
     private Long id;
