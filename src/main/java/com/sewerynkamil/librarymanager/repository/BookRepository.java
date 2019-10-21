@@ -28,6 +28,8 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Override
     Optional<Book> findById(Long id);
 
+    Book findByTitle(String title);
+
     @Override
     Book save(Book book);
 
