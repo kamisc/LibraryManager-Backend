@@ -20,15 +20,11 @@ public class UserDto {
     private String password;
 
     public UserDto(Long id, String name, String surname, String email, Integer phoneNumber, String password) {
-        this.userAccountId = generateAccountId(id);
+        this.userAccountId = DtoUtils.generateId(id);
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-    }
-
-    private String generateAccountId(Long id) {
-        return ("000000000" + id).substring(id.toString().length() - 1);
     }
 }
