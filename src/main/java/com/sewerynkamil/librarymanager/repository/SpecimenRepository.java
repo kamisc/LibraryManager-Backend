@@ -27,8 +27,9 @@ public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
     @Override
     Specimen save(Specimen specimen);
 
-    @Override
-    void delete(Specimen specimen);
+    void deleteById(Long id);
+
+    void deleteAllByBookId(Long bookId);
 
     Long countByStatusAndBookId(Status status, Long id);
 }

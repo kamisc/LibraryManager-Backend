@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class BookService {
     private BookRepository bookRepository;
-
     private SpecimenRepository specimenRepository;
 
     @Autowired
