@@ -76,6 +76,22 @@ public class UserRepositoryTestSuite {
 
     @Test
     @Transactional
+    public void testFindByEmail() {
+        // Given
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        userRepository.save(user);
+
+        // When
+        User getUser = userRepository.findByEmail("email@gmail.com");
+
+        // Then
+        Assert.assertEquals("Name", getUser.getName());
+        Assert.assertEquals("Surname", getUser.getSurname());
+        Assert.assertEquals("email@gmail.com", getUser.getEmail());
+    }
+
+    @Test
+    @Transactional
     public void testDeleteUser() {
         // Given
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
