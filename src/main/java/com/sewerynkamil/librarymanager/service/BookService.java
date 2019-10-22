@@ -3,14 +3,12 @@ package com.sewerynkamil.librarymanager.service;
 import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
-import com.sewerynkamil.librarymanager.dto.BookDto;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -32,13 +30,6 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    public List<Book> findAllBooksWithLazyLoading(int offset, int limit) {
-        return bookRepository.findAll().stream()
-                .skip(offset)
-                .limit(limit)
-                .collect(Collectors.toList());
-    }
-
     public List<Book> findAllBooksByTitleStartsWithIgnoreCase(String title) {
         return bookRepository.findByTitleStartsWithIgnoreCase(title);
     }
@@ -55,7 +46,7 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(Exception::new);
     }
 
-    public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) throws Exception {
+    public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) {
         Specimen firstSpecimen = new Specimen(Status.AVAILABLE, publisher, yearOfPublication, book);
         book.getSpecimenList().add(firstSpecimen);
         firstSpecimen.setBook(book);
