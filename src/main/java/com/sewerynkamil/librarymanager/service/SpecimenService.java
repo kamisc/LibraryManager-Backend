@@ -24,15 +24,15 @@ public class SpecimenService {
         this.bookRepository = bookRepository;
     }
 
-    public List<Specimen> getAllSpecimensForOneBook(final Long bookId) {
+    public List<Specimen> findAllSpecimensForOneBook(final Long bookId) {
         return specimenRepository.findAllByBookId(bookId);
     }
 
-    public List<Specimen> getAllSpecimensForOneBook(final Status status, final Long bookId) {
+    public List<Specimen> findAllSpecimensForOneBook(final Status status, final Long bookId) {
         return specimenRepository.findAllByStatusAndBookId(status, bookId);
     }
 
-    public Specimen getOneSpecimen(final Long id) throws Exception {
+    public Specimen findOneSpecimen(final Long id) throws Exception {
         return specimenRepository.findById(id).orElseThrow(Exception::new);
     }
 

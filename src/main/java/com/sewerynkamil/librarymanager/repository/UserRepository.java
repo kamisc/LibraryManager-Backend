@@ -31,7 +31,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User save(User user);
 
     @Override
-    void delete(User entity);
+    void delete(User user);
 
     boolean existsByEmail(String email);
 }
