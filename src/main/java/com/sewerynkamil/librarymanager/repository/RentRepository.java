@@ -27,7 +27,7 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     Rent findBySpecimenId(Long id);
 
     @Override
-    Optional<Rent> findById(Long aLong);
+    Optional<Rent> findById(Long id);
 
     @Override
     Rent save(Rent rent);
