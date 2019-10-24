@@ -3,6 +3,8 @@ package com.sewerynkamil.librarymanager.service;
 import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
+import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,11 +43,18 @@ public class BookService {
         return bookRepository.findByAuthorStartsWithIgnoreCase(category);
     }
 
-    public Book findOneBook(Long id) throws Exception {
-        return bookRepository.findById(id).orElseThrow(Exception::new);
+    public Book findOneBook(Long id) throws BookExistException, BookNotExistException {
+        Book book = bookRepository.findById(id).orElseThrow(BookNotExistException::new);
+        if(!isBookExist(book.getTitle())) {
+            throw new BookNotExistException();
+        }
+        return book;
     }
 
-    public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) {
+    public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) throws BookExistException {
+        if(isBookExist(book.getTitle())) {
+            throw new BookExistException();
+        }
         Specimen firstSpecimen = new Specimen(Status.AVAILABLE, publisher, yearOfPublication, book);
         book.getSpecimenList().add(firstSpecimen);
         firstSpecimen.setBook(book);
@@ -53,11 +62,17 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(Book book) {
+    public Book updateBook(Book book) throws BookNotExistException {
+        if(!isBookExist(book.getTitle())) {
+            throw new BookNotExistException();
+        }
         return bookRepository.save(book);
     }
 
-    public void deleteBook(Book book) {
+    public void deleteBook(Book book) throws BookNotExistException {
+        if(!isBookExist(book.getTitle())) {
+            throw new BookNotExistException();
+        }
         bookRepository.delete(book);
     }
 
