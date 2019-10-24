@@ -53,7 +53,7 @@ public class RentService {
         return rentRepository.findById(rentId).orElseThrow(Exception::new);
     }
 
-    public Rent saveRent(final Long specimenId, final Long userId) throws Exception {
+    public Rent rentBook(final Long specimenId, final Long userId) throws Exception {
         Specimen specimen = specimenRepository.findById(specimenId).orElseThrow(Exception::new);
         specimen.setStatus(Status.RENTED);
         specimenRepository.save(specimen);
