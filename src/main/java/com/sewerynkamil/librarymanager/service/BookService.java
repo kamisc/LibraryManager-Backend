@@ -43,34 +43,32 @@ public class BookService {
         return bookRepository.findByAuthorStartsWithIgnoreCase(category);
     }
 
-    public Book findOneBook(Long id) throws BookExistException, BookNotExistException {
+    public Book findOneBook(Long id) throws BookNotExistException {
         Book book = bookRepository.findById(id).orElseThrow(BookNotExistException::new);
-        if(!isBookExist(book.getTitle())) {
+        if(!bookRepository.existsByTitle(book.getTitle())) {
             throw new BookNotExistException();
         }
         return book;
     }
 
     public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) throws BookExistException {
-        if(isBookExist(book.getTitle())) {
+        if(bookRepository.existsByTitle(book.getTitle())) {
             throw new BookExistException();
         }
+        bookRepository.save(book);
         Specimen firstSpecimen = new Specimen(Status.AVAILABLE, publisher, yearOfPublication, book);
         book.getSpecimenList().add(firstSpecimen);
         firstSpecimen.setBook(book);
         specimenRepository.save(firstSpecimen);
-        return bookRepository.save(book);
+        return book;
     }
 
-    public Book updateBook(Book book) throws BookNotExistException {
-        if(!isBookExist(book.getTitle())) {
-            throw new BookNotExistException();
-        }
+    public Book updateBook(Book book) {
         return bookRepository.save(book);
     }
 
     public void deleteBook(Book book) throws BookNotExistException {
-        if(!isBookExist(book.getTitle())) {
+        if(!bookRepository.existsByTitle(book.getTitle())) {
             throw new BookNotExistException();
         }
         bookRepository.delete(book);
