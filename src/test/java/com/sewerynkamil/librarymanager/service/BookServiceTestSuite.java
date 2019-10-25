@@ -31,7 +31,7 @@ public class BookServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFindAllBooks() throws BookExistException {
+    public void testFindAllBooks() {
         // Given
         Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2008, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.getCategory("Tragedy"), 1995, 1231231231231L);
