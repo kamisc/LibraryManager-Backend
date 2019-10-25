@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.repository;
 
 import com.sewerynkamil.librarymanager.domain.Book;
-import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
