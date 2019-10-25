@@ -2,9 +2,6 @@ package com.sewerynkamil.librarymanager.mapper;
 
 import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.dto.RentDto;
-import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
-import com.sewerynkamil.librarymanager.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
