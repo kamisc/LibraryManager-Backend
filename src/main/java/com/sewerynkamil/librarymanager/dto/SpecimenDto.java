@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.dto;
 
-import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
