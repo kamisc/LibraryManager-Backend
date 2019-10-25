@@ -1,13 +1,11 @@
 package com.sewerynkamil.librarymanager.domain;
 
-import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
