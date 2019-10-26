@@ -4,6 +4,9 @@ import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
+import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.RentRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
@@ -21,14 +24,12 @@ import java.util.List;
 @Service
 public class RentService {
     private RentRepository rentRepository;
-    private BookRepository bookRepository;
     private SpecimenRepository specimenRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public RentService(RentRepository rentRepository, BookRepository bookRepository, SpecimenRepository specimenRepository, UserRepository userRepository) {
+    public RentService(RentRepository rentRepository, SpecimenRepository specimenRepository, UserRepository userRepository) {
         this.rentRepository = rentRepository;
-        this.bookRepository = bookRepository;
         this.specimenRepository = specimenRepository;
         this.userRepository = userRepository;
     }
@@ -49,16 +50,16 @@ public class RentService {
         return rentRepository.findBySpecimenId(specimenId);
     }
 
-    public Rent findOneRentById(final Long rentId) throws Exception {
-        return rentRepository.findById(rentId).orElseThrow(Exception::new);
+    public Rent findOneRentById(final Long rentId) throws RentNotExistException {
+        return rentRepository.findById(rentId).orElseThrow(RentNotExistException::new);
     }
 
-    public Rent rentBook(final Long specimenId, final Long userId) throws Exception {
-        Specimen specimen = specimenRepository.findById(specimenId).orElseThrow(Exception::new);
+    public Rent rentBook(final Long specimenId, final Long userId) throws SpecimenNotExistException, UserNotExistException {
+        Specimen specimen = specimenRepository.findById(specimenId).orElseThrow(SpecimenNotExistException::new);
         specimen.setStatus(Status.RENTED);
         specimenRepository.save(specimen);
 
-        User user = userRepository.findById(userId).orElseThrow(Exception::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
         Rent rent = new Rent(specimen, user);
 
@@ -74,8 +75,6 @@ public class RentService {
     public void returnBook(final Long specimenId) {
         Rent rent = rentRepository.findBySpecimenId(specimenId);
         rent.getSpecimen().setStatus(Status.AVAILABLE);
-        rent.setRentDate(null);
-        rent.setReturnDate(null);
         rentRepository.deleteById(rent.getId());
     }
 }

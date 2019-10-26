@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "This specimen dosen't exist in the database!")
 public class SpecimenNotExistException extends Exception {
     public SpecimenNotExistException() {
-        super("This specimen exist in the database!");
+        super("This specimen dosen't exist in the database!");
     }
 }
