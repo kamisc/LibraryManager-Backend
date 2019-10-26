@@ -1,8 +1,6 @@
 package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.Book;
-import com.sewerynkamil.librarymanager.domain.Specimen;
-import com.sewerynkamil.librarymanager.domain.enumerated.Status;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
@@ -40,7 +38,7 @@ public class BookService {
     }
 
     public List<Book> findAllBooksByCategoryStartsWithIgnoreCase(String category) {
-        return bookRepository.findByAuthorStartsWithIgnoreCase(category);
+        return bookRepository.findByCategoryStartsWithIgnoreCase(category);
     }
 
     public Book findOneBook(Long id) throws BookNotExistException {
@@ -51,20 +49,24 @@ public class BookService {
         return book;
     }
 
-    public Book saveNewBook(Book book, String publisher, Integer yearOfPublication) throws BookExistException {
+    public Book saveNewBook(Book book) throws BookExistException {
         if(bookRepository.existsByTitle(book.getTitle())) {
             throw new BookExistException();
         }
-        bookRepository.save(book);
-        Specimen firstSpecimen = new Specimen(Status.AVAILABLE, publisher, yearOfPublication, book);
-        book.getSpecimenList().add(firstSpecimen);
-        firstSpecimen.setBook(book);
-        specimenRepository.save(firstSpecimen);
-        return book;
+        return bookRepository.save(book);
     }
 
-    public Book updateBook(Book book) {
-        return bookRepository.save(book);
+    public Book updateBook(Book book) throws BookNotExistException {
+        Book b = bookRepository.findByTitle(book.getTitle());
+        if(!bookRepository.existsByTitle(book.getTitle())) {
+            throw new BookNotExistException();
+        }
+        b.setAuthor(book.getAuthor());
+        b.setTitle(book.getTitle());
+        b.setCategory(book.getCategory());
+        b.setYearOfFirstPublication(book.getYearOfFirstPublication());
+        b.setIsbn(book.getIsbn());
+        return bookRepository.save(b);
     }
 
     public void deleteBook(Book book) throws BookNotExistException {
