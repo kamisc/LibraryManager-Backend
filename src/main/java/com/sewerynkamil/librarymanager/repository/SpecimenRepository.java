@@ -29,7 +29,5 @@ public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
 
     void deleteById(Long id);
 
-    void deleteAllByBookId(Long bookId);
-
     Long countByStatusAndBookId(Status status, Long id);
 }
