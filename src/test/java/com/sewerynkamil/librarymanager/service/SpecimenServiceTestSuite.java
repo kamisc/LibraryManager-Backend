@@ -43,7 +43,7 @@ public class SpecimenServiceTestSuite {
         List<Specimen> specimens = specimenService.findAllSpecimensForOneBookByBookId(book.getId());
 
         // Then
-        Assert.assertEquals(2, specimens.size());
+        Assert.assertEquals(1, specimens.size());
     }
 
     @Test
@@ -148,12 +148,12 @@ public class SpecimenServiceTestSuite {
         List<Specimen> specimens = specimenService.findAllSpecimensForOneBookByBookId(book.getId());
 
         // Then
-        Assert.assertEquals(1, specimens.size());
+        Assert.assertEquals(0, specimens.size());
     }
 
     @Test
     @Transactional
-    public void testCoubtSpecimensByStatusAndBookId() throws BookExistException {
+    public void testCountSpecimensByStatusAndBookId() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
         bookService.saveNewBook(book);
@@ -162,11 +162,13 @@ public class SpecimenServiceTestSuite {
         Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2008, book);
         Specimen specimen4 = new Specimen(Status.RENTED, "Publisher", 2008, book);
         Specimen specimen5 = new Specimen(Status.RENTED, "Publisher", 2008, book);
+        Specimen specimen6 = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
         specimenService.saveNewSpecimen(specimen3);
         specimenService.saveNewSpecimen(specimen4);
         specimenService.saveNewSpecimen(specimen5);
+        specimenService.saveNewSpecimen(specimen6);
 
         // When
         Long specimensAvailable = specimenService.countSpecimensByStatusAndBookId(Status.AVAILABLE, book.getId());

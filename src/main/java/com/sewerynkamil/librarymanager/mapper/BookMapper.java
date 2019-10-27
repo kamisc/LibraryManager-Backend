@@ -23,12 +23,14 @@ public class BookMapper {
     }
 
     public Book mapToBook(final BookDto bookDto) {
-        return new Book(
+        Book book = new Book(
                 bookDto.getAuthor(),
                 bookDto.getTitle(),
                 bookDto.getCategory(),
                 bookDto.getYearOfFirstPublication(),
                 bookDto.getIsbn());
+        book.setId(bookDto.getId());
+        return book;
     }
 
     public List<BookDto> mapToBookDtoList(final List<Book> bookList) {

@@ -57,16 +57,10 @@ public class BookService {
     }
 
     public Book updateBook(Book book) throws BookNotExistException {
-        Book b = bookRepository.findByTitle(book.getTitle());
         if(!bookRepository.existsByTitle(book.getTitle())) {
             throw new BookNotExistException();
         }
-        b.setAuthor(book.getAuthor());
-        b.setTitle(book.getTitle());
-        b.setCategory(book.getCategory());
-        b.setYearOfFirstPublication(book.getYearOfFirstPublication());
-        b.setIsbn(book.getIsbn());
-        return bookRepository.save(b);
+        return bookRepository.save(book);
     }
 
     public void deleteBook(Book book) throws BookNotExistException {

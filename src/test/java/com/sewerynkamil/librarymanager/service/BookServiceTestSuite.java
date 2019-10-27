@@ -86,17 +86,17 @@ public class BookServiceTestSuite {
     public void testFindByCategoryStartsWithIgnoreCase() {
         // Given
         Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Auhor2", "Title2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        Book book2 = new Book("Auhor2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
         bookRepository.save(book1);
         bookRepository.save(book2);
 
         // When
-        List<Book> booksAu = bookService.findAllBooksByCategoryStartsWithIgnoreCase("Au");
-        List<Book> booksAut = bookService.findAllBooksByCategoryStartsWithIgnoreCase("Aut");
+        List<Book> booksFa = bookService.findAllBooksByCategoryStartsWithIgnoreCase("Fa");
+        List<Book> booksFan = bookService.findAllBooksByCategoryStartsWithIgnoreCase("Fan");
 
         // Then
-        Assert.assertEquals(2, booksAu.size());
-        Assert.assertEquals(1, booksAut.size());
+        Assert.assertEquals(2, booksFa.size());
+        Assert.assertEquals(1, booksFan.size());
     }
 
     @Test
@@ -129,7 +129,6 @@ public class BookServiceTestSuite {
         Assert.assertEquals("Author", getBook.getAuthor());
         Assert.assertEquals("Title", getBook.getTitle());
         Assert.assertEquals("Fantasy", getBook.getCategory());
-        Assert.assertEquals("Publisher", getBook.getSpecimenList().get(0).getPublisher());
     }
 
     @Test
@@ -140,11 +139,13 @@ public class BookServiceTestSuite {
         bookService.saveNewBook(book);
 
         // When
-        book = bookService.updateBook(new Book("Autor", "Tytuł", Category.getCategory("Action"), 2011, 9788375748758L));
+        Book updatedBook = new Book("Autor", "Title", Category.getCategory("Action"), 2011, 9788375748758L);
+        updatedBook.setId(book.getId());
+        bookService.updateBook(updatedBook);
 
         // Then
         Assert.assertEquals("Autor", book.getAuthor());
-        Assert.assertEquals("Tytuł", book.getTitle());
+        Assert.assertEquals("Title", book.getTitle());
         Assert.assertEquals("Action", book.getCategory());
     }
 
