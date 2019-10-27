@@ -24,12 +24,14 @@ public class UserMapper {
     }
 
     public User mapToUser(final UserDto userDto) {
-        return new User(
+        User user = new User(
                 userDto.getName(),
                 userDto.getSurname(),
                 userDto.getEmail(),
                 userDto.getPhoneNumber(),
                 userDto.getPassword());
+        user.setId(Long.parseLong(userDto.getUserAccountId()));
+        return user;
     }
 
     public List<UserDto> mapToUserDtoList(final List<User> userList) {

@@ -52,8 +52,8 @@ public class RentServiceTestSuite {
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1, "Publisher", 2008);
-        bookService.saveNewBook(book2, "Publisher", 2008);
+        bookService.saveNewBook(book1);
+        bookService.saveNewBook(book2);
 
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
@@ -85,8 +85,8 @@ public class RentServiceTestSuite {
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1, "Publisher", 2008);
-        bookService.saveNewBook(book2, "Publisher", 2008);
+        bookService.saveNewBook(book1);
+        bookService.saveNewBook(book2);
 
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
@@ -119,8 +119,8 @@ public class RentServiceTestSuite {
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1, "Publisher", 2008);
-        bookService.saveNewBook(book2, "Publisher", 2008);
+        bookService.saveNewBook(book1);
+        bookService.saveNewBook(book2);
 
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
@@ -151,8 +151,8 @@ public class RentServiceTestSuite {
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1, "Publisher", 2008);
-        bookService.saveNewBook(book2, "Publisher", 2008);
+        bookService.saveNewBook(book1);
+        bookService.saveNewBook(book2);
 
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
@@ -183,7 +183,7 @@ public class RentServiceTestSuite {
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
 
         book.getSpecimenList().add(specimen);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
 
         specimenService.saveNewSpecimen(specimen);
 
@@ -210,7 +210,7 @@ public class RentServiceTestSuite {
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
 
         book.getSpecimenList().add(specimen);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
 
         specimenService.saveNewSpecimen(specimen);
 
@@ -237,7 +237,7 @@ public class RentServiceTestSuite {
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
 
         book.getSpecimenList().add(specimen);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
 
         specimenService.saveNewSpecimen(specimen);
 
@@ -265,7 +265,7 @@ public class RentServiceTestSuite {
 
         book.getSpecimenList().add(specimen1);
         book.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book, "Publisher", 2005);
+        bookService.saveNewBook(book);
 
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);

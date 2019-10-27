@@ -43,14 +43,21 @@ public class UserService {
     }
 
     public User saveUser(final User user) throws UserExistException {
-        if(isUserExist(user.getEmail())) {
+        if(userRepository.existsByEmail(user.getEmail())) {
             throw new UserExistException();
         }
         return userRepository.save(user);
     }
 
-    public void deleteUser(final User user) {
-        userRepository.delete(user);
+    public User updateUser(final User user) throws UserNotExistException {
+        if(!userRepository.existsById(user.getId())) {
+            throw new UserNotExistException();
+        }
+        return userRepository.save(user);
+    }
+
+    public void deleteUserById(final Long id) {
+        userRepository.deleteById(id);
     }
 
     public boolean isUserExist(final String email) {

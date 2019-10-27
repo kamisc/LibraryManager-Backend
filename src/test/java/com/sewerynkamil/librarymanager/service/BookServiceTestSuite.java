@@ -120,7 +120,7 @@ public class BookServiceTestSuite {
     public void testSaveNewBook() throws BookExistException, BookNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2005);
+        bookService.saveNewBook(book);
 
         // When
         Book getBook = bookService.findOneBook(book.getId());
@@ -134,10 +134,10 @@ public class BookServiceTestSuite {
 
     @Test
     @Transactional
-    public void testUpdateBook() throws BookExistException {
+    public void testUpdateBook() throws BookExistException, BookNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2005);
+        bookService.saveNewBook(book);
 
         // When
         book = bookService.updateBook(new Book("Autor", "Tytuł", Category.getCategory("Action"), 2011, 9788375748758L));
@@ -153,7 +153,7 @@ public class BookServiceTestSuite {
     public void testDeleteBook() throws BookNotExistException, BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2005);
+        bookService.saveNewBook(book);
 
         // When
         bookService.deleteBook(book);
@@ -167,7 +167,7 @@ public class BookServiceTestSuite {
     public void testIsBookExist() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2005);
+        bookService.saveNewBook(book);
 
         // When
         boolean isBookExist = bookService.isBookExist("Title");
@@ -191,6 +191,6 @@ public class BookServiceTestSuite {
         bookRepository.save(book);
 
         // When
-        bookService.saveNewBook(new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L), "Publisher", 2005);
+        bookService.saveNewBook(new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L));
     }
 }

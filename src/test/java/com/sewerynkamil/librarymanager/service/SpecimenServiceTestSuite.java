@@ -35,7 +35,7 @@ public class SpecimenServiceTestSuite {
     public void testFindAllSpecimenForOneBookByBookId() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -51,7 +51,7 @@ public class SpecimenServiceTestSuite {
     public void testFindAllSpecimenForOneBookByStatusAndBookId() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -67,7 +67,7 @@ public class SpecimenServiceTestSuite {
     public void testSaveNewSpecimenAndFindOneSpecimen() throws SpecimenNotExistException, BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -85,7 +85,7 @@ public class SpecimenServiceTestSuite {
     public void testChangeSpecimenStatusToAvailable() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -103,7 +103,7 @@ public class SpecimenServiceTestSuite {
     public void testChangeSpecimenStatusToRented() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -121,7 +121,7 @@ public class SpecimenServiceTestSuite {
     public void testChangeSpecimenStatusToLost() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -139,7 +139,7 @@ public class SpecimenServiceTestSuite {
     public void testDeleteSpecimen() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
@@ -156,7 +156,7 @@ public class SpecimenServiceTestSuite {
     public void testCoubtSpecimensByStatusAndBookId() throws BookExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        bookService.saveNewBook(book, "Publisher", 2008);
+        bookService.saveNewBook(book);
         Specimen specimen1 = new Specimen(Status.LOST, "Publisher", 2008, book);
         Specimen specimen2 = new Specimen(Status.LOST, "Publisher", 2008, book);
         Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2008, book);

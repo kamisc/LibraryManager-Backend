@@ -6,6 +6,6 @@ package com.sewerynkamil.librarymanager.dto;
 
 public class DtoUtils {
     protected static String generateId(Long id) {
-        return ("000000000" + id).substring(id.toString().length() - 1);
+        return ("000000000" + id).substring(id.toString().length());
     }
 }

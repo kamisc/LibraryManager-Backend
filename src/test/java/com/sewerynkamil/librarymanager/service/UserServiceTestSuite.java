@@ -113,7 +113,7 @@ public class UserServiceTestSuite {
         userService.saveUser(user);
 
         // When
-        userService.deleteUser(user);
+        userService.deleteUserById(user.getId());
         List<User> users = userService.findAllUsers();
 
         // Then
