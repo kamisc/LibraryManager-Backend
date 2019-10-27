@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestParam Long id) throws UserNotExistException {
+    public void deleteUser(@RequestParam Long id) {
         userService.deleteUserById(id);
     }
 }
