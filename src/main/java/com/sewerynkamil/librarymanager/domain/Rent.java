@@ -28,7 +28,7 @@ public class Rent {
     private LocalDate returnDate;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "specimen_id")
     private Specimen specimen;
 
