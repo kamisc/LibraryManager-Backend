@@ -280,6 +280,6 @@ public class RentServiceTestSuite {
         List<Rent> rents = rentService.findAllRents();
 
         // Then
-        Assert.assertEquals(1, rents.size());
+        Assert.assertEquals(rent1.getReturnDate(), LocalDate.now());
     }
 }
