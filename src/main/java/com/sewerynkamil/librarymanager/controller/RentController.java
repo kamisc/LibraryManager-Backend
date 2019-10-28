@@ -7,8 +7,10 @@ import com.sewerynkamil.librarymanager.dto.RentDto;
 import com.sewerynkamil.librarymanager.mapper.RentMapper;
 import com.sewerynkamil.librarymanager.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -36,6 +38,11 @@ public class RentController {
     @GetMapping("/user/{userId}")
     public List<RentDto> getAllRentsByUserId(@PathVariable Long userId) {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserId(userId));
+    }
+
+    @GetMapping("/date/{date}")
+    public List<RentDto> getAllRentsByReturnDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return rentMapper.mapToRentDtoList(rentService.findAllRentsByReturnDate(date));
     }
 
     @GetMapping("/specimen/{specimenId}")

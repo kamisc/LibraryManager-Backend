@@ -42,6 +42,10 @@ public class RentService {
         return rentRepository.findAllByUserId(userId);
     }
 
+    public List<Rent> findAllRentsByReturnDate(final LocalDate date) {
+        return rentRepository.findAllByReturnDate(date);
+    }
+
     public Rent findOneRentBySpecimenId(final Long specimenId) {
         return rentRepository.findBySpecimenId(specimenId);
     }
@@ -72,6 +76,5 @@ public class RentService {
         Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
         rent.getSpecimen().setStatus(Status.AVAILABLE);
         rent.setReturnDate(LocalDate.now());
-        rentRepository.deleteById(rent.getId());
     }
 }

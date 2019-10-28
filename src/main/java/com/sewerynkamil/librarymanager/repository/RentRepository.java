@@ -23,6 +23,8 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     List<Rent> findAllByUserId(Long id);
 
+    List<Rent> findAllByReturnDate(LocalDate date);
+
     Rent findBySpecimenId(Long specimenId);
 
     Rent findBySpecimenIdAndUserId(Long specimenId, Long userId);
