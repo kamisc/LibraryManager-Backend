@@ -2,6 +2,7 @@ package com.sewerynkamil.librarymanager.repository;
 
 import com.sewerynkamil.librarymanager.domain.Rent;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -22,9 +23,9 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     List<Rent> findAllByUserId(Long id);
 
-    List<Rent> findAllByReturnDate(LocalDate date);
+    Rent findBySpecimenId(Long specimenId);
 
-    Rent findBySpecimenId(Long id);
+    Rent findBySpecimenIdAndUserId(Long specimenId, Long userId);
 
     @Override
     Optional<Rent> findById(Long id);
@@ -33,5 +34,5 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     Rent save(Rent rent);
 
     @Override
-    void deleteById(Long id);
+    void deleteById(Long rentId);
 }

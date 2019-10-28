@@ -42,10 +42,6 @@ public class RentService {
         return rentRepository.findAllByUserId(userId);
     }
 
-    public List<Rent> findAllRentsByReturnDate(final LocalDate date) {
-        return rentRepository.findAllByReturnDate(date);
-    }
-
     public Rent findOneRentBySpecimenId(final Long specimenId) {
         return rentRepository.findBySpecimenId(specimenId);
     }
@@ -66,15 +62,16 @@ public class RentService {
         return rentRepository.save(rent);
     }
 
-    public Rent prolongationRent(final Long specimenId) {
-        Rent rent = rentRepository.findBySpecimenId(specimenId);
+    public Rent prolongationRent(final Long specimenId, final Long userId) {
+        Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
         rent.setReturnDate(rent.getReturnDate().plusDays(30));
         return rentRepository.save(rent);
     }
 
-    public void returnBook(final Long specimenId) {
-        Rent rent = rentRepository.findBySpecimenId(specimenId);
+    public void returnBook(final Long specimenId, final Long userId) {
+        Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
         rent.getSpecimen().setStatus(Status.AVAILABLE);
+        rent.setReturnDate(LocalDate.now());
         rentRepository.deleteById(rent.getId());
     }
 }

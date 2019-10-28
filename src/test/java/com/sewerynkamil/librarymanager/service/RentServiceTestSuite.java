@@ -246,7 +246,7 @@ public class RentServiceTestSuite {
         Rent rent = rentService.rentBook(specimen.getId(), user.getId());
 
         // When
-        Rent getRent = rentService.prolongationRent(specimen.getId());
+        Rent getRent = rentService.prolongationRent(specimen.getId(), user.getId());
 
         // Then
         Assert.assertEquals(LocalDate.now().plusDays(60), getRent.getReturnDate());
@@ -276,7 +276,7 @@ public class RentServiceTestSuite {
         Rent rent2 = rentService.rentBook(specimen2.getId(), user.getId());
 
         // When
-        rentService.returnBook(specimen1.getId());
+        rentService.returnBook(specimen1.getId(), user.getId());
         List<Rent> rents = rentService.findAllRents();
 
         // Then

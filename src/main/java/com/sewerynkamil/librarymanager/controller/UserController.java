@@ -7,6 +7,7 @@ import com.sewerynkamil.librarymanager.dto.UserDto;
 import com.sewerynkamil.librarymanager.mapper.UserMapper;
 import com.sewerynkamil.librarymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -53,12 +54,12 @@ public class UserController {
         return userService.isUserExist(email);
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveNewUser(@RequestBody UserDto userDto) throws UserExistException {
         userService.saveUser(userMapper.mapToUser(userDto));
     }
 
-    @PutMapping
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.updateUser(userMapper.mapToUser(userDto)));
     }
