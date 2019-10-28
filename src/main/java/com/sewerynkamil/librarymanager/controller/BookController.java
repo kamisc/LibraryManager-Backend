@@ -34,28 +34,28 @@ public class BookController {
         return bookMapper.mapToBookDtoList(bookService.findAllBooks());
     }
 
-    @GetMapping("/title")
-    public List<BookDto> getAllBooksByTitleStartsWithIgnoreCase(@RequestParam String title) {
+    @GetMapping("/titles/{title}")
+    public List<BookDto> getAllBooksByTitleStartsWithIgnoreCase(@PathVariable String title) {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksByTitleStartsWithIgnoreCase(title));
     }
 
-    @GetMapping("/author")
-    public List<BookDto> getAllBooksByAuthorStartsWithIgnoreCase(@RequestParam String author) {
+    @GetMapping("/authors/{author}")
+    public List<BookDto> getAllBooksByAuthorStartsWithIgnoreCase(@PathVariable String author) {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksByAuthorStartsWithIgnoreCase(author));
     }
 
-    @GetMapping("/category")
-    public List<BookDto> getAllBooksByCategoryStartsWithIgnoreCase(@RequestParam String category) {
+    @GetMapping("/categories/{category}")
+    public List<BookDto> getAllBooksByCategoryStartsWithIgnoreCase(@PathVariable String category) {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksByCategoryStartsWithIgnoreCase(category));
     }
 
-    @GetMapping("/get")
-    public BookDto getOneBook(@RequestParam Long id) throws BookNotExistException {
+    @GetMapping("/{id}")
+    public BookDto getOneBook(@PathVariable Long id) throws BookNotExistException {
         return bookMapper.mapToBookDto(bookService.findOneBook(id));
     }
 
-    @GetMapping(value = "/exist")
-    public boolean isBookExist(@RequestParam String title) {
+    @GetMapping(value = "/exist/{title}")
+    public boolean isBookExist(@PathVariable String title) {
         return bookService.isBookExist(title);
     }
 
