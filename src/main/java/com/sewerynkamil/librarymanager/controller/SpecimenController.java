@@ -30,22 +30,22 @@ public class SpecimenController {
     }
 
     @GetMapping
-    public List<SpecimenDto> getAllSpecmiensForOneBook(@RequestParam Long id) {
-        return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByBookId(id));
+    public List<SpecimenDto> getAllSpecimensForOneBook(@RequestParam Long bookId) {
+        return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByBookId(bookId));
     }
 
-    @GetMapping("/status")
-    public List<SpecimenDto> getAllSpecmiensForOneBook(@RequestParam Long id, @RequestParam Status status) {
-        return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByStatusAndBookId(status, id));
+    @GetMapping("/{bookId}")
+    public List<SpecimenDto> getAllSpecimensForOneBook(@PathVariable Long bookId, @RequestParam Status status) {
+        return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByStatusAndBookId(status, bookId));
     }
 
-    @GetMapping("/get")
-    public SpecimenDto getOneSpecimen(@RequestParam Long id) throws SpecimenNotExistException {
+    @GetMapping("/get/{id}")
+    public SpecimenDto getOneSpecimen(@PathVariable Long id) throws SpecimenNotExistException {
         return specimenMapper.mapToSpecimenDto(specimenService.findOneSpecimen(id));
     }
 
-    @GetMapping("/count")
-    public Long countSpecimenByStatusAndBookId(@RequestParam Status status, @RequestParam Long bookId) {
+    @GetMapping("/count/{bookId}")
+    public Long countSpecimenByStatusAndBookId(@RequestParam Status status, @PathVariable Long bookId) {
         return specimenService.countSpecimensByStatusAndBookId(status, bookId);
     }
 
@@ -54,18 +54,18 @@ public class SpecimenController {
         specimenService.saveNewSpecimen(specimenMapper.mapToSpecimen(specimenDto));
     }
 
-    @PutMapping(value = "/available", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public SpecimenDto changeSpecimenStatusToAvailable(@RequestParam Long id) {
+    @PutMapping(value = "/available/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public SpecimenDto changeSpecimenStatusToAvailable(@PathVariable Long id) {
         return specimenMapper.mapToSpecimenDto(specimenService.changeSpecimenStatusToAvailable(id));
     }
 
-    @PutMapping(value = "/rented", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public SpecimenDto changeSpecimenStatusToRented(@RequestParam Long id) {
+    @PutMapping(value = "/rented/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public SpecimenDto changeSpecimenStatusToRented(@PathVariable Long id) {
         return specimenMapper.mapToSpecimenDto(specimenService.changeSpecimenStatusToRented(id));
     }
 
-    @PutMapping(value = "/lost", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public SpecimenDto changeSpecimenStatusToLost(@RequestParam Long id) {
+    @PutMapping(value = "/lost/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public SpecimenDto changeSpecimenStatusToLost(@PathVariable Long id) {
         return specimenMapper.mapToSpecimenDto(specimenService.changeSpecimenStatusToLost(id));
     }
 
