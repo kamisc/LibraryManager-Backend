@@ -34,23 +34,23 @@ public class UserController {
         return userMapper.mapToUserDtoList(userService.findAllUsers());
     }
 
-    @GetMapping("/email")
-    public List<UserDto> getAllUsersByEmailStartsWithIgnoreCase(@RequestParam String email) {
+    @GetMapping("/{email}")
+    public List<UserDto> getAllUsersByEmailStartsWithIgnoreCase(@PathVariable String email) {
         return userMapper.mapToUserDtoList(userService.findAllUsersByEmailStartsWithIgnoreCase(email));
     }
 
-    @GetMapping("/get")
-    public UserDto getOneUserById(@RequestParam Long id) throws UserNotExistException {
+    @GetMapping("/id/{id}")
+    public UserDto getOneUserById(@PathVariable Long id) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.findOneUserById(id));
     }
 
-    @GetMapping("/getByEmail")
-    public UserDto getOneUserByEmail(@RequestParam String email) throws UserNotExistException {
+    @GetMapping("/email/{email}")
+    public UserDto getOneUserByEmail(@PathVariable String email) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.findOneUserByEmail(email));
     }
 
-    @GetMapping("/exist")
-    public boolean isUserExist(@RequestParam String email) {
+    @GetMapping("/exist/{email}")
+    public boolean isUserExist(@PathVariable String email) {
         return userService.isUserExist(email);
     }
 
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public void deleteUser(@RequestParam Long id) {
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
     }
 }
