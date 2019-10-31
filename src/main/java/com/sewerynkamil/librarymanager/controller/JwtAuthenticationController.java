@@ -1,9 +1,14 @@
 package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.config.security.JwtTokenUtil;
+import com.sewerynkamil.librarymanager.domain.User;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.dto.JwtRequest;
 import com.sewerynkamil.librarymanager.dto.JwtResponse;
+import com.sewerynkamil.librarymanager.dto.UserDto;
+import com.sewerynkamil.librarymanager.mapper.UserMapper;
 import com.sewerynkamil.librarymanager.service.JwtUserDetailsService;
+import com.sewerynkamil.librarymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,24 +28,35 @@ public class JwtAuthenticationController {
     private AuthenticationManager authenticationManager;
     private JwtTokenUtil jwtTokenUtil;
     private JwtUserDetailsService userDetailsService;
+    private UserService userService;
+    private UserMapper userMapper;
 
     @Autowired
     public JwtAuthenticationController(AuthenticationManager authenticationManager,
                                        JwtTokenUtil jwtTokenUtil,
-                                       JwtUserDetailsService userDetailsService) {
+                                       JwtUserDetailsService userDetailsService,
+                                       UserService userService,
+                                       UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
+    public JwtResponse createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        return new JwtResponse(token);
+    }
+
+    @PostMapping(value = "/register")
+    public User registerUser(@RequestBody UserDto userDto) throws UserExistException {
+        return userService.saveUser(userMapper.mapToUser(userDto));
     }
 
     private void authenticate(String username, String password) throws Exception {

@@ -5,6 +5,7 @@ import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private PasswordEncoder bcryptEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -34,11 +36,12 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(UserNotExistException::new);
     }
 
-    public User findOneUserByEmail(final String email) throws UserNotExistException {
+    public User findOneUserByEmail(final String email) /*throws UserNotExistException*/ {
         User user = userRepository.findByEmail(email);
-        if(!isUserExist(user.getEmail())) {
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+        /*if(!isUserExist(user.getEmail())) {
             throw new UserNotExistException();
-        }
+        }*/
         return user;
     }
 
