@@ -4,6 +4,7 @@ import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -89,7 +90,7 @@ public class SpecimenRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testSaveSpecimenAndFindById() throws Exception {
+    public void testSaveSpecimenAndFindById() throws SpecimenNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
@@ -101,7 +102,7 @@ public class SpecimenRepositoryTestSuite {
         specimenRepository.save(specimen);
 
         // When
-        Specimen getSpecimen = specimenRepository.findById(specimen.getId()).orElseThrow(Exception::new);
+        Specimen getSpecimen = specimenRepository.findById(specimen.getId()).orElseThrow(SpecimenNotExistException::new);
         int specimenListSize = book.getSpecimenList().size();
 
         // Then

@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.domain;
 
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,10 @@ public class User {
     private String password;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @NotNull
     private LocalDate accountCreationDate = LocalDate.now();
 
     @OneToMany(targetEntity = Rent.class,
@@ -52,11 +57,12 @@ public class User {
                fetch = FetchType.EAGER)
     private List<Rent> rentList = new ArrayList<>();
 
-    public User(String name, String surname, String email, Integer phoneNumber, String password) {
+    public User(String name, String surname, String email, Integer phoneNumber, String password, Role role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.role = role;
     }
 }

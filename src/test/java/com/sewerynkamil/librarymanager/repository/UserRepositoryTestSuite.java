@@ -1,6 +1,8 @@
 package com.sewerynkamil.librarymanager.repository;
 
 import com.sewerynkamil.librarymanager.domain.User;
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +28,8 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindAllUsers() {
         // Given
-        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789");
-        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh");
+        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER);
+        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER);
         userRepository.save(user1);
         userRepository.save(user2);
 
@@ -42,9 +44,9 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindByEmailStartsWithIgnoreCase() {
         // Given
-        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789");
-        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh");
-        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456");
+        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER);
+        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER);
+        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456", Role.USER);
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
@@ -60,13 +62,13 @@ public class UserRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testSaveUserFindById() throws Exception {
+    public void testSaveUserFindById() throws UserNotExistException {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
         userRepository.save(user);
 
         // When
-        User getUser = userRepository.findById(user.getId()).orElseThrow(Exception::new);
+        User getUser = userRepository.findById(user.getId()).orElseThrow(UserNotExistException::new);
 
         // Then
         Assert.assertEquals("Name", getUser.getName());
@@ -78,7 +80,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
         userRepository.save(user);
 
         // When
@@ -94,7 +96,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testDeleteUser() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
         userRepository.save(user);
 
         // When
@@ -109,7 +111,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testIsExistsByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
         userRepository.save(user);
 
         // When
@@ -123,7 +125,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testIsNotExistsByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
         userRepository.save(user);
 
         // When

@@ -5,7 +5,10 @@ import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
+import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +50,7 @@ public class RentRepositoryTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -82,7 +85,7 @@ public class RentRepositoryTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -117,7 +120,7 @@ public class RentRepositoryTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -150,7 +153,7 @@ public class RentRepositoryTestSuite {
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book.getSpecimenList().add(specimen);
         bookRepository.save(book);
@@ -173,13 +176,13 @@ public class RentRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testSaveRentAndFindById() throws Exception {
+    public void testSaveRentAndFindById() throws RentNotExistException {
         // Given
         Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book.getSpecimenList().add(specimen);
         bookRepository.save(book);
@@ -193,7 +196,7 @@ public class RentRepositoryTestSuite {
         rentRepository.save(rent);
 
         // When
-        Rent getRent = rentRepository.findById(rent.getId()).orElseThrow(Exception::new);
+        Rent getRent = rentRepository.findById(rent.getId()).orElseThrow(RentNotExistException::new);
 
         // Then
         Assert.assertEquals(LocalDate.now(), getRent.getRentDate());
@@ -202,14 +205,14 @@ public class RentRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testDeleteById() throws Exception {
+    public void testDeleteById() {
         // Given
         Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789");
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
 
         book.getSpecimenList().add(specimen1);
         book.getSpecimenList().add(specimen2);

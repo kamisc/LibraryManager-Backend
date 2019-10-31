@@ -2,6 +2,7 @@ package com.sewerynkamil.librarymanager.repository;
 
 import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
+import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -95,13 +96,13 @@ public class BookRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testSaveBookAndFindById() throws Exception {
+    public void testSaveBookAndFindById() throws BookNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
         bookRepository.save(book);
 
         // When
-        Book getBook = bookRepository.findById(book.getId()).orElseThrow(Exception::new);
+        Book getBook = bookRepository.findById(book.getId()).orElseThrow(BookNotExistException::new);
 
         // Then
         Assert.assertEquals("Author", getBook.getAuthor());
