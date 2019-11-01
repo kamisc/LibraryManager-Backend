@@ -25,16 +25,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationEntryPointJwt authenticationEntryPoint;
     private UserService userService;
-    private JwtRequestFilterJwt jwtRequestFilterJwt;
+    private RequestFilterJwt requestFilterJwt;
 
     @Autowired
     public WebSecurityConfig(
             AuthenticationEntryPointJwt authenticationEntryPoint,
             UserService userService,
-            JwtRequestFilterJwt jwtRequestFilterJwt) {
+            RequestFilterJwt requestFilterJwt) {
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.userService = userService;
-        this.jwtRequestFilterJwt = jwtRequestFilterJwt;
+        this.requestFilterJwt = requestFilterJwt;
     }
 
     @Autowired
@@ -69,6 +69,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and()
-                .addFilterBefore(jwtRequestFilterJwt, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(requestFilterJwt, UsernamePasswordAuthenticationFilter.class);
     }
 }

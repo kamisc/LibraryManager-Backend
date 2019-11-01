@@ -7,6 +7,8 @@ import com.sewerynkamil.librarymanager.mapper.BookMapper;
 import com.sewerynkamil.librarymanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,16 +61,19 @@ public class BookController {
         return bookService.isBookExist(title);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveNewBook(@RequestBody BookDto bookDto) throws BookExistException {
         bookService.saveNewBook(bookMapper.mapToBook(bookDto));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotExistException {
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping
     public void deleteBook(@RequestParam Long id) throws BookNotExistException {
         bookService.deleteBook(bookService.findOneBook(id));

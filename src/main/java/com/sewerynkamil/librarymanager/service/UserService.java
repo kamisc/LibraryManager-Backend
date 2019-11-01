@@ -5,14 +5,16 @@ import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Author Kamil Seweryn
@@ -42,7 +44,7 @@ public class UserService implements UserDetailsService {
         if(user == null) {
             throw new UsernameNotFoundException("User not found with email: " + username);
         } else {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());        }
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));        }
     }
 
     public List<User> findAllUsers() {
@@ -86,5 +88,11 @@ public class UserService implements UserDetailsService {
 
     public boolean isUserExist(final String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    private Set getAuthority(User user) {
+        Set authorities = new HashSet();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
+        return authorities;
     }
 }

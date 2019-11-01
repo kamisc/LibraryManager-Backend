@@ -22,12 +22,12 @@ import java.io.IOException;
  */
 
 @Component
-public class JwtRequestFilterJwt extends OncePerRequestFilter {
+public class RequestFilterJwt extends OncePerRequestFilter {
     private UserService userService;
     private TokenUtilJwt tokenUtil;
 
     @Autowired
-    public JwtRequestFilterJwt(UserService userService, TokenUtilJwt tokenUtil) {
+    public RequestFilterJwt(UserService userService, TokenUtilJwt tokenUtil) {
         this.userService = userService;
         this.tokenUtil = tokenUtil;
     }
