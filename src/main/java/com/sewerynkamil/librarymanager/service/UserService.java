@@ -5,9 +5,13 @@ import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,13 +19,30 @@ import java.util.List;
  */
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private PasswordEncoder bcryptEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder bcryptEncoder) {
         this.userRepository = userRepository;
+        this.bcryptEncoder = bcryptEncoder;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = null;
+
+        try {
+            user = findOneUserByEmail(username);
+        } catch (UserNotExistException e) {
+            e.getMessage();
+        }
+
+        if(user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + username);
+        } else {
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());        }
     }
 
     public List<User> findAllUsers() {
@@ -36,12 +57,11 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(UserNotExistException::new);
     }
 
-    public User findOneUserByEmail(final String email) /*throws UserNotExistException*/ {
+    public User findOneUserByEmail(final String email) throws UserNotExistException {
         User user = userRepository.findByEmail(email);
-        user.setPassword(bcryptEncoder.encode(user.getPassword()));
-        /*if(!isUserExist(user.getEmail())) {
+        if(!isUserExist(user.getEmail())) {
             throw new UserNotExistException();
-        }*/
+        }
         return user;
     }
 
@@ -49,6 +69,7 @@ public class UserService {
         if(userRepository.existsByEmail(user.getEmail())) {
             throw new UserExistException();
         }
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 

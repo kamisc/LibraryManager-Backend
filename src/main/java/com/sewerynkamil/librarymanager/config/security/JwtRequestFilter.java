@@ -1,7 +1,7 @@
 package com.sewerynkamil.librarymanager.config.security;
 
 import com.google.common.net.HttpHeaders;
-import com.sewerynkamil.librarymanager.service.JwtUserDetailsService;
+import com.sewerynkamil.librarymanager.service.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,12 +23,12 @@ import java.io.IOException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
-    private JwtUserDetailsService jwtUserDetailsService;
+    private UserService userService;
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public JwtRequestFilter(JwtUserDetailsService jwtUserDetailsService, JwtTokenUtil jwtTokenUtil) {
-        this.jwtUserDetailsService = jwtUserDetailsService;
+    public JwtRequestFilter(UserService userService, JwtTokenUtil jwtTokenUtil) {
+        this.userService = userService;
         this.jwtTokenUtil = jwtTokenUtil;
     }
 
@@ -54,7 +54,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = this.userService.loadUserByUsername(username);
 
             if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
