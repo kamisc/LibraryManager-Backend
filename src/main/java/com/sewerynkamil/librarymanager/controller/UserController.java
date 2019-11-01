@@ -29,12 +29,13 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
-    // @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserDto> getAllUsers() {
         return userMapper.mapToUserDtoList(userService.findAllUsers());
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("/{email}")
     public List<UserDto> getAllUsersByEmailStartsWithIgnoreCase(@PathVariable String email) {
         return userMapper.mapToUserDtoList(userService.findAllUsersByEmailStartsWithIgnoreCase(email));
@@ -55,16 +56,19 @@ public class UserController {
         return userService.isUserExist(email);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveNewUser(@RequestBody UserDto userDto) throws UserExistException {
         userService.saveUser(userMapper.mapToUser(userDto));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.updateUser(userMapper.mapToUser(userDto)));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping
     public void deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);

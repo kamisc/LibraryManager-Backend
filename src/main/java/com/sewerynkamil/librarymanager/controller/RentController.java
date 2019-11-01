@@ -8,6 +8,7 @@ import com.sewerynkamil.librarymanager.mapper.RentMapper;
 import com.sewerynkamil.librarymanager.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -65,6 +66,7 @@ public class RentController {
         return rentMapper.mapToRentDto(rentService.prolongationRent(specimenId, userId));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{userId}")
     public void returnBook(@RequestParam Long specimenId, @PathVariable Long userId) {
         rentService.returnBook(specimenId, userId);
