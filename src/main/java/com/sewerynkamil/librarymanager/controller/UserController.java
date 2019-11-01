@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.controller;
 
-import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.UserDto;
@@ -31,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping
-    // @PreAuthorize("hasAuthority('Admin')")
+    // @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserDto> getAllUsers() {
         return userMapper.mapToUserDtoList(userService.findAllUsers());
     }

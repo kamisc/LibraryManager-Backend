@@ -9,6 +9,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class JwtResponse {
+public class ResponseJwtDto {
     private final String jwttoken;
 }

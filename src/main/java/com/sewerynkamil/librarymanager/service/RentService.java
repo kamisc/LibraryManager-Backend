@@ -7,7 +7,6 @@ import com.sewerynkamil.librarymanager.domain.enumerated.Status;
 import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
-import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.RentRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
