@@ -180,4 +180,11 @@ public class SpecimenServiceTestSuite {
         Assert.assertEquals(new Long(3L), specimensRented);
         Assert.assertEquals(new Long(2L), specimensLost);
     }
+
+    @Test(expected = SpecimenNotExistException.class)
+    @Transactional
+    public void testSpecimenNotExistException() throws SpecimenNotExistException {
+        // When
+        specimenService.findOneSpecimen(1L);
+    }
 }

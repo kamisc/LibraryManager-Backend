@@ -283,4 +283,11 @@ public class RentServiceTestSuite {
         // Then
         Assert.assertEquals(rent1.getReturnDate(), LocalDate.now());
     }
+
+    @Test(expected = RentNotExistException.class)
+    @Transactional
+    public void testRentNotExistException() throws RentNotExistException {
+        // When
+        rentService.findOneRentById(1L);
+    }
 }
