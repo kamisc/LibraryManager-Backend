@@ -8,6 +8,7 @@ import com.sewerynkamil.librarymanager.mapper.UserMapper;
 import com.sewerynkamil.librarymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class UserController {
     }
 
     @GetMapping
+    // @PreAuthorize("hasAuthority('Admin')")
     public List<UserDto> getAllUsers() {
         return userMapper.mapToUserDtoList(userService.findAllUsers());
     }

@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.config.security;
 
+import com.google.common.net.HttpHeaders;
 import com.sewerynkamil.librarymanager.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        final String requestTokenHeader = request.getHeader("Authorization");
+        final String requestTokenHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         String username = null;
         String jwtToken = null;
