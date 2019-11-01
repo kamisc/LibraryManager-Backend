@@ -50,8 +50,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User registerUser(@RequestBody UserDto userDto) throws UserExistException {
-        return userService.saveUser(userMapper.mapToUser(userDto));
+    public User registerUser(@RequestBody User user) throws UserExistException {
+        return userService.saveUser(user);
     }
 
     private void authenticate(String username, String password) throws Exception {
