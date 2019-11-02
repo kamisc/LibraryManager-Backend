@@ -26,6 +26,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'
 
+    implementation 'com.google.code.gson:gson:2.8.6'
+
     runtimeOnly 'mysql:mysql-connector-java'
     implementation 'com.h2database:h2'
 
