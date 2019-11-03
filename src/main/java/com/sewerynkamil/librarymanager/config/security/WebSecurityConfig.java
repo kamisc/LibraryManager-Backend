@@ -42,11 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 
         // Default user for tests
-        auth.inMemoryAuthentication()
+        /*auth.inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
                 .withUser("testUser")
                 .password(passwordEncoder().encode("testPassword"))
-                .roles("ADMIN");
+                .roles("ADMIN");*/
     }
 
     public PasswordEncoder passwordEncoder() {

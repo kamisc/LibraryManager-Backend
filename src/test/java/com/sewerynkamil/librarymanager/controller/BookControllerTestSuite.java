@@ -14,7 +14,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -43,9 +42,6 @@ public class BookControllerTestSuite {
     private MockMvc mockMvc;
 
     @MockBean
-    private TestRestTemplate template;
-
-    @MockBean
     private BookService bookService;
 
     @MockBean
@@ -61,7 +57,7 @@ public class BookControllerTestSuite {
     private AuthenticationEntryPointJwt authenticationEntryPoint;
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testGetBooks() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
@@ -75,7 +71,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testGetAllBooksByTitleStartsWithIgnoreCase() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
@@ -90,7 +86,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testGetAllBooksByAuthorStartsWithIgnoreCase() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
@@ -105,7 +101,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testGetAllBooksByCategoryStartsWithIgnoreCase() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
@@ -120,7 +116,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testGetOneBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
@@ -142,7 +138,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser")
+    @WithMockUser
     public void testIsBookExist() throws Exception {
         // Given
         String title = "Title";
@@ -156,7 +152,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser", roles = "ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void testSaveNewBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
@@ -179,7 +175,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser", roles = "ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void testUpdateBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
@@ -205,7 +201,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(value = "testUser", roles = "ADMIN")
+    @WithMockUser(roles = "ADMIN")
     public void testDeleteBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);

@@ -34,7 +34,7 @@ public enum Category {
 
     public static String getCategory(String category) {
         for (Category c : Category.values()) {
-            if (c.category == category) {
+            if (c.category.equals(category)) {
                 return category;
             }
         }
