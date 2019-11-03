@@ -36,7 +36,7 @@ public class SpecimenController {
     }
 
     @GetMapping("/{bookId}")
-    public List<SpecimenDto> getAllSpecimensForOneBook(@PathVariable Long bookId, @RequestParam Status status) {
+    public List<SpecimenDto> getAllSpecimensForOneBook(@RequestParam Status status, @PathVariable Long bookId) {
         return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByStatusAndBookId(status, bookId));
     }
 
