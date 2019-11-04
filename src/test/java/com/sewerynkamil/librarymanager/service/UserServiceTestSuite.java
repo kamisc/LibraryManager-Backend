@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
@@ -24,6 +26,25 @@ public class UserServiceTestSuite {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordEncoder bcryptEncoder;
+
+    @Test
+    @Transactional
+    public void testLoadByUsername() throws UserExistException {
+        // Given
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.ADMIN);
+        userService.saveUser(user);
+
+        // When
+        UserDetails userDetails = userService.loadUserByUsername(user.getEmail());
+
+        System.out.println(userDetails.getAuthorities().toString());
+        // Then
+        Assert.assertEquals("user@gmail.com", userDetails.getUsername());
+        Assert.assertEquals(1, userDetails.getAuthorities().size());
+    }
 
     @Test
     @Transactional
