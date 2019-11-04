@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -39,6 +40,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(SpecimenController.class)
+@MockBeans({
+        @MockBean(UserService.class),
+        @MockBean(TokenUtilJwt.class),
+        @MockBean(AuthenticationEntryPointJwt.class)
+})
 public class SpecimenControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
@@ -48,15 +54,6 @@ public class SpecimenControllerTestSuite {
 
     @MockBean
     private SpecimenMapper specimenMapper;
-
-    @MockBean
-    private UserService userService;
-
-    @MockBean
-    private TokenUtilJwt tokenUtil;
-
-    @MockBean
-    private AuthenticationEntryPointJwt authenticationEntryPoint;
 
     @Test
     @WithMockUser
@@ -112,7 +109,6 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testCountSpecimenByStatusAndBookId() throws Exception {
         // Given
-
         when(specimenService.countSpecimensByStatusAndBookId(any(Status.class), anyLong())).thenReturn(5L);
 
         // When & Then
