@@ -21,7 +21,6 @@ import java.util.List;
 @RequestMapping(value = "/v1/specimens")
 public class SpecimenController {
     private SpecimenService specimenService;
-
     private SpecimenMapper specimenMapper;
 
     @Autowired

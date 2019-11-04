@@ -26,17 +26,15 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private TokenUtilJwt tokenUtilJwt;
     private UserService userService;
-    private UserMapper userMapper;
 
     @Autowired
-    public AuthenticationController(AuthenticationManager authenticationManager,
-                                    TokenUtilJwt tokenUtilJwt,
-                                    UserService userService,
-                                    UserMapper userMapper) {
+    public AuthenticationController(
+            AuthenticationManager authenticationManager,
+            TokenUtilJwt tokenUtilJwt,
+            UserService userService) {
         this.authenticationManager = authenticationManager;
         this.tokenUtilJwt = tokenUtilJwt;
         this.userService = userService;
-        this.userMapper = userMapper;
     }
 
     @PostMapping(value = "/login")

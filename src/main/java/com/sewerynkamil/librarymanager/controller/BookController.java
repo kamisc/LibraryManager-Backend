@@ -21,7 +21,6 @@ import java.util.List;
 @RequestMapping(value = "/v1/books")
 public class BookController {
     private BookService bookService;
-
     private BookMapper bookMapper;
 
     @Autowired
