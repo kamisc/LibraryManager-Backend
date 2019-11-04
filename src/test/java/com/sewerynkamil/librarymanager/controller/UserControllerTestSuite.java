@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -36,6 +37,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
+@MockBeans({
+        @MockBean(TokenUtilJwt.class),
+        @MockBean(AuthenticationEntryPointJwt.class)
+})
 public class UserControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
@@ -45,12 +50,6 @@ public class UserControllerTestSuite {
 
     @MockBean
     private UserMapper userMapper;
-
-    @MockBean
-    private TokenUtilJwt tokenUtil;
-
-    @MockBean
-    private AuthenticationEntryPointJwt authenticationEntryPoint;
 
     @Test
     @WithMockUser(roles = "ADMIN")
@@ -90,13 +89,11 @@ public class UserControllerTestSuite {
 
         UserDto userDto = new UserDto("000000001", "John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
 
-        Long id = user.getId();
-
-        when(userService.findOneUserById(1L)).thenReturn(user);
+        when(userService.findOneUserById(user.getId())).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
 
         // When & Then
-        mockMvc.perform(get("/v1/users/id/" + id)
+        mockMvc.perform(get("/v1/users/id/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.userAccountId", is("000000001")))
@@ -113,13 +110,11 @@ public class UserControllerTestSuite {
 
         UserDto userDto = new UserDto("000000001", "John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
 
-        String email = user.getEmail();
-
         when(userService.findOneUserByEmail(anyString())).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
 
         // When & Then
-        mockMvc.perform(get("/v1/users/email/" + email)
+        mockMvc.perform(get("/v1/users/email/" + user.getEmail())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.userAccountId", is("000000001")))
