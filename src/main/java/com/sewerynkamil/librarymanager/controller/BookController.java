@@ -7,7 +7,6 @@ import com.sewerynkamil.librarymanager.mapper.BookMapper;
 import com.sewerynkamil.librarymanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +31,7 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> getBooks() {
+    public List<BookDto> getAllBooks() {
         return bookMapper.mapToBookDtoList(bookService.findAllBooks());
     }
 

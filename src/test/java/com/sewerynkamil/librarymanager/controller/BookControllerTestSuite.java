@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,6 +38,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BookController.class)
+@MockBeans({
+        @MockBean(UserService.class),
+        @MockBean(TokenUtilJwt.class),
+        @MockBean(AuthenticationEntryPointJwt.class)
+})
 public class BookControllerTestSuite {
     @Autowired
     private MockMvc mockMvc;
@@ -47,18 +53,9 @@ public class BookControllerTestSuite {
     @MockBean
     private BookMapper bookMapper;
 
-    @MockBean
-    private UserService userService;
-
-    @MockBean
-    private TokenUtilJwt tokenUtil;
-
-    @MockBean
-    private AuthenticationEntryPointJwt authenticationEntryPoint;
-
     @Test
     @WithMockUser
-    public void testGetBooks() throws Exception {
+    public void testGetAllBooks() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
         when(bookService.findAllBooks()).thenReturn(bookList);
@@ -124,13 +121,11 @@ public class BookControllerTestSuite {
 
         BookDto bookDto = new BookDto("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
 
-        Long id = book.getId();
-
-        when(bookService.findOneBook(1L)).thenReturn(book);
+        when(bookService.findOneBook(book.getId())).thenReturn(book);
         when(bookMapper.mapToBookDto(any(Book.class))).thenReturn(bookDto);
 
         // When & Then
-        mockMvc.perform(get("/v1/books/" + id)
+        mockMvc.perform(get("/v1/books/" + book.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.author", is("Author")))
