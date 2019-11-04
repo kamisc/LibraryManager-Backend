@@ -129,7 +129,7 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser
-    public void testGetOneRent() throws Exception {
+    public void testGetOneRentById() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
         book.setId(1L);
@@ -187,7 +187,7 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser
-    public void testProlongationRent() throws Exception {
+    public void testProlongationBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
         book.setId(1L);
@@ -219,7 +219,7 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testDeleteBook() throws Exception {
+    public void testDeleteRent() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
         book.setId(1L);
