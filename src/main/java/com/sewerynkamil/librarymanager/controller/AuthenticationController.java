@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
+@RequestMapping(value = "/v1")
 public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private TokenUtilJwt tokenUtilJwt;

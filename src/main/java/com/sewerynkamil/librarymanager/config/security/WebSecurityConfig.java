@@ -41,12 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 
-        // Default user for tests
-        /*auth.inMemoryAuthentication()
+        auth.inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
                 .withUser("testUser")
                 .password(passwordEncoder().encode("testPassword"))
-                .roles("ADMIN");*/
+                .roles("ADMIN");
     }
 
     public PasswordEncoder passwordEncoder() {
@@ -65,7 +64,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                     .disable()
                 .authorizeRequests()
-                    .antMatchers("/login", "/register")
+                    .antMatchers(
+                            "/v1/login",
+                            "/v1/register",
+                            "/swagger-ui.html",
+                            "/v2/api-docs",
+                            "/webjars/**",
+                            "/swagger-resources/**",
+                            "/configuration/**")
                     .permitAll()
                 .anyRequest()
                     .authenticated()
