@@ -2,6 +2,7 @@ package com.sewerynkamil.librarymanager.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
+import com.sewerynkamil.librarymanager.utils.DtoUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

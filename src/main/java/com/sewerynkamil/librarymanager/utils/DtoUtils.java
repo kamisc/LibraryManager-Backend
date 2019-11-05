@@ -1,11 +1,11 @@
-package com.sewerynkamil.librarymanager.dto;
+package com.sewerynkamil.librarymanager.utils;
 
 /**
  * Author Kamil Seweryn
  */
 
 public class DtoUtils {
-    protected static String generateId(Long id) {
+    public static String generateId(Long id) {
         return ("000000000" + id).substring(id.toString().length());
     }
 }

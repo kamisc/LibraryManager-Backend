@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.dto;
 
+import com.sewerynkamil.librarymanager.utils.DtoUtils;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
