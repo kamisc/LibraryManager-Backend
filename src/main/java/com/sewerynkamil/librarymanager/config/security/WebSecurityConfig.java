@@ -41,11 +41,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 
-        auth.inMemoryAuthentication()
+/*        auth.inMemoryAuthentication()
                 .passwordEncoder(passwordEncoder())
                 .withUser("testUser")
                 .password(passwordEncoder().encode("testPassword"))
-                .roles("ADMIN");
+                .roles("ADMIN");*/
     }
 
     public PasswordEncoder passwordEncoder() {
