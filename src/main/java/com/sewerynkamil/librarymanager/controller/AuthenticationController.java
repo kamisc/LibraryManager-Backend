@@ -27,15 +27,18 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private TokenUtilJwt tokenUtilJwt;
     private UserService userService;
+    private UserMapper userMapper;
 
     @Autowired
     public AuthenticationController(
             AuthenticationManager authenticationManager,
             TokenUtilJwt tokenUtilJwt,
-            UserService userService) {
+            UserService userService,
+            UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.tokenUtilJwt = tokenUtilJwt;
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping(value = "/login")
@@ -49,8 +52,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User registerUser(@RequestBody User user) throws UserExistException {
-        return userService.saveUser(user);
+    public User registerUser(@RequestBody UserDto userDto) throws UserExistException {
+        return userService.saveUser(userMapper.mapToUser(userDto));
     }
 
     private void authenticate(String username, String password) throws Exception {

@@ -17,6 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserDto {
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String userAccountId;
     private String name;
     private String surname;
