@@ -1,8 +1,10 @@
 package com.sewerynkamil.librarymanager.service;
 
+import com.sewerynkamil.librarymanager.client.WolneLekturyClient;
 import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
+import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +20,13 @@ import java.util.List;
 public class BookService {
     private BookRepository bookRepository;
     private SpecimenRepository specimenRepository;
+    private WolneLekturyClient wolneLekturyClient;
 
     @Autowired
-    public BookService(BookRepository bookRepository, SpecimenRepository specimenRepository) {
+    public BookService(BookRepository bookRepository, SpecimenRepository specimenRepository, WolneLekturyClient wolneLekturyClient) {
         this.bookRepository = bookRepository;
         this.specimenRepository = specimenRepository;
+        this.wolneLekturyClient = wolneLekturyClient;
     }
 
     public List<Book> findAllBooks() {
@@ -72,5 +76,9 @@ public class BookService {
 
     public boolean isBookExist(String title) {
         return bookRepository.existsByTitle(title);
+    }
+
+    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoards() {
+        return wolneLekturyClient.getWolneLekturyAudiobooks();
     }
 }

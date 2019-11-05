@@ -3,6 +3,7 @@ package com.sewerynkamil.librarymanager.controller;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import com.sewerynkamil.librarymanager.dto.BookDto;
+import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
 import com.sewerynkamil.librarymanager.mapper.BookMapper;
 import com.sewerynkamil.librarymanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,11 @@ public class BookController {
     @GetMapping
     public List<BookDto> getAllBooks() {
         return bookMapper.mapToBookDtoList(bookService.findAllBooks());
+    }
+
+    @GetMapping("/audiobooks")
+    public List<WolneLekturyAudiobookDto> getAllAudiobooks() {
+        return bookService.fetchWolneLekturyBoards();
     }
 
     @GetMapping("/titles/{title}")
