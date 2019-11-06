@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.domain;
 
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
+import com.sewerynkamil.librarymanager.observer.Observer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Observer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -63,5 +64,10 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.role = role;
+    }
+
+    @Override
+    public void update(Rent rent) {
+        System.out.println(rent.getSpecimen().getBook().getTitle());
     }
 }

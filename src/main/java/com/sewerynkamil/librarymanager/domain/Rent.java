@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.domain;
 
+import com.sewerynkamil.librarymanager.observer.Observable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "RENTS")
-public class Rent {
+public class Rent implements Observable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +43,10 @@ public class Rent {
         this.returnDate = rentDate.plusDays(30);
         this.specimen = specimen;
         this.user = user;
+    }
+
+    @Override
+    public void notifyObserver() {
+        user.update(this);
     }
 }

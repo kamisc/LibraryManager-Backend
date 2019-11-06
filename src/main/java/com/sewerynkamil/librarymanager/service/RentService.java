@@ -61,7 +61,7 @@ public class RentService {
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
         Rent rent = new Rent(specimen, user);
-
+        user.update(rent);
         return rentRepository.save(rent);
     }
 
