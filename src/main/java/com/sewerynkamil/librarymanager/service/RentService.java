@@ -77,11 +77,7 @@ public class RentService {
         return rentRepository.save(rent);
     }
 
-    public void returnBook(final Long id/*final Long specimenId, final Long userId*/) {
-        /*Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
-        rent.getSpecimen().setStatus(Status.AVAILABLE);
-        rent.setReturnDate(LocalDate.now());
-        rentRepository.deleteById(rent.getId());*/
+    public void returnBook(final Long id) {
         Rent rent = rentRepository.findById(id).get();
         rent.getSpecimen().setStatus(Status.AVAILABLE);
         rent.setReturnDate(LocalDate.now());
