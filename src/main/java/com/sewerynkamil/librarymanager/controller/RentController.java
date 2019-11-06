@@ -67,8 +67,8 @@ public class RentController {
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @DeleteMapping("/{userId}")
-    public void returnBook(@RequestParam Long specimenId, @PathVariable Long userId) {
-        rentService.returnBook(specimenId, userId);
+    @DeleteMapping
+    public void returnBook(@RequestParam Long id) {
+        rentService.returnBook(id);
     }
 }

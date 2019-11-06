@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.observer;
 
+import com.sewerynkamil.librarymanager.domain.Mail;
 import com.sewerynkamil.librarymanager.domain.Rent;
 
 /**
@@ -7,5 +8,5 @@ import com.sewerynkamil.librarymanager.domain.Rent;
  */
 
 public interface Observer {
-    void update(Rent rent);
+    Mail update(Rent rent);
 }

@@ -25,12 +25,18 @@ public class RentService {
     private RentRepository rentRepository;
     private SpecimenRepository specimenRepository;
     private UserRepository userRepository;
+    private EmailService emailService;
 
     @Autowired
-    public RentService(RentRepository rentRepository, SpecimenRepository specimenRepository, UserRepository userRepository) {
+    public RentService(
+            RentRepository rentRepository,
+            SpecimenRepository specimenRepository,
+            UserRepository userRepository,
+            EmailService emailService) {
         this.rentRepository = rentRepository;
         this.specimenRepository = specimenRepository;
         this.userRepository = userRepository;
+        this.emailService = emailService;
     }
 
     public List<Rent> findAllRents() {
@@ -61,7 +67,7 @@ public class RentService {
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
 
         Rent rent = new Rent(specimen, user);
-        user.update(rent);
+        emailService.send(user.update(rent));
         return rentRepository.save(rent);
     }
 
@@ -71,9 +77,14 @@ public class RentService {
         return rentRepository.save(rent);
     }
 
-    public void returnBook(final Long specimenId, final Long userId) {
-        Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
+    public void returnBook(final Long id/*final Long specimenId, final Long userId*/) {
+        /*Rent rent = rentRepository.findBySpecimenIdAndUserId(specimenId, userId);
         rent.getSpecimen().setStatus(Status.AVAILABLE);
         rent.setReturnDate(LocalDate.now());
+        rentRepository.deleteById(rent.getId());*/
+        Rent rent = rentRepository.findById(id).get();
+        rent.getSpecimen().setStatus(Status.AVAILABLE);
+        rent.setReturnDate(LocalDate.now());
+        rentRepository.deleteById(rent.getId());
     }
 }

@@ -21,7 +21,6 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 public class User implements Observer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
@@ -67,7 +66,10 @@ public class User implements Observer {
     }
 
     @Override
-    public void update(Rent rent) {
-        System.out.println(rent.getSpecimen().getBook().getTitle());
+    public Mail update(Rent rent) {
+        return new Mail(
+                rent.getUser().getEmail(),
+                "New rent on your account!",
+                "You rent new book: " + rent.getSpecimen().getBook().getTitle() + " with return date " + rent.getReturnDate());
     }
 }
