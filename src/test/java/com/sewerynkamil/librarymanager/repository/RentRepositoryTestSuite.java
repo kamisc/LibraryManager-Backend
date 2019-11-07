@@ -27,7 +27,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RentRepositoryTestSuite {
-
     @Autowired
     private RentRepository rentRepository;
 

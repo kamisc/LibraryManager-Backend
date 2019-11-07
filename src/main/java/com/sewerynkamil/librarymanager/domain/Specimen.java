@@ -20,7 +20,6 @@ import java.util.List;
 @Entity
 @Table(name = "SPECIMENS")
 public class Specimen {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull

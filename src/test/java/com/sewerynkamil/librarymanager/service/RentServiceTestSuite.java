@@ -26,7 +26,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RentServiceTestSuite {
-
     @Autowired
     private RentService rentService;
 
@@ -277,7 +276,7 @@ public class RentServiceTestSuite {
         Rent rent2 = rentService.rentBook(specimen2.getId(), user.getId());
 
         // When
-        rentService.returnBook(specimen1.getId(), user.getId());
+        rentService.returnBook(rent1.getId());
         List<Rent> rents = rentService.findAllRents();
 
         // Then

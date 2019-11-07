@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface RentRepository extends JpaRepository<Rent, Long> {
-
     @Override
     List<Rent> findAll();
 

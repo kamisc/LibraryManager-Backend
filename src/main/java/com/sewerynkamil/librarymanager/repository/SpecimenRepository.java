@@ -16,7 +16,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
-
     List<Specimen> findAllByBookId(Long id);
 
     List<Specimen> findAllByStatusAndBookId(Status status, Long id);

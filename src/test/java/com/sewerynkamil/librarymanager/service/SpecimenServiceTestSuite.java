@@ -23,7 +23,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpecimenServiceTestSuite {
-
     @Autowired
     private SpecimenService specimenService;
 

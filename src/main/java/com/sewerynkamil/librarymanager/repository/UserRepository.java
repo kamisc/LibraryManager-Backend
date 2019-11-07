@@ -15,7 +15,6 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends JpaRepository<User, Long> {
-
     @Override
     List<User> findAll();
 

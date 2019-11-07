@@ -17,7 +17,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "RENTS")
 public class Rent implements Observable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull

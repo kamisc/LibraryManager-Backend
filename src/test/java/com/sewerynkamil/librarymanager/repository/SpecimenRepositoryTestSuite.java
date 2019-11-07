@@ -23,7 +23,6 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SpecimenRepositoryTestSuite {
-
     @Autowired
     private SpecimenRepository specimenRepository;
 

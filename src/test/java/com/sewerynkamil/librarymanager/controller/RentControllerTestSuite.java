@@ -234,8 +234,8 @@ public class RentControllerTestSuite {
         when(rentService.rentBook(anyLong(), anyLong())).thenReturn(rent);
 
         // When & Then
-        mockMvc.perform(delete("/v1/rents/" + user.getId())
-                .param("specimenId", "2")
+        mockMvc.perform(delete("/v1/rents/")
+                .param("id", "4")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200));
     }
