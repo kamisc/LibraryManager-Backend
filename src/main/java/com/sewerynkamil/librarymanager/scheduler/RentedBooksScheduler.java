@@ -27,22 +27,23 @@ public class RentedBooksScheduler {
     @Autowired
     private UserRepository userRepository;
 
-    @Scheduled(cron = "0 0 22 * * 7")
+    @Scheduled(cron = "0 0 23 * * 7")
     public void sendInformationAboutRentedBook() {
         for(User user : userRepository.findAll()) {
             emailService.send(new Mail(
                     user.getEmail(),
                     SUBJECT,
-                    "You rented " + user.getRentList().size() + " books from the Library: \n\n" +
-                           getUserRents(user)
+                    getUserRents(user)
             ));
         }
     }
 
     private String getUserRents(User user) {
         String rents = "";
+        int size = user.getRentList().size();
         for(int i = 0; i < user.getRentList().size(); i ++) {
             rents = new StringBuilder(rents).append(
+                    "You rented " + size + (size < 2 ? " book" : " books") + " from the Library \n\n" +
                     user.getRentList().get(i).getSpecimen().getBook().getAuthor() +
                             " - " +
                     user.getRentList().get(i).getSpecimen().getBook().getTitle() +
