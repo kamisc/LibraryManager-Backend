@@ -41,7 +41,7 @@ public class Specimen {
     private LocalDate creationDate = LocalDate.now();
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id")
     private Book book;
 

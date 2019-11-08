@@ -2,12 +2,10 @@ package com.sewerynkamil.librarymanager.config;
 
 import com.google.common.collect.Lists;
 import com.google.common.net.HttpHeaders;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,6 +26,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
  * Author Kamil Seweryn
  */
 
+@EnableScheduling
 @EnableSwagger2
 @Configuration
 @Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class)
@@ -35,11 +34,6 @@ public class CoreConfig implements WebMvcConfigurer {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
-    }
-
-    @Bean
-    public JavaMailSender javaMailSender() {
-        return new JavaMailSenderImpl();
     }
 
     @Bean
