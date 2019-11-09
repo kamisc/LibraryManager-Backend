@@ -32,6 +32,53 @@ public enum Category {
         this.category = category;
     }
 
+    public static String categoryFactory(Category category) {
+        switch(category) {
+            case ACTION:
+                return ACTION.category;
+            case ADVENTURE:
+                return ADVENTURE.category;
+            case AUTOBIOGRAPHY:
+                return AUTOBIOGRAPHY.category;
+            case BIOGRAPHY:
+                return BIOGRAPHY.category;
+            case DIARY:
+                return DIARY.category;
+            case DRAMA:
+                return DRAMA.category;
+            case CLASSIC:
+                return CLASSIC.category;
+            case COMIC:
+                return COMIC.category;
+            case CRIME:
+                return CRIME.category;
+            case DETECTIVE:
+                return DETECTIVE.category;
+            case FABLE:
+                return FABLE.category;
+            case FANTASY:
+                return FANTASY.category;
+            case HISTORICAL:
+                return HISTORICAL.category;
+            case HUMOR:
+                return HUMOR.category;
+            case HORROR:
+                return HORROR.category;
+            case POETRY:
+                return POETRY.category;
+            case ROMANCE:
+                return ROMANCE.category;
+            case SCIENCE_FICTION:
+                return SCIENCE_FICTION.category;
+            case THRILLER:
+                return THRILLER.category;
+            case TRAGEDY:
+                return TRAGEDY.category;
+            default:
+                return null;
+        }
+    }
+
     public static String getCategory(String category) {
         for (Category c : Category.values()) {
             if (c.category.equals(category)) {
