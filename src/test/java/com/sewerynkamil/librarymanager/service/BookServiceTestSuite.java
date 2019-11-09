@@ -35,8 +35,8 @@ public class BookServiceTestSuite {
     @Transactional
     public void testFindAllBooks() {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2008, 9788375748758L);
-        Book book2 = new Book("Author2", "Title2", Category.getCategory("Tragedy"), 1995, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.TRAGEDY), 1995, 1231231231231L);
         bookRepository.save(book1);
         bookRepository.save(book2);
 
@@ -51,8 +51,8 @@ public class BookServiceTestSuite {
     @Transactional
     public void testFindByTitleStartsWithIgnoreCase() {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Author2", "Tite2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Tite2", Category.categoryFactory(Category.TRAGEDY), 1999, 1231231231231L);
         bookRepository.save(book1);
         bookRepository.save(book2);
 
@@ -69,8 +69,8 @@ public class BookServiceTestSuite {
     @Transactional
     public void testFindByAuthorStartsWithIgnoreCase() {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Auhor2", "Title2", Category.getCategory("Tragedy"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Auhor2", "Title2", Category.categoryFactory(Category.TRAGEDY), 1999, 1231231231231L);
         bookRepository.save(book1);
         bookRepository.save(book2);
 
@@ -87,8 +87,8 @@ public class BookServiceTestSuite {
     @Transactional
     public void testFindByCategoryStartsWithIgnoreCase() {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Auhor2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Auhor2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
         bookRepository.save(book1);
         bookRepository.save(book2);
 
@@ -105,7 +105,7 @@ public class BookServiceTestSuite {
     @Transactional
     public void testFindOneBook() throws BookNotExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookRepository.save(book);
 
         // When
@@ -121,7 +121,7 @@ public class BookServiceTestSuite {
     @Transactional
     public void testSaveNewBook() throws BookExistException, BookNotExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookService.saveNewBook(book);
 
         // When
@@ -137,11 +137,11 @@ public class BookServiceTestSuite {
     @Transactional
     public void testUpdateBook() throws BookExistException, BookNotExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookService.saveNewBook(book);
 
         // When
-        Book updatedBook = new Book("Autor", "Title", Category.getCategory("Action"), 2011, 9788375748758L);
+        Book updatedBook = new Book("Autor", "Title", Category.categoryFactory(Category.ACTION), 2011, 9788375748758L);
         updatedBook.setId(book.getId());
         bookService.updateBook(updatedBook);
 
@@ -155,7 +155,7 @@ public class BookServiceTestSuite {
     @Transactional
     public void testDeleteBook() throws BookNotExistException, BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookService.saveNewBook(book);
 
         // When
@@ -169,7 +169,7 @@ public class BookServiceTestSuite {
     @Transactional
     public void testIsBookExist() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookService.saveNewBook(book);
 
         // When
@@ -190,7 +190,7 @@ public class BookServiceTestSuite {
     @Transactional
     public void testBookExistException() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         bookRepository.save(book);
 
         // When

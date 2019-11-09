@@ -45,8 +45,8 @@ public class RentServiceTestSuite {
     @Transactional
     public void testFindAllRents() throws UserExistException, SpecimenNotExistException, UserNotExistException, BookExistException {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Author2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
@@ -77,8 +77,8 @@ public class RentServiceTestSuite {
     @Transactional
     public void testFindAllByUserId() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Author2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FANTASY), 1999, 1231231231231L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
@@ -112,8 +112,8 @@ public class RentServiceTestSuite {
     @Transactional
     public void testFindAllByReturnDate() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Author2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
@@ -144,8 +144,8 @@ public class RentServiceTestSuite {
     @Transactional
     public void testFindAllBySpecimenId() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
-        Book book1 = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
-        Book book2 = new Book("Author2", "Title2", Category.getCategory("Fable"), 1999, 1231231231231L);
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
@@ -179,7 +179,7 @@ public class RentServiceTestSuite {
     @Transactional
     public void testFindOneById() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
         // Given
-        Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
@@ -206,7 +206,7 @@ public class RentServiceTestSuite {
     @Transactional
     public void testRentBookAndFindById() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
         // Given
-        Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
@@ -233,7 +233,7 @@ public class RentServiceTestSuite {
     @Transactional
     public void testProlongationBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
         // Given
-        Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
@@ -259,7 +259,7 @@ public class RentServiceTestSuite {
     @Transactional
     public void testReturnBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
-        Book book = new Book("Author1", "Title1", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);

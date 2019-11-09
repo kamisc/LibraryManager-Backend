@@ -105,7 +105,7 @@ public class RentControllerTestSuite {
     @WithMockUser
     public void testGetOneRentBySpecimenId() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
@@ -131,7 +131,7 @@ public class RentControllerTestSuite {
     @WithMockUser
     public void testGetOneRentById() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
@@ -158,7 +158,7 @@ public class RentControllerTestSuite {
     @WithMockUser
     public void testRentBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
@@ -189,7 +189,7 @@ public class RentControllerTestSuite {
     @WithMockUser
     public void testProlongationBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
@@ -221,7 +221,7 @@ public class RentControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testDeleteRent() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);

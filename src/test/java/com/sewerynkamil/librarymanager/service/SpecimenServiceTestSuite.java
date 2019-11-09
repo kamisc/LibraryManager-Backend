@@ -36,7 +36,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testFindAllSpecimenForOneBookByBookId() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -52,7 +52,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testFindAllSpecimenForOneBookByStatusAndBookId() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -68,7 +68,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testSaveNewSpecimenAndFindOneSpecimen() throws SpecimenNotExistException, BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -86,7 +86,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testChangeSpecimenStatusToAvailable() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -104,7 +104,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testChangeSpecimenStatusToRented() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -122,7 +122,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testChangeSpecimenStatusToLost() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -140,7 +140,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testDeleteSpecimen() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
@@ -157,7 +157,7 @@ public class SpecimenServiceTestSuite {
     @Transactional
     public void testCountSpecimensByStatusAndBookId() throws BookExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2008, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
         Specimen specimen1 = new Specimen(Status.LOST, "Publisher", 2008, book);
         Specimen specimen2 = new Specimen(Status.LOST, "Publisher", 2008, book);

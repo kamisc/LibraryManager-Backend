@@ -36,7 +36,7 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testFindAllByBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2001, book);
@@ -64,7 +64,7 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testFindAllByStatusAndBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2001, book);
@@ -94,7 +94,7 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testSaveSpecimenAndFindById() throws SpecimenNotExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
         specimen.setBook(book);
@@ -117,7 +117,7 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testDeleteSpecimen() {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
         specimen.setBook(book);
@@ -139,7 +139,7 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testCountByStatusAndBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.getCategory("Fantasy"), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen3 = new Specimen(Status.LOST, "Publisher", 2001, book);
