@@ -132,7 +132,7 @@ public class BookRepositoryTestSuite {
     @Transactional
     public void testIsExistsByTitleBook() {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DIARY), 2011, 9788375748758L);
         bookRepository.save(book);
 
         // When

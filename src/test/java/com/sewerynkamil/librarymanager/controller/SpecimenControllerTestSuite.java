@@ -89,7 +89,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser
     public void testGetOneSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ACTION), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE, "Publisher", 2001, book.getTitle());
 
@@ -123,7 +123,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testSaveNewSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "2Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "2Title", Category.categoryFactory(Category.TRAGEDY), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE, "Publisher", 2001, book.getTitle());
 
@@ -145,7 +145,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testChangeSpecimenStatusToAvailable() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.CLASSIC), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2001, book);
         SpecimenDto updatedSpecimen = new SpecimenDto(Status.AVAILABLE, "Publisher", 2001, book.getTitle());
 
@@ -169,7 +169,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testChangeSpecimenStatusToRented() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ADVENTURE), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         SpecimenDto updatedSpecimen = new SpecimenDto(Status.RENTED, "Publisher", 2001, book.getTitle());
 
@@ -193,7 +193,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testChangeSpecimenStatusToLost() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DETECTIVE), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         SpecimenDto updatedSpecimen = new SpecimenDto(Status.LOST, "Publisher", 2001, book.getTitle());
 
@@ -217,7 +217,7 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testDeleteSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DRAMA), 2001, 1234567891011L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(1L);
 
