@@ -9,6 +9,7 @@ import com.sewerynkamil.librarymanager.dto.UserDto;
 import com.sewerynkamil.librarymanager.mapper.UserMapper;
 import com.sewerynkamil.librarymanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -41,7 +42,7 @@ public class AuthenticationController {
         this.userMapper = userMapper;
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseJwtDto createAuthenticationToken(@RequestBody RequestJwtDto authenticationRequest) throws Exception {
         authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
@@ -52,8 +53,8 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register")
-    public User registerUser(@RequestBody UserDto userDto) throws UserExistException {
-        return userService.saveUser(userMapper.mapToUser(userDto));
+    public void registerUser(@RequestBody UserDto userDto) throws UserExistException {
+        userService.saveUser(userMapper.mapToUser(userDto));
     }
 
     private void authenticate(String username, String password) throws Exception {

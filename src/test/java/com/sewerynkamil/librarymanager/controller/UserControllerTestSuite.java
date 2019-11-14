@@ -87,7 +87,7 @@ public class UserControllerTestSuite {
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
         user.setId(1L);
 
-        UserDto userDto = new UserDto("000000001", "John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
 
         when(userService.findOneUserById(user.getId())).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
@@ -96,7 +96,6 @@ public class UserControllerTestSuite {
         mockMvc.perform(get("/v1/users/id/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.userAccountId", is("000000001")))
                 .andExpect(jsonPath("$.name", is("John")))
                 .andExpect(jsonPath("$.phoneNumber").value(123456789));
     }
@@ -108,7 +107,7 @@ public class UserControllerTestSuite {
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
         user.setId(1L);
 
-        UserDto userDto = new UserDto("000000001", "John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
 
         when(userService.findOneUserByEmail(anyString())).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(userDto);
@@ -117,7 +116,6 @@ public class UserControllerTestSuite {
         mockMvc.perform(get("/v1/users/email/" + user.getEmail())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.userAccountId", is("000000001")))
                 .andExpect(jsonPath("$.name", is("John")))
                 .andExpect(jsonPath("$.phoneNumber").value(123456789));
     }
@@ -143,7 +141,7 @@ public class UserControllerTestSuite {
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
         user.setId(1L);
 
-        UserDto userDto = new UserDto("000000001", "John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
 
         when(userService.saveUser(any(User.class))).thenReturn(user);
         when(userMapper.mapToUser(any(UserDto.class))).thenReturn(user);
@@ -166,7 +164,7 @@ public class UserControllerTestSuite {
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
         user.setId(1L);
 
-        UserDto updatedUser = new UserDto("000000001", "Jan", "Kowalski", "john@doe.com", 123456789, "482acv58", Role.USER);
+        UserDto updatedUser = new UserDto("Jan", "Kowalski", "john@doe.com", 123456789, "482acv58");
 
         when(userService.updateUser(any(User.class))).thenReturn(user);
         when(userMapper.mapToUserDto(any(User.class))).thenReturn(updatedUser);

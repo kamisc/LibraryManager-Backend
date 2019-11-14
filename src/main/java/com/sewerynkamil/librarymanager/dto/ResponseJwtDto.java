@@ -11,4 +11,9 @@ import lombok.Getter;
 @Getter
 public class ResponseJwtDto {
     private final String jwttoken;
+
+    @Override
+    public String toString() {
+        return jwttoken;
+    }
 }
