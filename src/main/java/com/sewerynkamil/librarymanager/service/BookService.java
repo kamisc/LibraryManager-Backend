@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -31,6 +32,13 @@ public class BookService {
 
     public List<Book> findAllBooks() {
         return bookRepository.findAll();
+    }
+
+    public List<Book> findAllBooksWithLazyLoading(int offset, int limit) {
+        return bookRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
     public List<Book> findAllBooksByTitleStartsWithIgnoreCase(String title) {
@@ -80,5 +88,12 @@ public class BookService {
 
     public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoards() {
         return wolneLekturyClient.getWolneLekturyAudiobooks();
+    }
+
+    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoardsWithLazyLoading(int offset, int limit) {
+        return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class WolneLekturyConfig {
-    @Value("$ {wolnelektury.api.endpoint}")
+    //@Value("${wolnelektury.api.endpoint}")
+    @Value("https://wolnelektury.pl/api/")
     private String wolneLekturyEndpoint;
 }
