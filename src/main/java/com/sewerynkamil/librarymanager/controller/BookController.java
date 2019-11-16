@@ -3,7 +3,6 @@ package com.sewerynkamil.librarymanager.controller;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import com.sewerynkamil.librarymanager.dto.BookDto;
-import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
 import com.sewerynkamil.librarymanager.mapper.BookMapper;
 import com.sewerynkamil.librarymanager.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +38,6 @@ public class BookController {
     public List<BookDto> getAllBooksWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksWithLazyLoading(offset, limit));
     }
-
-    /*@GetMapping("/audiobooks")
-    public List<WolneLekturyAudiobookDto> getAllAudiobooks() {
-        return bookService.fetchWolneLekturyBoards();
-    }
-
-    @GetMapping("/lazy/audiobooks")
-    public List<WolneLekturyAudiobookDto> getAllAudiobooksWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
-        return bookService.fetchWolneLekturyBoardsWithLazyLoading(offset, limit);
-    }*/
 
     @GetMapping("/titles/{title}")
     public List<BookDto> getAllBooksByTitleStartsWithIgnoreCase(@PathVariable String title) {
