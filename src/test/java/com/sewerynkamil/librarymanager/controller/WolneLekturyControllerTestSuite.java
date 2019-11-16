@@ -52,20 +52,6 @@ public class WolneLekturyControllerTestSuite {
 
     @Test
     @WithMockUser
-    public void testGetAllAudiobooks() throws Exception {
-        // Given
-        List<WolneLekturyAudiobookDto> audiobookList = new ArrayList<>();
-        when(wolneLekturyService.fetchWolneLekturyBoards()).thenReturn(audiobookList);
-
-        // When & Then
-        mockMvc.perform(get("/v1/audiobooks")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("$", hasSize(0)));
-    }
-
-    @Test
-    @WithMockUser
     public void testGetAllAudiobooksWithLazyLoading() throws Exception {
         // Given
         List<WolneLekturyAudiobookDto> audiobookList = new ArrayList<>();
@@ -78,5 +64,18 @@ public class WolneLekturyControllerTestSuite {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testCountAudiobooks() throws Exception {
+        // Given
+        when(wolneLekturyService.countAudiobooks()).thenReturn(100);
+
+        // When & Then
+        mockMvc.perform(get("/v1/audiobooks/count")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$").value(100));
     }
 }

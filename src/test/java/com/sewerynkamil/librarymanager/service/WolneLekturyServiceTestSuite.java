@@ -11,7 +11,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,16 +26,6 @@ public class WolneLekturyServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFetchWolneLekturyBoards() {
-        // Given & When
-        List<WolneLekturyAudiobookDto> audiobooks = wolneLekturyService.fetchWolneLekturyBoards();
-
-        // Then
-        Assert.assertFalse(audiobooks.isEmpty());
-    }
-
-    @Test
-    @Transactional
     public void testFetchWolneLekturyBoardsWithLazyLoading() {
         // Given
         int offset = 10;
@@ -47,5 +36,15 @@ public class WolneLekturyServiceTestSuite {
 
         // Then
         Assert.assertFalse(audiobooks.isEmpty());
+    }
+
+    @Test
+    @Transactional
+    public void testCountAudiobooks() {
+        // Given & When
+        int count = wolneLekturyService.countAudiobooks();
+
+        // Then
+        Assert.assertTrue(count > 0);
     }
 }

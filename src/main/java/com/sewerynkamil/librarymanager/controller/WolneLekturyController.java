@@ -22,13 +22,13 @@ public class WolneLekturyController {
         this.wolneLekturyService = wolneLekturyService;
     }
 
-    @GetMapping()
-    public List<WolneLekturyAudiobookDto> getAllAudiobooks() {
-        return wolneLekturyService.fetchWolneLekturyBoards();
-    }
-
-    @GetMapping("/lazy")
+    @GetMapping
     public List<WolneLekturyAudiobookDto> getAllAudiobooksWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
         return wolneLekturyService.fetchWolneLekturyBoardsWithLazyLoading(offset, limit);
+    }
+
+    @GetMapping("/count")
+    public int countAudiobooks() {
+        return wolneLekturyService.countAudiobooks();
     }
 }

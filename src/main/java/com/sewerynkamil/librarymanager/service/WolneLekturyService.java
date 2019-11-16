@@ -21,14 +21,14 @@ public class WolneLekturyService {
         this.wolneLekturyClient = wolneLekturyClient;
     }
 
-    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoards() {
-        return wolneLekturyClient.getWolneLekturyAudiobooks();
-    }
-
     public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoardsWithLazyLoading(int offset, int limit) {
         return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
                 .skip(offset)
                 .limit(limit)
                 .collect(Collectors.toList());
+    }
+
+    public int countAudiobooks() {
+        return wolneLekturyClient.getWolneLekturyAudiobooks().size();
     }
 }
