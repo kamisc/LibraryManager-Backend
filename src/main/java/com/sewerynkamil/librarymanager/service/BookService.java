@@ -29,10 +29,6 @@ public class BookService {
         this.wolneLekturyClient = wolneLekturyClient;
     }
 
-    public List<Book> findAllBooks() {
-        return bookRepository.findAll();
-    }
-
     public List<Book> findAllBooksWithLazyLoading(int offset, int limit) {
         return bookRepository.findAll().stream()
                 .skip(offset)
@@ -83,5 +79,9 @@ public class BookService {
 
     public boolean isBookExist(String title) {
         return bookRepository.existsByTitle(title);
+    }
+
+    public Long countBooks() {
+        return bookRepository.count();
     }
 }

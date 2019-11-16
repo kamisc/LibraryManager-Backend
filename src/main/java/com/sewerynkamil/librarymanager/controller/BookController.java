@@ -30,11 +30,6 @@ public class BookController {
     }
 
     @GetMapping
-    public List<BookDto> getAllBooks() {
-        return bookMapper.mapToBookDtoList(bookService.findAllBooks());
-    }
-
-    @GetMapping("/lazy")
     public List<BookDto> getAllBooksWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksWithLazyLoading(offset, limit));
     }
@@ -62,6 +57,11 @@ public class BookController {
     @GetMapping(value = "/exist/{title}")
     public boolean isBookExist(@PathVariable String title) {
         return bookService.isBookExist(title);
+    }
+
+    @GetMapping(value = "/count")
+    public Long countBooks() {
+        return bookService.countBooks();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")

@@ -36,4 +36,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     void delete(Book book);
 
     boolean existsByTitle(String title);
+
+    @Override
+    long count();
 }

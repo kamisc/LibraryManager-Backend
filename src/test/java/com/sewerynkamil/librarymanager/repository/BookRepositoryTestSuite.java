@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Author Kamil Seweryn
  */
@@ -154,5 +156,19 @@ public class BookRepositoryTestSuite {
 
         // Then
         Assert.assertFalse(isExist);
+    }
+
+    @Test
+    @Transactional
+    public void testCountBooks() {
+        // Given
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        bookRepository.save(book);
+
+        // When
+        Long count = bookRepository.count();
+
+        // Then
+        Assert.assertEquals(ofNullable(1L).get(), count);
     }
 }

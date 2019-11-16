@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Author Kamil Seweryn
  */
@@ -33,7 +35,7 @@ public class BookServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFindAllBooks() {
+    public void testFindAllBooksWithLazyLoading() {
         // Given
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.TRAGEDY), 1995, 1231231231231L);
@@ -41,7 +43,7 @@ public class BookServiceTestSuite {
         bookRepository.save(book2);
 
         // When
-        List<Book> books = bookService.findAllBooks();
+        List<Book> books = bookService.findAllBooksWithLazyLoading(0, 100);
 
         // Then
         Assert.assertEquals(2, books.size());
@@ -178,6 +180,21 @@ public class BookServiceTestSuite {
         // Then
         Assert.assertTrue(isBookExist);
     }
+
+    @Test
+    @Transactional
+    public void testCountBooks() throws BookExistException {
+        // Given
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
+        bookService.saveNewBook(book);
+
+        // When
+        Long count = bookService.countBooks();
+
+        // Then
+        Assert.assertEquals(ofNullable(1L).get(), count);
+    }
+
 
     @Test(expected = BookNotExistException.class)
     @Transactional

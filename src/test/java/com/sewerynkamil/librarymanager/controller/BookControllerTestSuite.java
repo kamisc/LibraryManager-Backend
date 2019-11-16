@@ -24,9 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -55,13 +54,15 @@ public class BookControllerTestSuite {
 
     @Test
     @WithMockUser
-    public void testGetAllBooks() throws Exception {
+    public void testGetAllBooksWithLazyLoading() throws Exception {
         // Given
         List<Book> bookList = new ArrayList<>();
-        when(bookService.findAllBooks()).thenReturn(bookList);
+        when(bookService.findAllBooksWithLazyLoading(anyInt(), anyInt())).thenReturn(bookList);
 
         // When & Then
         mockMvc.perform(get("/v1/books")
+                .param("offset", "10")
+                .param("limit", "100")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -144,6 +145,19 @@ public class BookControllerTestSuite {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", is(true)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testCountBooks() throws Exception {
+        // Given
+        when(bookService.countBooks()).thenReturn(5L);
+
+        // When & Then
+        mockMvc.perform(get("/v1/books/count")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$").value(5));
     }
 
     @Test
