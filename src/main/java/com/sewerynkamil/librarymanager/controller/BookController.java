@@ -40,7 +40,7 @@ public class BookController {
         return bookMapper.mapToBookDtoList(bookService.findAllBooksWithLazyLoading(offset, limit));
     }
 
-    @GetMapping("/audiobooks")
+    /*@GetMapping("/audiobooks")
     public List<WolneLekturyAudiobookDto> getAllAudiobooks() {
         return bookService.fetchWolneLekturyBoards();
     }
@@ -48,7 +48,7 @@ public class BookController {
     @GetMapping("/lazy/audiobooks")
     public List<WolneLekturyAudiobookDto> getAllAudiobooksWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
         return bookService.fetchWolneLekturyBoardsWithLazyLoading(offset, limit);
-    }
+    }*/
 
     @GetMapping("/titles/{title}")
     public List<BookDto> getAllBooksByTitleStartsWithIgnoreCase(@PathVariable String title) {

@@ -86,7 +86,7 @@ public class BookService {
         return bookRepository.existsByTitle(title);
     }
 
-    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoards() {
+    /*public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoards() {
         return wolneLekturyClient.getWolneLekturyAudiobooks();
     }
 
@@ -95,5 +95,5 @@ public class BookService {
                 .skip(offset)
                 .limit(limit)
                 .collect(Collectors.toList());
-    }
+    }*/
 }
