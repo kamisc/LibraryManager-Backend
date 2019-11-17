@@ -40,9 +40,10 @@ public class RentedBooksScheduler {
 
     private String getUserRents(User user) {
         int size = user.getRentList().size();
-        String rents = "You rented " + size + (size < 2 ? " book" : " books") + " from the Library \n\n";
+        StringBuilder rents = new StringBuilder();
+        rents.append("You rented " + size + (size < 2 ? " book" : " books") + " from the Library \n\n");
         for(int i = 0; i < user.getRentList().size(); i ++) {
-            rents = new StringBuilder(rents).append(
+            rents.append(
                     user.getRentList().get(i).getSpecimen().getBook().getAuthor() +
                             " - " +
                     user.getRentList().get(i).getSpecimen().getBook().getTitle() +
@@ -51,6 +52,6 @@ public class RentedBooksScheduler {
                             " - return date: " +
                     user.getRentList().get(i).getReturnDate() + "\n").toString();
         }
-        return rents;
+        return rents.toString();
     }
 }
