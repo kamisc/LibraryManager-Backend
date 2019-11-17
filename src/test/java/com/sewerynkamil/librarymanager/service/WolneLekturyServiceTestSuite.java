@@ -40,6 +40,32 @@ public class WolneLekturyServiceTestSuite {
 
     @Test
     @Transactional
+    public void testFetchAllAudiobooksByAuthorStartsWithIgnoreCase() {
+        // Given
+        String author = "ignacy";
+
+        // When
+        List<WolneLekturyAudiobookDto> audiobooks = wolneLekturyService.fetchAllAudiobooksByAuthorStartsWithIgnoreCase(author);
+
+        // Then
+        Assert.assertFalse(audiobooks.isEmpty());
+    }
+
+    @Test
+    @Transactional
+    public void testFetchAllAudiobooksByTitleStartsWithIgnoreCase() {
+        // Given
+        String title = "dwa";
+
+        // When
+        List<WolneLekturyAudiobookDto> audiobooks = wolneLekturyService.fetchAllAudiobooksByTitleStartsWithIgnoreCase(title);
+
+        // Then
+        Assert.assertFalse(audiobooks.isEmpty());
+    }
+
+    @Test
+    @Transactional
     public void testCountAudiobooks() {
         // Given & When
         int count = wolneLekturyService.countAudiobooks();

@@ -27,6 +27,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -58,9 +59,39 @@ public class WolneLekturyControllerTestSuite {
         when(wolneLekturyService.fetchWolneLekturyBoardsWithLazyLoading(anyInt(), anyInt())).thenReturn(audiobookList);
 
         // When & Then
-        mockMvc.perform(get("/v1/audiobooks/lazy")
+        mockMvc.perform(get("/v1/audiobooks")
                 .param("offset", "10")
                 .param("limit", "100")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllAudiobooksByAuthorStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<WolneLekturyAudiobookDto> audiobookList = new ArrayList<>();
+        String author = "ignacy";
+        when(wolneLekturyService.fetchAllAudiobooksByAuthorStartsWithIgnoreCase(author)).thenReturn(audiobookList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/audiobooks/authors/" + author)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllAudiobooksByTitleStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<WolneLekturyAudiobookDto> audiobookList = new ArrayList<>();
+        String title = "dwa";
+        when(wolneLekturyService.fetchAllAudiobooksByTitleStartsWithIgnoreCase(title)).thenReturn(audiobookList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/audiobooks/authors/" + title)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));

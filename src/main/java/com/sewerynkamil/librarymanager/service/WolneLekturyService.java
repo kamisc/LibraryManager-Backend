@@ -5,6 +5,7 @@ import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,18 @@ public class WolneLekturyService {
         return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
                 .skip(offset)
                 .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByAuthorStartsWithIgnoreCase(String author) {
+        return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
+                .filter(audiobook -> audiobook.getAuthor().toLowerCase().startsWith(author))
+                .collect(Collectors.toList());
+    }
+
+    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByTitleStartsWithIgnoreCase(String title) {
+        return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
+                .filter(audiobook -> audiobook.getTitle().toLowerCase().startsWith(title))
                 .collect(Collectors.toList());
     }
 
