@@ -63,10 +63,7 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book updateBook(Book book) throws BookNotExistException {
-        if(!bookRepository.existsByTitle(book.getTitle())) {
-            throw new BookNotExistException();
-        }
+    public Book updateBook(Book book) {
         return bookRepository.save(book);
     }
 

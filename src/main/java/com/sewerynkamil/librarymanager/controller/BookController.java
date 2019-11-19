@@ -72,7 +72,7 @@ public class BookController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public BookDto updateBook(@RequestBody BookDto bookDto) throws BookNotExistException {
+    public BookDto updateBook(@RequestBody BookDto bookDto) {
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
     }
 
