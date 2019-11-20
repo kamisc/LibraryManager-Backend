@@ -8,6 +8,7 @@ import lombok.*;
  * Author Kamil Seweryn
  */
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,7 +18,7 @@ public class UserDto {
     private String email;
     private Integer phoneNumber;
     private String password;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
     private Role role = Role.USER;
 
     public UserDto(String name, String surname, String email, Integer phoneNumber, String password) {

@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                             "/v1/login",
                             "/v1/register",
                             "/v1/users/exist/{email}",
+                            "/v1/users/email/{email}",
                             "/swagger-ui.html",
                             "/v2/api-docs",
                             "/webjars/**",

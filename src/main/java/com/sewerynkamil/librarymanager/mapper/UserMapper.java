@@ -15,16 +15,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {
-    @Autowired
-    private PasswordEncoder bcryptEncoder;
-
     public UserDto mapToUserDto(final User user) {
         UserDto userDto = new UserDto(
                 user.getName(),
                 user.getSurname(),
                 user.getEmail(),
                 user.getPhoneNumber(),
-                user.getPassword());
+                user.getPassword(),
+                user.getRole());
         return userDto;
     }
 
@@ -46,7 +44,8 @@ public class UserMapper {
                         user.getSurname(),
                         user.getEmail(),
                         user.getPhoneNumber(),
-                        user.getPassword()))
+                        user.getPassword(),
+                        user.getRole()))
                 .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.config.security.TokenUtilJwt;
-import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.dto.RequestJwtDto;
 import com.sewerynkamil.librarymanager.dto.ResponseJwtDto;
