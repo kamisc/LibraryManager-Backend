@@ -36,7 +36,7 @@ public class UserServiceTestSuite {
     @Transactional
     public void testLoadByUsername() throws UserExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.ADMIN);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.ADMIN.getRole());
         userService.saveUser(user);
 
         // When
@@ -52,8 +52,8 @@ public class UserServiceTestSuite {
     @Transactional
     public void testFindAllUsersWithLazyLoading() throws UserExistException {
         // Given
-        User user1 = new User("User1", "Surname1", "user1@gmail.com", 123456789, "1a2b3c4d", Role.USER);
-        User user2 = new User("User2", "Surname2", "user2@gmail.com", 234567891, "a1b2c3d4", Role.USER);
+        User user1 = new User("User1", "Surname1", "user1@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
+        User user2 = new User("User2", "Surname2", "user2@gmail.com", 234567891, "a1b2c3d4", Role.USER.getRole());
         userService.saveUser(user1);
         userService.saveUser(user2);
 
@@ -68,8 +68,8 @@ public class UserServiceTestSuite {
     @Transactional
     public void testFindAllUsersByEmailStartsWithIgnoreCase() throws UserExistException {
         // Given
-        User user1 = new User("User1", "Surname1", "us1@gmail.com", 123456789, "1a2b3c4d", Role.USER);
-        User user2 = new User("User2", "Surname2", "user2@gmail.com", 234567891, "a1b2c3d4", Role.USER);
+        User user1 = new User("User1", "Surname1", "us1@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
+        User user2 = new User("User2", "Surname2", "user2@gmail.com", 234567891, "a1b2c3d4", Role.USER.getRole());
         userService.saveUser(user1);
         userService.saveUser(user2);
 
@@ -86,7 +86,7 @@ public class UserServiceTestSuite {
     @Transactional
     public void testFindOneUserById() throws UserExistException, UserNotExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);
 
         // When
@@ -102,7 +102,7 @@ public class UserServiceTestSuite {
     @Transactional
     public void testFindOneUserByEmail() throws UserExistException, UserNotExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);
 
         // When
@@ -118,7 +118,7 @@ public class UserServiceTestSuite {
     @Transactional
     public void testSaveUser() throws UserExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
 
         // When
         User getUser = userService.saveUser(user);
@@ -131,13 +131,13 @@ public class UserServiceTestSuite {
 
     @Test
     @Transactional
-    public void testDeleteUser() throws UserExistException {
+    public void testDeleteUser() throws UserExistException, UserNotExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);
 
         // When
-        userService.deleteUserById(user.getId());
+        userService.deleteUserById(userService.findOneUserById(user.getId()));
         List<User> users = userService.findAllUsersWithLazyLoading(0, 100);
 
         // Then
@@ -148,7 +148,7 @@ public class UserServiceTestSuite {
     @Transactional
     public void testIsUserExist() throws UserExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);
 
         // When
@@ -171,9 +171,10 @@ public class UserServiceTestSuite {
     @Transactional
     public void testUserExistException() throws UserExistException {
         // Given
-        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER);
+        User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);
 
         // When
-        userService.saveUser(new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER)); }
+        userService.saveUser(new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole()));
+    }
 }

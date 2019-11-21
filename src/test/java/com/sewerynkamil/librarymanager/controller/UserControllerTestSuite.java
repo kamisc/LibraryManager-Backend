@@ -85,7 +85,7 @@ public class UserControllerTestSuite {
     @WithMockUser
     public void testGetOneUserById() throws Exception {
         // Given
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
@@ -105,7 +105,7 @@ public class UserControllerTestSuite {
     @WithMockUser
     public void testGetOneUserByEmail() throws Exception {
         // Given
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
@@ -139,7 +139,7 @@ public class UserControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testSaveNewUser() throws Exception {
         // Given
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
@@ -162,7 +162,7 @@ public class UserControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testUpdateUser() throws Exception {
         // Given
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         UserDto updatedUser = new UserDto("Jan", "Kowalski", "john@doe.com", 123456789, "482acv58");
@@ -188,7 +188,7 @@ public class UserControllerTestSuite {
     @WithMockUser(roles = "ADMIN")
     public void testDeleteUser() throws Exception {
         // Given
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         when(userService.saveUser(user)).thenReturn(user);

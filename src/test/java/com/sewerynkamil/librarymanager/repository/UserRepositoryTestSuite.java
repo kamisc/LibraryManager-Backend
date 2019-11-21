@@ -30,8 +30,8 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindAllUsers() {
         // Given
-        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER);
-        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER);
+        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER.getRole());
+        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER.getRole());
         userRepository.save(user1);
         userRepository.save(user2);
 
@@ -46,9 +46,9 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindByEmailStartsWithIgnoreCase() {
         // Given
-        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER);
-        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER);
-        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456", Role.USER);
+        User user1 = new User("Name1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER.getRole());
+        User user2 = new User("Name2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER.getRole());
+        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456", Role.USER.getRole());
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
@@ -66,7 +66,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testSaveUserFindById() throws UserNotExistException {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
 
         // When
@@ -82,7 +82,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testFindByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
 
         // When
@@ -98,7 +98,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testDeleteUser() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
 
         // When
@@ -113,7 +113,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testIsExistsByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
 
         // When
@@ -127,7 +127,7 @@ public class UserRepositoryTestSuite {
     @Transactional
     public void testIsNotExistsByEmail() {
         // Given
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
 
         // When

@@ -30,25 +30,25 @@ public class UserController {
         this.userMapper = userMapper;
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping
     public List<UserDto> getAllUsersWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
         return userMapper.mapToUserDtoList(userService.findAllUsersWithLazyLoading(offset, limit));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/names/{name}")
     public List<UserDto> getAllUsersByNameStartsWithIgnoreCase(@PathVariable String name) {
         return userMapper.mapToUserDtoList(userService.findAllUsersByNameStartsWithIgnoreCase(name));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/surnames/{surname}")
     public List<UserDto> getAllUsersBySurnameStartsWithIgnoreCase(@PathVariable String surname) {
         return userMapper.mapToUserDtoList(userService.findAllUsersBySurnameStartsWithIgnoreCase(surname));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/emails/{email}")
     public List<UserDto> getAllUsersByEmailStartsWithIgnoreCase(@PathVariable String email) {
         return userMapper.mapToUserDtoList(userService.findAllUsersByEmailStartsWithIgnoreCase(email));
@@ -74,21 +74,21 @@ public class UserController {
         return userService.countUsers();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveNewUser(@RequestBody UserDto userDto) throws UserExistException {
         userService.saveUser(userMapper.mapToUser(userDto));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.updateUser(userMapper.mapToUser(userDto)));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @DeleteMapping
-    public void deleteUser(@RequestParam Long id) {
-        userService.deleteUserById(id);
+    public void deleteUser(@RequestParam Long id) throws UserNotExistException {
+        userService.deleteUserById(userService.findOneUserById(id));
     }
 }

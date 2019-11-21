@@ -89,15 +89,15 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User updateUser(final User user) throws UserNotExistException {
-        if(!userRepository.existsById(user.getId())) {
-            throw new UserNotExistException();
-        }
+    public User updateUser(final User user) {
         return userRepository.save(user);
     }
 
-    public void deleteUserById(final Long id) {
-        userRepository.deleteById(id);
+    public void deleteUserById(final User user) throws UserNotExistException {
+        if(!userRepository.existsByEmail(user.getEmail())) {
+            throw new UserNotExistException();
+        }
+        userRepository.delete(user);
     }
 
     public boolean isUserExist(final String email) {

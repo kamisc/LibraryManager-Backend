@@ -66,7 +66,7 @@ public class RentController {
         return rentMapper.mapToRentDto(rentService.prolongationRent(specimenId, userId));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @DeleteMapping
     public void returnBook(@RequestParam Long id) {
         rentService.returnBook(id);

@@ -72,7 +72,7 @@ public class AuthenticationControllerTestSuite {
     public void testSaveNewUser() throws Exception {
         // Given
         com.sewerynkamil.librarymanager.domain.User user = new com.sewerynkamil.librarymanager.domain.
-                User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+                User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
         UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
@@ -90,6 +90,4 @@ public class AuthenticationControllerTestSuite {
                 .content(jsonContent))
                 .andExpect(status().is(200));
     }
-
-
 }

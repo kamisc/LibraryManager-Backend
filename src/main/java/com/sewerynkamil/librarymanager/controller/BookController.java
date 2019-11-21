@@ -64,19 +64,19 @@ public class BookController {
         return bookService.countBooks();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public void saveNewBook(@RequestBody BookDto bookDto) throws BookExistException {
         bookService.saveNewBook(bookMapper.mapToBook(bookDto));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public BookDto updateBook(@RequestBody BookDto bookDto) {
         return bookMapper.mapToBookDto(bookService.updateBook(bookMapper.mapToBook(bookDto)));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
+    @PreAuthorize("hasAnyRole('Admin')")
     @DeleteMapping
     public void deleteBook(@RequestParam Long id) throws BookNotExistException {
         bookService.deleteBook(bookService.findOneBook(id));

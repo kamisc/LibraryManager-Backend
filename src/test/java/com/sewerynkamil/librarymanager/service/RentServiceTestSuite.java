@@ -51,7 +51,7 @@ public class RentServiceTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -84,7 +84,7 @@ public class RentServiceTestSuite {
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
         Specimen specimen3 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -118,7 +118,7 @@ public class RentServiceTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -150,7 +150,7 @@ public class RentServiceTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book1.getSpecimenList().add(specimen1);
         book2.getSpecimenList().add(specimen2);
@@ -183,7 +183,7 @@ public class RentServiceTestSuite {
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book.getSpecimenList().add(specimen);
         bookService.saveNewBook(book);
@@ -210,7 +210,7 @@ public class RentServiceTestSuite {
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book.getSpecimenList().add(specimen);
         bookService.saveNewBook(book);
@@ -237,7 +237,7 @@ public class RentServiceTestSuite {
 
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book.getSpecimenList().add(specimen);
         bookService.saveNewBook(book);
@@ -264,7 +264,7 @@ public class RentServiceTestSuite {
         Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
 
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER);
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
         book.getSpecimenList().add(specimen1);
         book.getSpecimenList().add(specimen2);

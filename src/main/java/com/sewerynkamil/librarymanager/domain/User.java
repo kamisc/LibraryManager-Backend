@@ -44,8 +44,7 @@ public class User implements Observer {
     private String password;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String role;
 
     @NotNull
     private LocalDate accountCreationDate = LocalDate.now();
@@ -56,7 +55,7 @@ public class User implements Observer {
                fetch = FetchType.EAGER)
     private List<Rent> rentList = new ArrayList<>();
 
-    public User(String name, String surname, String email, Integer phoneNumber, String password, Role role) {
+    public User(String name, String surname, String email, Integer phoneNumber, String password, String role) {
         this.name = name;
         this.surname = surname;
         this.email = email;

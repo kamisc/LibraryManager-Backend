@@ -20,8 +20,7 @@ public class UserDto {
     private String email;
     private Integer phoneNumber;
     private String password;
-    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
-    private Role role;
+    private String role;
 
     public UserDto(String name, String surname, String email, Integer phoneNumber, String password) {
         this.name = name;

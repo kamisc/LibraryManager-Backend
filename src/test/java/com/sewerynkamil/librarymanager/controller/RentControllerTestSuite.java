@@ -109,7 +109,7 @@ public class RentControllerTestSuite {
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
 
         Rent rent = new Rent(specimen, user);
@@ -135,7 +135,7 @@ public class RentControllerTestSuite {
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
 
         Rent rent = new Rent(specimen, user);
@@ -162,7 +162,7 @@ public class RentControllerTestSuite {
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
 
         Rent rent = new Rent(specimen, user);
@@ -193,7 +193,7 @@ public class RentControllerTestSuite {
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
 
         Rent rent = new Rent(specimen, user);
@@ -225,7 +225,7 @@ public class RentControllerTestSuite {
         book.setId(1L);
         Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
         specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER);
+        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
 
         Rent rent = new Rent(specimen, user);
