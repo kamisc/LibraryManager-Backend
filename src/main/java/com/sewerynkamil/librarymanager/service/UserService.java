@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.User;
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -48,8 +50,19 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
+    public List<User> findAllUsersWithLazyLoading(int offset, int limit) {
+        return userRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
+
+    public List<User> findAllUsersByNameStartsWithIgnoreCase(final String name) {
+        return userRepository.findByNameStartsWithIgnoreCase(name);
+    }
+
+    public List<User> findAllUsersBySurnameStartsWithIgnoreCase(final String surname) {
+        return userRepository.findBySurnameStartsWithIgnoreCase(surname);
     }
 
     public List<User> findAllUsersByEmailStartsWithIgnoreCase(final String email) {
@@ -89,6 +102,10 @@ public class UserService implements UserDetailsService {
 
     public boolean isUserExist(final String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public Long countUsers() {
+        return userRepository.count();
     }
 
     private Set<SimpleGrantedAuthority> getAuthority(User user) {

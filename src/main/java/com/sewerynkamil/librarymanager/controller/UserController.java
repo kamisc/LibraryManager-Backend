@@ -1,5 +1,6 @@
 package com.sewerynkamil.librarymanager.controller;
 
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.UserDto;
@@ -31,12 +32,24 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping
-    public List<UserDto> getAllUsers() {
-        return userMapper.mapToUserDtoList(userService.findAllUsers());
+    public List<UserDto> getAllUsersWithLazyLoading(@RequestParam int offset, @RequestParam int limit) {
+        return userMapper.mapToUserDtoList(userService.findAllUsersWithLazyLoading(offset, limit));
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping("/{email}")
+    @GetMapping("/names/{name}")
+    public List<UserDto> getAllUsersByNameStartsWithIgnoreCase(@PathVariable String name) {
+        return userMapper.mapToUserDtoList(userService.findAllUsersByNameStartsWithIgnoreCase(name));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/surnames/{surname}")
+    public List<UserDto> getAllUsersBySurnameStartsWithIgnoreCase(@PathVariable String surname) {
+        return userMapper.mapToUserDtoList(userService.findAllUsersBySurnameStartsWithIgnoreCase(surname));
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    @GetMapping("/emails/{email}")
     public List<UserDto> getAllUsersByEmailStartsWithIgnoreCase(@PathVariable String email) {
         return userMapper.mapToUserDtoList(userService.findAllUsersByEmailStartsWithIgnoreCase(email));
     }
@@ -54,6 +67,11 @@ public class UserController {
     @GetMapping("/exist/{email}")
     public boolean isUserExist(@PathVariable String email) {
         return userService.isUserExist(email);
+    }
+
+    @GetMapping(value = "/count")
+    public Long countUsers() {
+        return userService.countUsers();
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
