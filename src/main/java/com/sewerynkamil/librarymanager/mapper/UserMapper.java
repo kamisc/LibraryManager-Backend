@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class UserMapper {
     public UserDto mapToUserDto(final User user) {
         UserDto userDto = new UserDto(
+                user.getId(),
                 user.getName(),
                 user.getSurname(),
                 user.getEmail(),
@@ -40,6 +41,7 @@ public class UserMapper {
     public List<UserDto> mapToUserDtoList(final List<User> userList) {
         return userList.stream()
                 .map(user -> new UserDto(
+                        user.getId(),
                         user.getName(),
                         user.getSurname(),
                         user.getEmail(),

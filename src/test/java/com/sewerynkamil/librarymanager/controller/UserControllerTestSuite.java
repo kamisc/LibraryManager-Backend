@@ -23,9 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,13 +52,15 @@ public class UserControllerTestSuite {
 
     @Test
     @WithMockUser(roles = "ADMIN")
-    public void testGetAllUsers() throws Exception {
+    public void testGetAllUsersWithLazyLoading() throws Exception {
         // Given
         List<User> userList = new ArrayList<>();
-        when(userService.findAllUsers()).thenReturn(userList);
+        when(userService.findAllUsersWithLazyLoading(anyInt(), anyInt())).thenReturn(userList);
 
         // When & Then
         mockMvc.perform(get("/v1/users")
+                .param("offset", "10")
+                .param("limit", "100")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -74,7 +75,7 @@ public class UserControllerTestSuite {
         when(userService.findAllUsersByEmailStartsWithIgnoreCase(anyString())).thenReturn(userList);
 
         // When & Then
-        mockMvc.perform(get("/v1/users/" + test)
+        mockMvc.perform(get("/v1/users/emails/" + test)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));

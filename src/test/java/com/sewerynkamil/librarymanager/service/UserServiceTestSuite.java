@@ -50,7 +50,7 @@ public class UserServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFindAllUsers() throws UserExistException {
+    public void testFindAllUsersWithLazyLoading() throws UserExistException {
         // Given
         User user1 = new User("User1", "Surname1", "user1@gmail.com", 123456789, "1a2b3c4d", Role.USER);
         User user2 = new User("User2", "Surname2", "user2@gmail.com", 234567891, "a1b2c3d4", Role.USER);
@@ -58,7 +58,7 @@ public class UserServiceTestSuite {
         userService.saveUser(user2);
 
         // When
-        List<User> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsersWithLazyLoading(0, 100);
 
         // Then
         Assert.assertEquals(2, users.size());
@@ -138,7 +138,7 @@ public class UserServiceTestSuite {
 
         // When
         userService.deleteUserById(user.getId());
-        List<User> users = userService.findAllUsers();
+        List<User> users = userService.findAllUsersWithLazyLoading(0, 100);
 
         // Then
         Assert.assertEquals(0, users.size());

@@ -13,13 +13,15 @@ import lombok.*;
 @Getter
 @Setter
 public class UserDto {
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private Long id;
     private String name;
     private String surname;
     private String email;
     private Integer phoneNumber;
     private String password;
     @JsonProperty(access = JsonProperty.Access.READ_WRITE)
-    private Role role = Role.USER;
+    private Role role;
 
     public UserDto(String name, String surname, String email, Integer phoneNumber, String password) {
         this.name = name;
