@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 public class UserMapper {
     public UserDto mapToUserDto(final User user) {
         UserDto userDto = new UserDto(
-                user.getId(),
                 user.getName(),
                 user.getSurname(),
                 user.getEmail(),
                 user.getPhoneNumber(),
                 user.getPassword(),
                 user.getRole());
+        userDto.setId(user.getId());
         return userDto;
     }
 
@@ -35,6 +35,7 @@ public class UserMapper {
                 userDto.getPhoneNumber(),
                 userDto.getPassword(),
                 userDto.getRole());
+        user.setId(userDto.getId());
         return user;
     }
 

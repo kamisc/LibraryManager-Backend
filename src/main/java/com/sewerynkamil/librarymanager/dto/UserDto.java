@@ -29,4 +29,13 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
         this.password = password;
     }
+
+    public UserDto(String name, String surname, String email, Integer phoneNumber, String password, String role) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.role = role;
+    }
 }
