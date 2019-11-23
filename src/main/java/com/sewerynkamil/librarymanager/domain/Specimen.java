@@ -27,8 +27,7 @@ public class Specimen {
     private Long id;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    private String status;
 
     @NotNull
     @Length(min = 2)
@@ -51,7 +50,7 @@ public class Specimen {
                fetch = FetchType.LAZY)
     private List<Rent> rentList = new ArrayList<>();
 
-    public Specimen(Status status, String publisher, Integer yearOfPublication, Book book) {
+    public Specimen(String status, String publisher, Integer yearOfPublication, Book book) {
         this.status = status;
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;

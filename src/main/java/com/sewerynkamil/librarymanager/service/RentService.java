@@ -61,7 +61,7 @@ public class RentService {
 
     public Rent rentBook(final Long specimenId, final Long userId) throws SpecimenNotExistException, UserNotExistException {
         Specimen specimen = specimenRepository.findById(specimenId).orElseThrow(SpecimenNotExistException::new);
-        specimen.setStatus(Status.RENTED);
+        specimen.setStatus(Status.RENTED.getStatus());
         specimenRepository.save(specimen);
 
         User user = userRepository.findById(userId).orElseThrow(UserNotExistException::new);
@@ -79,7 +79,7 @@ public class RentService {
 
     public void returnBook(Long id) {
         Rent rent = rentRepository.findById(id).get();
-        rent.getSpecimen().setStatus(Status.AVAILABLE);
+        rent.getSpecimen().setStatus(Status.AVAILABLE.getStatus());
         rent.setReturnDate(LocalDate.now());
         rent.getSpecimen().getRentList().remove(rent);
         rent.getUser().getRentList().remove(rent);

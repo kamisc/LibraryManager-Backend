@@ -48,8 +48,8 @@ public class RentServiceTestSuite {
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -80,9 +80,9 @@ public class RentServiceTestSuite {
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FANTASY), 1999, 1231231231231L);
 
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
-        Specimen specimen3 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2);
+        Specimen specimen3 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -115,8 +115,8 @@ public class RentServiceTestSuite {
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -147,8 +147,8 @@ public class RentServiceTestSuite {
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
         Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999, 1231231231231L);
 
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book1);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book2);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -171,7 +171,7 @@ public class RentServiceTestSuite {
         // Then
         Assert.assertEquals(LocalDate.now(), rent.getRentDate());
         Assert.assertEquals(LocalDate.now().plusDays(30), rent.getReturnDate());
-        Assert.assertEquals(Status.RENTED, rent.getSpecimen().getStatus());
+        Assert.assertEquals(Status.RENTED.getStatus(), rent.getSpecimen().getStatus());
         Assert.assertEquals("Name", rent.getUser().getName());
     }
 
@@ -181,7 +181,7 @@ public class RentServiceTestSuite {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -198,7 +198,7 @@ public class RentServiceTestSuite {
         Rent getRent = rentService.findOneRentById(rent.getId());
 
         // Then
-        Assert.assertEquals(Status.RENTED, getRent.getSpecimen().getStatus());
+        Assert.assertEquals(Status.RENTED.getStatus(), getRent.getSpecimen().getStatus());
         Assert.assertEquals("Publisher", getRent.getSpecimen().getPublisher());
     }
 
@@ -208,7 +208,7 @@ public class RentServiceTestSuite {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -235,7 +235,7 @@ public class RentServiceTestSuite {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 
@@ -261,8 +261,8 @@ public class RentServiceTestSuite {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
 
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
 

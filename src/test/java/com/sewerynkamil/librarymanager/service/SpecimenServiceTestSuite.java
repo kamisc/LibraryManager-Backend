@@ -38,7 +38,7 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
@@ -54,11 +54,11 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
-        List<Specimen> specimens = specimenService.findAllSpecimensForOneBookByStatusAndBookId(Status.RENTED, book.getId());
+        List<Specimen> specimens = specimenService.findAllSpecimensForOneBookByStatusAndBookId(Status.RENTED.getStatus(), book.getId());
 
         // Then
         Assert.assertEquals(1, specimens.size());
@@ -70,14 +70,14 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
         Specimen getSpecimen = specimenService.findOneSpecimen(specimen.getId());
 
         // Then
-        Assert.assertEquals(Status.RENTED, getSpecimen.getStatus());
+        Assert.assertEquals(Status.RENTED.getStatus(), getSpecimen.getStatus());
         Assert.assertEquals("Publisher", getSpecimen.getPublisher());
         Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
     }
@@ -88,14 +88,14 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.RENTED, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
         Specimen getSpecimen = specimenService.changeSpecimenStatusToAvailable(specimen.getId());
 
         // Then
-        Assert.assertEquals(Status.AVAILABLE, getSpecimen.getStatus());
+        Assert.assertEquals(Status.AVAILABLE.getStatus(), getSpecimen.getStatus());
         Assert.assertEquals("Publisher", getSpecimen.getPublisher());
         Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
     }
@@ -106,14 +106,14 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
         Specimen getSpecimen = specimenService.changeSpecimenStatusToRented(specimen.getId());
 
         // Then
-        Assert.assertEquals(Status.RENTED, getSpecimen.getStatus());
+        Assert.assertEquals(Status.RENTED.getStatus(), getSpecimen.getStatus());
         Assert.assertEquals("Publisher", getSpecimen.getPublisher());
         Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
     }
@@ -124,14 +124,14 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
         Specimen getSpecimen = specimenService.changeSpecimenStatusToLost(specimen.getId());
 
         // Then
-        Assert.assertEquals(Status.LOST, getSpecimen.getStatus());
+        Assert.assertEquals(Status.LOST.getStatus(), getSpecimen.getStatus());
         Assert.assertEquals("Publisher", getSpecimen.getPublisher());
         Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
     }
@@ -142,7 +142,7 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen);
 
         // When
@@ -159,12 +159,12 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008, 9788375748758L);
         bookService.saveNewBook(book);
-        Specimen specimen1 = new Specimen(Status.LOST, "Publisher", 2008, book);
-        Specimen specimen2 = new Specimen(Status.LOST, "Publisher", 2008, book);
-        Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2008, book);
-        Specimen specimen4 = new Specimen(Status.RENTED, "Publisher", 2008, book);
-        Specimen specimen5 = new Specimen(Status.RENTED, "Publisher", 2008, book);
-        Specimen specimen6 = new Specimen(Status.AVAILABLE, "Publisher", 2008, book);
+        Specimen specimen1 = new Specimen(Status.LOST.getStatus(), "Publisher", 2008, book);
+        Specimen specimen2 = new Specimen(Status.LOST.getStatus(), "Publisher", 2008, book);
+        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
+        Specimen specimen4 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
+        Specimen specimen5 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book);
+        Specimen specimen6 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book);
         specimenService.saveNewSpecimen(specimen1);
         specimenService.saveNewSpecimen(specimen2);
         specimenService.saveNewSpecimen(specimen3);
@@ -173,9 +173,9 @@ public class SpecimenServiceTestSuite {
         specimenService.saveNewSpecimen(specimen6);
 
         // When
-        Long specimensAvailable = specimenService.countSpecimensByStatusAndBookId(Status.AVAILABLE, book.getId());
-        Long specimensRented = specimenService.countSpecimensByStatusAndBookId(Status.RENTED, book.getId());
-        Long specimensLost = specimenService.countSpecimensByStatusAndBookId(Status.LOST, book.getId());
+        Long specimensAvailable = specimenService.countSpecimensByStatusAndBookId(Status.AVAILABLE.getStatus(), book.getId());
+        Long specimensRented = specimenService.countSpecimensByStatusAndBookId(Status.RENTED.getStatus(), book.getId());
+        Long specimensLost = specimenService.countSpecimensByStatusAndBookId(Status.LOST.getStatus(), book.getId());
 
         // Then
         Assert.assertEquals(new Long(1L), specimensAvailable);

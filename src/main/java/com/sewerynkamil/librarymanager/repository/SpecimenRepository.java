@@ -18,7 +18,7 @@ import java.util.Optional;
 public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
     List<Specimen> findAllByBookId(Long id);
 
-    List<Specimen> findAllByStatusAndBookId(Status status, Long id);
+    List<Specimen> findAllByStatusAndBookId(String status, Long id);
 
     @Override
     Optional<Specimen> findById(Long id);
@@ -28,5 +28,5 @@ public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
 
     void deleteById(Long id);
 
-    Long countByStatusAndBookId(Status status, Long id);
+    Long countByStatusAndBookId(String status, Long id);
 }

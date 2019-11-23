@@ -29,7 +29,7 @@ public class SpecimenService {
         return specimenRepository.findAllByBookId(bookId);
     }
 
-    public List<Specimen> findAllSpecimensForOneBookByStatusAndBookId(final Status status, final Long bookId) {
+    public List<Specimen> findAllSpecimensForOneBookByStatusAndBookId(final String status, final Long bookId) {
         return specimenRepository.findAllByStatusAndBookId(status, bookId);
     }
 
@@ -43,19 +43,19 @@ public class SpecimenService {
 
     public Specimen changeSpecimenStatusToAvailable(final Long specimenId) {
         Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.AVAILABLE);
+        specimen.setStatus(Status.AVAILABLE.getStatus());
         return specimenRepository.save(specimen);
     }
 
     public Specimen changeSpecimenStatusToRented(final Long specimenId) {
         Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.RENTED);
+        specimen.setStatus(Status.RENTED.getStatus());
         return specimenRepository.save(specimen);
     }
 
     public Specimen changeSpecimenStatusToLost(final Long specimenId) {
         Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.LOST);
+        specimen.setStatus(Status.LOST.getStatus());
         return specimenRepository.save(specimen);
     }
 
@@ -63,7 +63,7 @@ public class SpecimenService {
         specimenRepository.deleteById(specimenId);
     }
 
-    public Long countSpecimensByStatusAndBookId(final Status status, final Long bookId) {
+    public Long countSpecimensByStatusAndBookId(final String status, final Long bookId) {
         return specimenRepository.countByStatusAndBookId(status, bookId);
     }
 }

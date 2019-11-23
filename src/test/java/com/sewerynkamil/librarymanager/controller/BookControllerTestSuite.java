@@ -161,7 +161,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testSaveNewBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.ROMANCE), 2001, 1234567891011L);
@@ -184,7 +184,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testUpdateBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
@@ -210,7 +210,7 @@ public class BookControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testDeleteBook() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.COMIC), 2001, 1234567891011L);

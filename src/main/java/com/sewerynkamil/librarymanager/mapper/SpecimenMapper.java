@@ -19,11 +19,13 @@ public class SpecimenMapper {
     private BookRepository bookRepository;
 
     public SpecimenDto mapToSpecimenDto(final Specimen specimen) {
-        return new SpecimenDto(
+        SpecimenDto specimenDto = new SpecimenDto(
                 specimen.getStatus(),
                 specimen.getPublisher(),
                 specimen.getYearOfPublication(),
                 specimen.getBook().getTitle());
+        specimenDto.setId(specimen.getId());
+        return specimenDto;
     }
 
     public Specimen mapToSpecimen(final SpecimenDto specimenDto) {
@@ -37,6 +39,7 @@ public class SpecimenMapper {
     public List<SpecimenDto> mapToSpecimenDtoList(final List<Specimen> specimenList) {
         return specimenList.stream()
                 .map(specimen -> new SpecimenDto(
+                        specimen.getId(),
                         specimen.getStatus(),
                         specimen.getPublisher(),
                         specimen.getYearOfPublication(),

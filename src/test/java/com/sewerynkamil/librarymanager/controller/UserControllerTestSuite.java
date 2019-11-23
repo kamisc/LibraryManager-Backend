@@ -51,7 +51,7 @@ public class UserControllerTestSuite {
     private UserMapper userMapper;
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testGetAllUsersWithLazyLoading() throws Exception {
         // Given
         List<User> userList = new ArrayList<>();
@@ -67,7 +67,7 @@ public class UserControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testGetAllUsersByEmailStartsWithIgnoreCase() throws Exception {
         // Given
         List<User> userList = new ArrayList<>();
@@ -136,7 +136,7 @@ public class UserControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testSaveNewUser() throws Exception {
         // Given
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
@@ -159,7 +159,7 @@ public class UserControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testUpdateUser() throws Exception {
         // Given
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
@@ -185,7 +185,7 @@ public class UserControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testDeleteUser() throws Exception {
         // Given
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());

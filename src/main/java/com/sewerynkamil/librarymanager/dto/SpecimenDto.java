@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.dto;
 
-import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,16 +10,19 @@ import lombok.Setter;
  * Author Kamil Seweryn
  */
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class SpecimenDto {
-    private Status status;
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private Long id;
+    private String status;
     private String publisher;
     private Integer yearOfPublication;
     private String bookTitle;
 
-    public SpecimenDto(Status status, String publisher, Integer yearOfPublication, String bookTitle) {
+    public SpecimenDto(String status, String publisher, Integer yearOfPublication, String bookTitle) {
         this.status = status;
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;

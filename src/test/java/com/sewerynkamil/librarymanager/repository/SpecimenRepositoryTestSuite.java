@@ -37,9 +37,9 @@ public class SpecimenRepositoryTestSuite {
     public void testFindAllByBookId() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2001, book);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book);
 
         specimen1.setBook(book);
         specimen2.setBook(book);
@@ -65,9 +65,9 @@ public class SpecimenRepositoryTestSuite {
     public void testFindAllByStatusAndBookId() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.RENTED, "Publisher", 2001, book);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book);
 
         specimen1.setBook(book);
         specimen2.setBook(book);
@@ -82,8 +82,8 @@ public class SpecimenRepositoryTestSuite {
         specimenRepository.save(specimen3);
 
         // When
-        List<Specimen> available = specimenRepository.findAllByStatusAndBookId(Status.AVAILABLE, book.getId());
-        List<Specimen> rented = specimenRepository.findAllByStatusAndBookId(Status.RENTED, book.getId());
+        List<Specimen> available = specimenRepository.findAllByStatusAndBookId(Status.AVAILABLE.getStatus(), book.getId());
+        List<Specimen> rented = specimenRepository.findAllByStatusAndBookId(Status.RENTED.getStatus(), book.getId());
 
         // Then
         Assert.assertEquals(2, available.size());
@@ -95,7 +95,7 @@ public class SpecimenRepositoryTestSuite {
     public void testSaveSpecimenAndFindById() throws SpecimenNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         specimen.setBook(book);
         book.getSpecimenList().add(specimen);
@@ -108,7 +108,7 @@ public class SpecimenRepositoryTestSuite {
         int specimenListSize = book.getSpecimenList().size();
 
         // Then
-        Assert.assertEquals(Status.AVAILABLE, getSpecimen.getStatus());
+        Assert.assertEquals(Status.AVAILABLE.getStatus(), getSpecimen.getStatus());
         Assert.assertEquals("Publisher", getSpecimen.getPublisher());
         Assert.assertEquals(1, specimenListSize);
     }
@@ -118,7 +118,7 @@ public class SpecimenRepositoryTestSuite {
     public void testDeleteSpecimen() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
 
         specimen.setBook(book);
         book.getSpecimenList().add(specimen);
@@ -140,9 +140,9 @@ public class SpecimenRepositoryTestSuite {
     public void testCountByStatusAndBookId() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.LOST, "Publisher", 2001, book);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Specimen specimen3 = new Specimen(Status.LOST.getStatus(), "Publisher", 2001, book);
 
         specimen1.setBook(book);
         specimen2.setBook(book);
@@ -157,8 +157,8 @@ public class SpecimenRepositoryTestSuite {
         specimenRepository.save(specimen3);
 
         // When
-        Long available = specimenRepository.countByStatusAndBookId(Status.AVAILABLE, book.getId());
-        Long lost = specimenRepository.countByStatusAndBookId(Status.LOST, book.getId());
+        Long available = specimenRepository.countByStatusAndBookId(Status.AVAILABLE.getStatus(), book.getId());
+        Long lost = specimenRepository.countByStatusAndBookId(Status.LOST.getStatus(), book.getId());
 
         // Then
         Assert.assertEquals(Optional.of(2L).get(), available);

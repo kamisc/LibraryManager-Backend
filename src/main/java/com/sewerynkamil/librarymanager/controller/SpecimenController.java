@@ -35,7 +35,7 @@ public class SpecimenController {
     }
 
     @GetMapping("/{bookId}")
-    public List<SpecimenDto> getAllSpecimensForOneBook(@RequestParam Status status, @PathVariable Long bookId) {
+    public List<SpecimenDto> getAllSpecimensForOneBook(@RequestParam String status, @PathVariable Long bookId) {
         return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByStatusAndBookId(status, bookId));
     }
 
@@ -46,7 +46,7 @@ public class SpecimenController {
 
     @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/count/{bookId}")
-    public Long countSpecimenByStatusAndBookId(@RequestParam Status status, @PathVariable Long bookId) {
+    public Long countSpecimenByStatusAndBookId(@RequestParam String status, @PathVariable Long bookId) {
         return specimenService.countSpecimensByStatusAndBookId(status, bookId);
     }
 

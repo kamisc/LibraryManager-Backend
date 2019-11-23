@@ -107,7 +107,7 @@ public class RentControllerTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.HISTORICAL), 2001, 1234567891011L);
         book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
         specimen.setId(2L);
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
@@ -133,7 +133,7 @@ public class RentControllerTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.HORROR), 2001, 1234567891011L);
         book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
         specimen.setId(2L);
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
@@ -160,7 +160,7 @@ public class RentControllerTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.HUMOR), 2001, 1234567891011L);
         book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
         specimen.setId(2L);
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
@@ -191,7 +191,7 @@ public class RentControllerTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.AUTOBIOGRAPHY), 2001, 1234567891011L);
         book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
         specimen.setId(2L);
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);
@@ -218,12 +218,12 @@ public class RentControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "Admin")
     public void testDeleteRent() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.BIOGRAPHY), 2001, 1234567891011L);
         book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE, "Publisher", 2001, book);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
         specimen.setId(2L);
         User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(3L);

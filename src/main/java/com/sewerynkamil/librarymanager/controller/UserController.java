@@ -80,7 +80,7 @@ public class UserController {
         userService.saveUser(userMapper.mapToUser(userDto));
     }
 
-    @PreAuthorize("hasAnyRole('Admin')")
+    @PreAuthorize("hasAnyRole('Admin', 'User')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotExistException {
         return userMapper.mapToUserDto(userService.updateUser(userMapper.mapToUser(userDto)));
