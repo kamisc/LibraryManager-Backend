@@ -117,10 +117,10 @@ public class BookControllerTestSuite {
     @WithMockUser
     public void testGetOneBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.THRILLER), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.THRILLER), 2001);
         book.setId(1L);
 
-        BookDto bookDto = new BookDto("Author", "Title", Category.categoryFactory(Category.THRILLER), 2001, 1234567891011L);
+        BookDto bookDto = new BookDto("Author", "Title", Category.categoryFactory(Category.THRILLER), 2001);
 
         when(bookService.findOneBook(book.getId())).thenReturn(book);
         when(bookMapper.mapToBookDto(any(Book.class))).thenReturn(bookDto);
@@ -164,10 +164,10 @@ public class BookControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testSaveNewBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ROMANCE), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ROMANCE), 2001);
         book.setId(1L);
 
-        BookDto bookDto = new BookDto("Author", "Title", Category.categoryFactory(Category.ROMANCE), 2001, 1234567891011L);
+        BookDto bookDto = new BookDto("Author", "Title", Category.categoryFactory(Category.ROMANCE), 2001);
 
         when(bookService.saveNewBook(any(Book.class))).thenReturn(book);
         when(bookMapper.mapToBook(any(BookDto.class))).thenReturn(book);
@@ -187,10 +187,10 @@ public class BookControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testUpdateBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001);
         book.setId(1L);
 
-        BookDto updatedBook = new BookDto("Author_Updated", "Title_Updated", Category.categoryFactory(Category.FABLE), 2001, 1234567891011L);
+        BookDto updatedBook = new BookDto("Author_Updated", "Title_Updated", Category.categoryFactory(Category.FABLE), 2001);
 
         when(bookService.updateBook(any(Book.class))).thenReturn(book);
         when(bookMapper.mapToBookDto(any(Book.class))).thenReturn(updatedBook);
@@ -213,7 +213,7 @@ public class BookControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testDeleteBook() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.COMIC), 2001, 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.COMIC), 2001);
         book.setId(1L);
 
         when(bookService.saveNewBook(book)).thenReturn(book);

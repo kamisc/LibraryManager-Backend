@@ -23,7 +23,8 @@ public class SpecimenMapper {
                 specimen.getStatus(),
                 specimen.getPublisher(),
                 specimen.getYearOfPublication(),
-                specimen.getBook().getTitle());
+                specimen.getBook().getTitle(),
+                specimen.getIsbn());
         specimenDto.setId(specimen.getId());
         return specimenDto;
     }
@@ -33,7 +34,8 @@ public class SpecimenMapper {
                 specimenDto.getStatus(),
                 specimenDto.getPublisher(),
                 specimenDto.getYearOfPublication(),
-                bookRepository.findByTitle(specimenDto.getBookTitle()));
+                bookRepository.findByTitle(specimenDto.getBookTitle()),
+                specimenDto.getIsbn());
     }
 
     public List<SpecimenDto> mapToSpecimenDtoList(final List<Specimen> specimenList) {
@@ -43,7 +45,8 @@ public class SpecimenMapper {
                         specimen.getStatus(),
                         specimen.getPublisher(),
                         specimen.getYearOfPublication(),
-                        specimen.getBook().getTitle()))
+                        specimen.getBook().getTitle(),
+                        specimen.getIsbn()))
                 .collect(Collectors.toList());
     }
 }

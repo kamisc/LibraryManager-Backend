@@ -18,17 +18,9 @@ public class BookMapper {
                 book.getAuthor(),
                 book.getTitle(),
                 book.getCategory(),
-                book.getYearOfFirstPublication(),
-                book.getIsbn());
+                book.getYearOfFirstPublication());
         bookDto.setId(book.getId());
         return bookDto;
-
-        /*return new BookDto(
-                book.getAuthor(),
-                book.getTitle(),
-                book.getCategory(),
-                book.getYearOfFirstPublication(),
-                book.getIsbn());*/
     }
 
     public Book mapToBook(final BookDto bookDto) {
@@ -36,8 +28,7 @@ public class BookMapper {
                 bookDto.getAuthor(),
                 bookDto.getTitle(),
                 bookDto.getCategory(),
-                bookDto.getYearOfFirstPublication(),
-                bookDto.getIsbn());
+                bookDto.getYearOfFirstPublication());
         book.setId(bookDto.getId());
         return book;
     }
@@ -49,8 +40,7 @@ public class BookMapper {
                         book.getAuthor(),
                         book.getTitle(),
                         book.getCategory(),
-                        book.getYearOfFirstPublication(),
-                        book.getIsbn()))
+                        book.getYearOfFirstPublication()))
                 .collect(Collectors.toList());
     }
 }

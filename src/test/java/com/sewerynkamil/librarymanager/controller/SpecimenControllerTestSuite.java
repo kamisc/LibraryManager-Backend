@@ -56,7 +56,7 @@ public class SpecimenControllerTestSuite {
     private SpecimenMapper specimenMapper;
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "Admin")
     public void testGetAllSpecimensForOneBook() throws Exception {
         // Given
         List<Specimen> specimenList = new ArrayList<>();
@@ -89,9 +89,9 @@ public class SpecimenControllerTestSuite {
     @WithMockUser
     public void testGetOneSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ACTION), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle());
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ACTION), 2001);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.findOneSpecimen(anyLong())).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(specimenDto);
@@ -123,9 +123,9 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testSaveNewSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "2Title", Category.categoryFactory(Category.TRAGEDY), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle());
+        Book book = new Book("Author", "2Title", Category.categoryFactory(Category.TRAGEDY), 2001);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.saveNewSpecimen(any(Specimen.class))).thenReturn(specimen);
         when(specimenMapper.mapToSpecimen(any(SpecimenDto.class))).thenReturn(specimen);
@@ -145,9 +145,9 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testChangeSpecimenStatusToAvailable() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.CLASSIC), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle());
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.CLASSIC), 2001);
+        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto updatedSpecimen = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.changeSpecimenStatusToAvailable(anyLong())).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
@@ -169,9 +169,9 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testChangeSpecimenStatusToRented() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ADVENTURE), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.RENTED.getStatus(), "Publisher", 2001, book.getTitle());
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ADVENTURE), 2001);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto updatedSpecimen = new SpecimenDto(Status.RENTED.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.changeSpecimenStatusToRented(anyLong())).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
@@ -193,9 +193,9 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testChangeSpecimenStatusToLost() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DETECTIVE), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.LOST.getStatus(), "Publisher", 2001, book.getTitle());
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DETECTIVE), 2001);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto updatedSpecimen = new SpecimenDto(Status.LOST.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.changeSpecimenStatusToLost(anyLong())).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
@@ -217,8 +217,8 @@ public class SpecimenControllerTestSuite {
     @WithMockUser(roles = "Admin")
     public void testDeleteSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DRAMA), 2001, 1234567891011L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DRAMA), 2001);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
         specimen.setId(1L);
 
         when(specimenService.saveNewSpecimen(specimen)).thenReturn(specimen);

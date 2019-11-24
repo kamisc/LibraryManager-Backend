@@ -36,10 +36,10 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testFindAllByBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748759L);
+        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book, 9788375748718L);
 
         specimen1.setBook(book);
         specimen2.setBook(book);
@@ -64,10 +64,10 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testFindAllByStatusAndBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748759L);
+        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book, 9788375748757L);
 
         specimen1.setBook(book);
         specimen2.setBook(book);
@@ -94,8 +94,8 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testSaveSpecimenAndFindById() throws SpecimenNotExistException {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
 
         specimen.setBook(book);
         book.getSpecimenList().add(specimen);
@@ -117,8 +117,8 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testDeleteSpecimen() {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
 
         specimen.setBook(book);
         book.getSpecimenList().add(specimen);
@@ -139,10 +139,10 @@ public class SpecimenRepositoryTestSuite {
     @Transactional
     public void testCountByStatusAndBookId() {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011, 9788375748758L);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book);
-        Specimen specimen3 = new Specimen(Status.LOST.getStatus(), "Publisher", 2001, book);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748757L);
+        Specimen specimen3 = new Specimen(Status.LOST.getStatus(), "Publisher", 2001, book, 9788375748718L);
 
         specimen1.setBook(book);
         specimen2.setBook(book);

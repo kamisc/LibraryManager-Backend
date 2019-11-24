@@ -29,6 +29,7 @@ public class SpecimenController {
         this.specimenMapper = specimenMapper;
     }
 
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping
     public List<SpecimenDto> getAllSpecimensForOneBook(@RequestParam Long bookId) {
         return specimenMapper.mapToSpecimenDtoList(specimenService.findAllSpecimensForOneBookByBookId(bookId));

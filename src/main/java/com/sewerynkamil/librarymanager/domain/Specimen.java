@@ -37,6 +37,9 @@ public class Specimen {
     private Integer yearOfPublication;
 
     @NotNull
+    private Long isbn;
+
+    @NotNull
     private LocalDate creationDate = LocalDate.now();
 
     @NotNull
@@ -50,10 +53,11 @@ public class Specimen {
                fetch = FetchType.LAZY)
     private List<Rent> rentList = new ArrayList<>();
 
-    public Specimen(String status, String publisher, Integer yearOfPublication, Book book) {
+    public Specimen(String status, String publisher, Integer yearOfPublication, Book book, Long isbn) {
         this.status = status;
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;
         this.book = book;
+        this.isbn = isbn;
     }
 }

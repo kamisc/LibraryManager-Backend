@@ -40,9 +40,6 @@ public class Book {
     private Integer yearOfFirstPublication;
 
     @NotNull
-    private Long isbn;
-
-    @NotNull
     private LocalDate creationDate = LocalDate.now();
 
     @OneToMany(targetEntity = Specimen.class,
@@ -51,11 +48,10 @@ public class Book {
                fetch = FetchType.EAGER)
     private List<Specimen> specimenList = new ArrayList<>();
 
-    public Book(String author, String title, String category, Integer yearOfFirstPublication, Long isbn) {
+    public Book(String author, String title, String category, Integer yearOfFirstPublication) {
         this.author = author;
         this.title = title;
         this.category = category;
         this.yearOfFirstPublication = yearOfFirstPublication;
-        this.isbn = isbn;
     }
 }

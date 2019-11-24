@@ -21,11 +21,13 @@ public class SpecimenDto {
     private String publisher;
     private Integer yearOfPublication;
     private String bookTitle;
+    private Long isbn;
 
-    public SpecimenDto(String status, String publisher, Integer yearOfPublication, String bookTitle) {
+    public SpecimenDto(String status, String publisher, Integer yearOfPublication, String bookTitle, Long isbn) {
         this.status = status;
         this.publisher = publisher;
         this.yearOfPublication = yearOfPublication;
         this.bookTitle = bookTitle;
+        this.isbn = isbn;
     }
 }

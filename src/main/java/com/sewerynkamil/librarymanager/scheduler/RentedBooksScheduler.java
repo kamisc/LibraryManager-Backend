@@ -48,7 +48,7 @@ public class RentedBooksScheduler {
                             " - " +
                     user.getRentList().get(i).getSpecimen().getBook().getTitle() +
                             " - ISBN: " +
-                    user.getRentList().get(i).getSpecimen().getBook().getIsbn() +
+                    user.getRentList().get(i).getSpecimen().getIsbn() +
                             " - return date: " +
                     user.getRentList().get(i).getReturnDate() + "\n").toString();
         }
