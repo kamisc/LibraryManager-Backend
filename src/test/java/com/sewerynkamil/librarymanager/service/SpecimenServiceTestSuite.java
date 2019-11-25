@@ -84,7 +84,7 @@ public class SpecimenServiceTestSuite {
 
     @Test
     @Transactional
-    public void testChangeSpecimenStatusToAvailable() throws BookExistException {
+    public void testUpdateSpecimen() throws BookExistException, SpecimenNotExistException {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008);
         bookService.saveNewBook(book);
@@ -92,48 +92,14 @@ public class SpecimenServiceTestSuite {
         specimenService.saveNewSpecimen(specimen);
 
         // When
-        Specimen getSpecimen = specimenService.changeSpecimenStatusToAvailable(specimen.getId());
+        Specimen updatedSpecimen = new Specimen(Status.AVAILABLE.getStatus(), "Pub", 2009, book, 9788375748758L);
+        updatedSpecimen.setId(specimen.getId());
+        specimenService.updateSpecimen(updatedSpecimen);
 
         // Then
-        Assert.assertEquals(Status.AVAILABLE.getStatus(), getSpecimen.getStatus());
-        Assert.assertEquals("Publisher", getSpecimen.getPublisher());
-        Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
-    }
-
-    @Test
-    @Transactional
-    public void testChangeSpecimenStatusToRented() throws BookExistException {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008);
-        bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book, 9788375748758L);
-        specimenService.saveNewSpecimen(specimen);
-
-        // When
-        Specimen getSpecimen = specimenService.changeSpecimenStatusToRented(specimen.getId());
-
-        // Then
-        Assert.assertEquals(Status.RENTED.getStatus(), getSpecimen.getStatus());
-        Assert.assertEquals("Publisher", getSpecimen.getPublisher());
-        Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
-    }
-
-    @Test
-    @Transactional
-    public void testChangeSpecimenStatusToLost() throws BookExistException {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008);
-        bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book, 9788375748758L);
-        specimenService.saveNewSpecimen(specimen);
-
-        // When
-        Specimen getSpecimen = specimenService.changeSpecimenStatusToLost(specimen.getId());
-
-        // Then
-        Assert.assertEquals(Status.LOST.getStatus(), getSpecimen.getStatus());
-        Assert.assertEquals("Publisher", getSpecimen.getPublisher());
-        Assert.assertEquals(new Integer(2008), getSpecimen.getYearOfPublication());
+        Assert.assertEquals(Status.AVAILABLE.getStatus(), specimen.getStatus());
+        Assert.assertEquals("Pub", specimen.getPublisher());
+        Assert.assertEquals(new Integer(2009), specimen.getYearOfPublication());
     }
 
     @Test
@@ -146,41 +112,11 @@ public class SpecimenServiceTestSuite {
         specimenService.saveNewSpecimen(specimen);
 
         // When
-        specimenService.deleteSpecimen(specimen.getId());
+        specimenService.deleteSpecimen(specimen);
         List<Specimen> specimens = specimenService.findAllSpecimensForOneBookByBookId(book.getId());
 
         // Then
         Assert.assertEquals(0, specimens.size());
-    }
-
-    @Test
-    @Transactional
-    public void testCountSpecimensByStatusAndBookId() throws BookExistException {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008);
-        bookService.saveNewBook(book);
-        Specimen specimen1 = new Specimen(Status.LOST.getStatus(), "Publisher", 2008, book, 9788375748758L);
-        Specimen specimen2 = new Specimen(Status.LOST.getStatus(), "Publisher", 2008, book, 9788375748755L);
-        Specimen specimen3 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book, 9788375748754L);
-        Specimen specimen4 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book, 9788375748753L);
-        Specimen specimen5 = new Specimen(Status.RENTED.getStatus(), "Publisher", 2008, book, 9788375748752L);
-        Specimen specimen6 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book, 9788375748751L);
-        specimenService.saveNewSpecimen(specimen1);
-        specimenService.saveNewSpecimen(specimen2);
-        specimenService.saveNewSpecimen(specimen3);
-        specimenService.saveNewSpecimen(specimen4);
-        specimenService.saveNewSpecimen(specimen5);
-        specimenService.saveNewSpecimen(specimen6);
-
-        // When
-        Long specimensAvailable = specimenService.countSpecimensByStatusAndBookId(Status.AVAILABLE.getStatus(), book.getId());
-        Long specimensRented = specimenService.countSpecimensByStatusAndBookId(Status.RENTED.getStatus(), book.getId());
-        Long specimensLost = specimenService.countSpecimensByStatusAndBookId(Status.LOST.getStatus(), book.getId());
-
-        // Then
-        Assert.assertEquals(new Long(1L), specimensAvailable);
-        Assert.assertEquals(new Long(3L), specimensRented);
-        Assert.assertEquals(new Long(2L), specimensLost);
     }
 
     @Test(expected = SpecimenNotExistException.class)

@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.repository;
 
 import com.sewerynkamil.librarymanager.domain.Specimen;
-import com.sewerynkamil.librarymanager.domain.enumerated.Status;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +25,6 @@ public interface SpecimenRepository extends JpaRepository<Specimen, Long> {
     @Override
     Specimen save(Specimen specimen);
 
-    void deleteById(Long id);
-
-    Long countByStatusAndBookId(String status, Long id);
+    @Override
+    void delete(Specimen specimen);
 }

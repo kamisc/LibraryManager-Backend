@@ -7,6 +7,7 @@ import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
+import com.sewerynkamil.librarymanager.dto.BookDto;
 import com.sewerynkamil.librarymanager.dto.SpecimenDto;
 import com.sewerynkamil.librarymanager.mapper.SpecimenMapper;
 import com.sewerynkamil.librarymanager.service.SpecimenService;
@@ -86,7 +87,7 @@ public class SpecimenControllerTestSuite {
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "Admin")
     public void testGetOneSpecimen() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.ACTION), 2001);
@@ -103,20 +104,6 @@ public class SpecimenControllerTestSuite {
                 .andExpect(jsonPath("$.status", is("Available")))
                 .andExpect(jsonPath("$.publisher", is("Publisher")))
                 .andExpect(jsonPath("$.bookTitle", is("Title")));
-    }
-
-    @Test
-    @WithMockUser(roles = "Admin")
-    public void testCountSpecimenByStatusAndBookId() throws Exception {
-        // Given
-        when(specimenService.countSpecimensByStatusAndBookId(anyString(), anyLong())).thenReturn(5L);
-
-        // When & Then
-        mockMvc.perform(get("/v1/specimens/count/1")
-                .param("status", "AVAILABLE")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("$").value(5));
     }
 
     @Test
@@ -143,13 +130,15 @@ public class SpecimenControllerTestSuite {
 
     @Test
     @WithMockUser(roles = "Admin")
-    public void testChangeSpecimenStatusToAvailable() throws Exception {
+    public void testUpdateSpecimen() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.CLASSIC), 2001);
-        Specimen specimen = new Specimen(Status.RENTED.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2001);
+        book.setId(1L);
+        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2005, book, 1234567891111L);
 
-        when(specimenService.changeSpecimenStatusToAvailable(anyLong())).thenReturn(specimen);
+        SpecimenDto updatedSpecimen = new SpecimenDto(Status.RENTED.getStatus(), "Pub", 2005, book.getTitle(), 1234567891111L);
+
+        when(specimenService.updateSpecimen(any(Specimen.class))).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
         when(specimenMapper.mapToSpecimen(any(SpecimenDto.class))).thenReturn(specimen);
 
@@ -157,60 +146,13 @@ public class SpecimenControllerTestSuite {
         String jsonContent = gson.toJson(updatedSpecimen);
 
         // When & Then
-        mockMvc.perform(put("/v1/specimens/available/1")
+        mockMvc.perform(put("/v1/specimens")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.status", is("Available")));
-    }
-
-    @Test
-    @WithMockUser(roles = "Admin")
-    public void testChangeSpecimenStatusToRented() throws Exception {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.ADVENTURE), 2001);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.RENTED.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
-
-        when(specimenService.changeSpecimenStatusToRented(anyLong())).thenReturn(specimen);
-        when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
-        when(specimenMapper.mapToSpecimen(any(SpecimenDto.class))).thenReturn(specimen);
-
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(updatedSpecimen);
-
-        // When & Then
-        mockMvc.perform(put("/v1/specimens/rented/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(jsonContent))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("$.status", is("Rented")));
-    }
-
-    @Test
-    @WithMockUser(roles = "Admin")
-    public void testChangeSpecimenStatusToLost() throws Exception {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.DETECTIVE), 2001);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        SpecimenDto updatedSpecimen = new SpecimenDto(Status.LOST.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
-
-        when(specimenService.changeSpecimenStatusToLost(anyLong())).thenReturn(specimen);
-        when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(updatedSpecimen);
-        when(specimenMapper.mapToSpecimen(any(SpecimenDto.class))).thenReturn(specimen);
-
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(updatedSpecimen);
-
-        // When & Then
-        mockMvc.perform(put("/v1/specimens/lost/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .characterEncoding("UTF-8")
-                .content(jsonContent))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("$.status", is("Lost")));
+                .andExpect(jsonPath("$.status", is("Rented")))
+                .andExpect(jsonPath("$.publisher", is("Pub")));
     }
 
     @Test

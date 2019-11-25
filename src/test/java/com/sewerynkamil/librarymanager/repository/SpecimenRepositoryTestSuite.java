@@ -134,34 +134,4 @@ public class SpecimenRepositoryTestSuite {
         // Then
         Assert.assertEquals(0, specimenListSize);
     }
-
-    @Test
-    @Transactional
-    public void testCountByStatusAndBookId() {
-        // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748757L);
-        Specimen specimen3 = new Specimen(Status.LOST.getStatus(), "Publisher", 2001, book, 9788375748718L);
-
-        specimen1.setBook(book);
-        specimen2.setBook(book);
-        specimen3.setBook(book);
-        book.getSpecimenList().add(specimen1);
-        book.getSpecimenList().add(specimen2);
-        book.getSpecimenList().add(specimen3);
-
-        bookRepository.save(book);
-        specimenRepository.save(specimen1);
-        specimenRepository.save(specimen2);
-        specimenRepository.save(specimen3);
-
-        // When
-        Long available = specimenRepository.countByStatusAndBookId(Status.AVAILABLE.getStatus(), book.getId());
-        Long lost = specimenRepository.countByStatusAndBookId(Status.LOST.getStatus(), book.getId());
-
-        // Then
-        Assert.assertEquals(Optional.of(2L).get(), available);
-        Assert.assertEquals(Optional.of(1L).get(), lost);
-    }
 }

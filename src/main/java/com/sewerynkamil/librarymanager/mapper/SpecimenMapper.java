@@ -30,12 +30,14 @@ public class SpecimenMapper {
     }
 
     public Specimen mapToSpecimen(final SpecimenDto specimenDto) {
-        return new Specimen(
+        Specimen specimen = new Specimen(
                 specimenDto.getStatus(),
                 specimenDto.getPublisher(),
                 specimenDto.getYearOfPublication(),
                 bookRepository.findByTitle(specimenDto.getBookTitle()),
                 specimenDto.getIsbn());
+        specimen.setId(specimenDto.getId());
+        return specimen;
     }
 
     public List<SpecimenDto> mapToSpecimenDtoList(final List<Specimen> specimenList) {

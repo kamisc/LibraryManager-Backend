@@ -41,29 +41,12 @@ public class SpecimenService {
         return specimenRepository.save(specimen);
     }
 
-    public Specimen changeSpecimenStatusToAvailable(final Long specimenId) {
-        Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.AVAILABLE.getStatus());
+    public Specimen updateSpecimen(Specimen specimen) {
         return specimenRepository.save(specimen);
     }
 
-    public Specimen changeSpecimenStatusToRented(final Long specimenId) {
-        Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.RENTED.getStatus());
-        return specimenRepository.save(specimen);
-    }
-
-    public Specimen changeSpecimenStatusToLost(final Long specimenId) {
-        Specimen specimen = specimenRepository.findById(specimenId).get();
-        specimen.setStatus(Status.LOST.getStatus());
-        return specimenRepository.save(specimen);
-    }
-
-    public void deleteSpecimen(final Long specimenId) {
-        specimenRepository.deleteById(specimenId);
-    }
-
-    public Long countSpecimensByStatusAndBookId(final String status, final Long bookId) {
-        return specimenRepository.countByStatusAndBookId(status, bookId);
+    public void deleteSpecimen(final Specimen specimen) {
+        specimen.getBook().getSpecimenList().remove(specimen);
+        specimenRepository.delete(specimen);
     }
 }
