@@ -97,4 +97,8 @@ public class RentService {
         rent.getUser().getRentList().remove(rent);
         rentRepository.deleteById(id);
     }
+
+    public Long countRents() {
+        return rentRepository.count();
+    }
 }

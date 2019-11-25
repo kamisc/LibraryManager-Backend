@@ -39,4 +39,7 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     @Override
     void deleteById(Long rentId);
+
+    @Override
+    long count();
 }

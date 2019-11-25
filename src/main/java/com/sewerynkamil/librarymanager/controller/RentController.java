@@ -42,16 +42,19 @@ public class RentController {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserId(userId));
     }
 
+    //
     @GetMapping("/date/{date}")
     public List<RentDto> getAllRentsByReturnDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByReturnDate(date));
     }
 
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/titles/{bookTitle}")
     public List<RentDto> getAllRentsByBookTitleStartsWithIgnoreCase(@PathVariable String bookTitle) {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByBookTitleStartsWithIgnoreCase(bookTitle));
     }
 
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/emails/{email}")
     public List<RentDto> getAllRentsByUserEmailStartsWithIgnoreCase(@PathVariable String email) {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserEmailStartsWithIgnoreCase(email));
@@ -62,9 +65,15 @@ public class RentController {
         return rentMapper.mapToRentDto(rentService.findOneRentBySpecimenId(specimenId));
     }
 
+    //
     @GetMapping("/rent/{rentId}")
     public RentDto getOneRentById(@PathVariable Long rentId) throws RentNotExistException {
         return rentMapper.mapToRentDto(rentService.findOneRentById(rentId));
+    }
+
+    @GetMapping(value = "/count")
+    public Long countRents() {
+        return rentService.countRents();
     }
 
     @PostMapping(value = "/{userId}")
