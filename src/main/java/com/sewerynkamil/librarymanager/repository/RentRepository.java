@@ -23,6 +23,10 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     List<Rent> findAllByReturnDate(LocalDate date);
 
+    List<Rent> findBySpecimen_Book_TitleStartsWithIgnoreCase(String title);
+
+    List<Rent> findByUser_EmailStartsWithIgnoreCase(String email);
+
     Rent findBySpecimenId(Long specimenId);
 
     Rent findBySpecimenIdAndUserId(Long specimenId, Long userId);

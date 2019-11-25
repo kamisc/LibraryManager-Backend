@@ -29,10 +29,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -60,14 +59,16 @@ public class RentControllerTestSuite {
     private RentMapper rentMapper;
 
     @Test
-    @WithMockUser
-    public void testGetAllRents() throws Exception {
+    @WithMockUser(roles = "Admin")
+    public void testGetAllRentsWithLazyLoading() throws Exception {
         // Given
         List<Rent> rentList = new ArrayList<>();
-        when(rentService.findAllRents()).thenReturn(rentList);
+        when(rentService.findAllRentsWithLazyLoading(anyInt(), anyInt())).thenReturn(rentList);
 
         // When & Then
         mockMvc.perform(get("/v1/rents")
+                .param("offset", "2")
+                .param("limit", "2")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -103,6 +104,34 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser
+    public void testGetAllRentsByBookTitleStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<Rent> rentList = new ArrayList<>();
+        when(rentService.findAllRentsByBookTitleStartsWithIgnoreCase(anyString())).thenReturn(rentList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/rents/titles/example")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testGetAllRentsByUserEmailStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<Rent> rentList = new ArrayList<>();
+        when(rentService.findAllRentsByUserEmailStartsWithIgnoreCase(anyString())).thenReturn(rentList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/rents/emails/example")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser
     public void testGetOneRentBySpecimenId() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.HISTORICAL), 2001);
@@ -116,7 +145,7 @@ public class RentControllerTestSuite {
         rent.setId(4L);
 
 
-        RentDto rentDto = new RentDto(4L, 3L, 2L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
+        RentDto rentDto = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
 
         when(rentService.findOneRentById(anyLong())).thenReturn(rent);
         when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(rentDto);
@@ -141,7 +170,7 @@ public class RentControllerTestSuite {
         Rent rent = new Rent(specimen, user);
         rent.setId(4L);
 
-        RentDto rentDto = new RentDto(4L, 3L, 2L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
+        RentDto rentDto = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
 
         when(rentService.findOneRentById(anyLong())).thenReturn(rent);
         when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(rentDto);
@@ -168,7 +197,7 @@ public class RentControllerTestSuite {
         Rent rent = new Rent(specimen, user);
         rent.setId(4L);
 
-        RentDto rentDto = new RentDto(4L, 3L, 2L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
+        RentDto rentDto = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
 
         when(rentService.rentBook(anyLong(), anyLong())).thenReturn(rent);
         when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(rentDto);
@@ -199,7 +228,7 @@ public class RentControllerTestSuite {
         Rent rent = new Rent(specimen, user);
         rent.setId(4L);
 
-        RentDto updatedRent = new RentDto(4L, 3L, 2L, book.getTitle(), user.getEmail(), rent.getRentDate(), LocalDate.of(2020, 1, 3));
+        RentDto updatedRent = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), LocalDate.of(2020, 1, 3));
 
         when(rentService.prolongationRent(anyLong(), anyLong())).thenReturn(rent);
         when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(updatedRent);

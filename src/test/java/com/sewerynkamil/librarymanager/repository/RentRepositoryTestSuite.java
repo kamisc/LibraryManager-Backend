@@ -150,6 +150,76 @@ public class RentRepositoryTestSuite {
 
     @Test
     @Transactional
+    public void testFindBySpecimenBookTitleStartsWithIgnoreCase() {
+        // Given
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
+        Book book2 = new Book("Author2", "Title1", Category.categoryFactory(Category.FABLE), 1999);
+
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2, 1231231231231L);
+
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
+
+        book1.getSpecimenList().add(specimen1);
+        book2.getSpecimenList().add(specimen2);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        specimenRepository.save(specimen1);
+        specimenRepository.save(specimen2);
+
+        userRepository.save(user);
+
+        Rent rent1 = new Rent(specimen1, user);
+        Rent rent2 = new Rent(specimen2, user);
+
+        rentRepository.save(rent1);
+        rentRepository.save(rent2);
+
+        // When
+        List<Rent> rents = rentRepository.findBySpecimen_Book_TitleStartsWithIgnoreCase("Title1");
+
+        // Then
+        Assert.assertEquals(2, rents.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByUserEmailStartsWithIgnoreCase() {
+        // Given
+        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
+        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999);
+
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2, 1231231231231L);
+
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
+
+        book1.getSpecimenList().add(specimen1);
+        book2.getSpecimenList().add(specimen2);
+        bookRepository.save(book1);
+        bookRepository.save(book2);
+
+        specimenRepository.save(specimen1);
+        specimenRepository.save(specimen2);
+
+        userRepository.save(user);
+
+        Rent rent1 = new Rent(specimen1, user);
+        Rent rent2 = new Rent(specimen2, user);
+
+        rentRepository.save(rent1);
+        rentRepository.save(rent2);
+
+        // When
+        List<Rent> rents = rentRepository.findByUser_EmailStartsWithIgnoreCase("email@gmail.com");
+
+        // Then
+        Assert.assertEquals(2, rents.size());
+    }
+
+    @Test
+    @Transactional
     public void testFindBySpecimenId() {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);

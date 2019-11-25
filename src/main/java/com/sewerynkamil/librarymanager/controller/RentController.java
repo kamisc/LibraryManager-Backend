@@ -31,9 +31,10 @@ public class RentController {
         this.rentMapper = rentMapper;
     }
 
+    @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping
-    public List<RentDto> getAllRents() {
-        return rentMapper.mapToRentDtoList(rentService.findAllRents());
+    public List<RentDto> getAllRents(@RequestParam int offset, @RequestParam int limit) {
+        return rentMapper.mapToRentDtoList(rentService.findAllRentsWithLazyLoading(offset, limit));
     }
 
     @GetMapping("/user/{userId}")
@@ -44,6 +45,16 @@ public class RentController {
     @GetMapping("/date/{date}")
     public List<RentDto> getAllRentsByReturnDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByReturnDate(date));
+    }
+
+    @GetMapping("/titles/{bookTitle}")
+    public List<RentDto> getAllRentsByBookTitleStartsWithIgnoreCase(@PathVariable String bookTitle) {
+        return rentMapper.mapToRentDtoList(rentService.findAllRentsByBookTitleStartsWithIgnoreCase(bookTitle));
+    }
+
+    @GetMapping("/emails/{email}")
+    public List<RentDto> getAllRentsByUserEmailStartsWithIgnoreCase(@PathVariable String email) {
+        return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserEmailStartsWithIgnoreCase(email));
     }
 
     @GetMapping("/specimen/{specimenId}")

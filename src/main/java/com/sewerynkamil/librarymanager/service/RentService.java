@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Author Kamil Seweryn
@@ -39,8 +40,11 @@ public class RentService {
         this.emailService = emailService;
     }
 
-    public List<Rent> findAllRents() {
-        return rentRepository.findAll();
+    public List<Rent> findAllRentsWithLazyLoading(int offset, int limit) {
+        return rentRepository.findAll().stream()
+                .skip(offset)
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
     public List<Rent> findAllRentsByUserId(final Long userId) {
@@ -49,6 +53,14 @@ public class RentService {
 
     public List<Rent> findAllRentsByReturnDate(final LocalDate date) {
         return rentRepository.findAllByReturnDate(date);
+    }
+
+    public List<Rent> findAllRentsByBookTitleStartsWithIgnoreCase(String title) {
+        return rentRepository.findBySpecimen_Book_TitleStartsWithIgnoreCase(title);
+    }
+
+    public List<Rent> findAllRentsByUserEmailStartsWithIgnoreCase(String email) {
+        return rentRepository.findByUser_EmailStartsWithIgnoreCase(email);
     }
 
     public Rent findOneRentBySpecimenId(final Long specimenId) {

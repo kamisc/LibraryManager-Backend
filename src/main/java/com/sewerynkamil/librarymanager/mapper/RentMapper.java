@@ -16,7 +16,6 @@ public class RentMapper {
     public RentDto mapToRentDto(final Rent rent) {
         return new RentDto(
                 rent.getId(),
-                rent.getUser().getId(),
                 rent.getSpecimen().getId(),
                 rent.getSpecimen().getBook().getTitle(),
                 rent.getUser().getEmail(),
@@ -28,7 +27,6 @@ public class RentMapper {
         return rentList.stream()
                 .map(rent -> new RentDto(
                         rent.getId(),
-                        rent.getUser().getId(),
                         rent.getSpecimen().getId(),
                         rent.getSpecimen().getBook().getTitle(),
                         rent.getUser().getEmail(),
