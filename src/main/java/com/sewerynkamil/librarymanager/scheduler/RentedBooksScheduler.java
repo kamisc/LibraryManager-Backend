@@ -1,9 +1,7 @@
 package com.sewerynkamil.librarymanager.scheduler;
 
 import com.sewerynkamil.librarymanager.domain.Mail;
-import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.domain.User;
-import com.sewerynkamil.librarymanager.repository.RentRepository;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
 import com.sewerynkamil.librarymanager.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +18,6 @@ public class RentedBooksScheduler {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private RentRepository rentRepository;
 
     @Autowired
     private UserRepository userRepository;
