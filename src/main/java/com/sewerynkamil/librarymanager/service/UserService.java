@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.User;
-import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
@@ -31,23 +30,6 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepository userRepository, PasswordEncoder bcryptEncoder) {
         this.userRepository = userRepository;
         this.bcryptEncoder = bcryptEncoder;
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = null;
-
-        try {
-            user = findOneUserByEmail(username);
-        } catch (UserNotExistException e) {
-            e.getMessage();
-        }
-
-        if(user == null) {
-            throw new UsernameNotFoundException("User not found with email: " + username);
-        } else {
-            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
-        }
     }
 
     public List<User> findAllUsersWithLazyLoading(int offset, int limit) {
@@ -108,9 +90,26 @@ public class UserService implements UserDetailsService {
         return userRepository.count();
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = null;
+
+        try {
+            user = findOneUserByEmail(username);
+        } catch (UserNotExistException e) {
+            e.getMessage();
+        }
+
+        if(user == null) {
+            throw new UsernameNotFoundException("User not found with email: " + username);
+        } else {
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), getAuthority(user));
+        }
+    }
+
     private Set<SimpleGrantedAuthority> getAuthority(User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));
         return authorities;
     }
 }
