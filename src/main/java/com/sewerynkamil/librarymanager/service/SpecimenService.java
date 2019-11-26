@@ -2,7 +2,6 @@ package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
-import com.sewerynkamil.librarymanager.repository.BookRepository;
 import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class SpecimenService {
     private SpecimenRepository specimenRepository;
 
     @Autowired
-    public SpecimenService(SpecimenRepository specimenRepository, BookRepository bookRepository) {
+    public SpecimenService(SpecimenRepository specimenRepository) {
         this.specimenRepository = specimenRepository;
     }
 
