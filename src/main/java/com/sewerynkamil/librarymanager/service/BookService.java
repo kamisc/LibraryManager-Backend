@@ -1,11 +1,9 @@
 package com.sewerynkamil.librarymanager.service;
 
-import com.sewerynkamil.librarymanager.client.WolneLekturyClient;
 import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.BookNotExistException;
 import com.sewerynkamil.librarymanager.repository.BookRepository;
-import com.sewerynkamil.librarymanager.repository.SpecimenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +17,10 @@ import java.util.stream.Collectors;
 @Service
 public class BookService {
     private BookRepository bookRepository;
-    private SpecimenRepository specimenRepository;
-    private WolneLekturyClient wolneLekturyClient;
 
     @Autowired
-    public BookService(BookRepository bookRepository, SpecimenRepository specimenRepository, WolneLekturyClient wolneLekturyClient) {
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
-        this.specimenRepository = specimenRepository;
-        this.wolneLekturyClient = wolneLekturyClient;
     }
 
     public List<Book> findAllBooksWithLazyLoading(int offset, int limit) {
