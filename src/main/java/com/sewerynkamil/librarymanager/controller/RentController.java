@@ -42,12 +42,6 @@ public class RentController {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserId(userId));
     }
 
-    //
-    @GetMapping("/date/{date}")
-    public List<RentDto> getAllRentsByReturnDate(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return rentMapper.mapToRentDtoList(rentService.findAllRentsByReturnDate(date));
-    }
-
     @PreAuthorize("hasAnyRole('Admin')")
     @GetMapping("/titles/{bookTitle}")
     public List<RentDto> getAllRentsByBookTitleStartsWithIgnoreCase(@PathVariable String bookTitle) {
@@ -60,20 +54,15 @@ public class RentController {
         return rentMapper.mapToRentDtoList(rentService.findAllRentsByUserEmailStartsWithIgnoreCase(email));
     }
 
-    @GetMapping("/specimen/{specimenId}")
-    public RentDto getOneRentBySpecimenId(@PathVariable Long specimenId) {
-        return rentMapper.mapToRentDto(rentService.findOneRentBySpecimenId(specimenId));
-    }
-
-    //
-    @GetMapping("/rent/{rentId}")
-    public RentDto getOneRentById(@PathVariable Long rentId) throws RentNotExistException {
-        return rentMapper.mapToRentDto(rentService.findOneRentById(rentId));
-    }
-
-    @GetMapping(value = "/count")
+    @GetMapping("/count")
     public Long countRents() {
         return rentService.countRents();
+    }
+
+    @PreAuthorize("hasAnyRole('Admin')")
+    @GetMapping("/exist/{title}")
+    public boolean isRentExist(@PathVariable String title) {
+        return rentService.isRentExist(title);
     }
 
     @PostMapping(value = "/{userId}")
@@ -81,7 +70,7 @@ public class RentController {
         rentMapper.mapToRentDto(rentService.rentBook(specimenId, userId));
     }
 
-    @PutMapping(value = "/{userId}")
+    @PutMapping("/{userId}")
     public RentDto prolongationBook(@RequestParam Long specimenId, @PathVariable Long userId) {
         return rentMapper.mapToRentDto(rentService.prolongationRent(specimenId, userId));
     }

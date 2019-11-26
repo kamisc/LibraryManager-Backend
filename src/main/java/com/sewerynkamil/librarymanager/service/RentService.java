@@ -51,24 +51,12 @@ public class RentService {
         return rentRepository.findAllByUserId(userId);
     }
 
-    public List<Rent> findAllRentsByReturnDate(final LocalDate date) {
-        return rentRepository.findAllByReturnDate(date);
-    }
-
     public List<Rent> findAllRentsByBookTitleStartsWithIgnoreCase(String title) {
-        return rentRepository.findBySpecimen_Book_TitleStartsWithIgnoreCase(title);
+        return rentRepository.findBySpecimenBookTitleStartsWithIgnoreCase(title);
     }
 
     public List<Rent> findAllRentsByUserEmailStartsWithIgnoreCase(String email) {
-        return rentRepository.findByUser_EmailStartsWithIgnoreCase(email);
-    }
-
-    public Rent findOneRentBySpecimenId(final Long specimenId) {
-        return rentRepository.findBySpecimenId(specimenId);
-    }
-
-    public Rent findOneRentById(final Long rentId) throws RentNotExistException {
-        return rentRepository.findById(rentId).orElseThrow(RentNotExistException::new);
+        return rentRepository.findByUserEmailStartsWithIgnoreCase(email);
     }
 
     public Rent rentBook(final Long specimenId, final Long userId) throws SpecimenNotExistException, UserNotExistException {
@@ -100,5 +88,9 @@ public class RentService {
 
     public Long countRents() {
         return rentRepository.count();
+    }
+
+    public boolean isRentExist(String title) {
+        return rentRepository.existsBySpecimenBookTitle(title);
     }
 }

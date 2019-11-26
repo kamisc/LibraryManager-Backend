@@ -21,18 +21,11 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     List<Rent> findAllByUserId(Long id);
 
-    List<Rent> findAllByReturnDate(LocalDate date);
+    List<Rent> findBySpecimenBookTitleStartsWithIgnoreCase(String title);
 
-    List<Rent> findBySpecimen_Book_TitleStartsWithIgnoreCase(String title);
-
-    List<Rent> findByUser_EmailStartsWithIgnoreCase(String email);
-
-    Rent findBySpecimenId(Long specimenId);
+    List<Rent> findByUserEmailStartsWithIgnoreCase(String email);
 
     Rent findBySpecimenIdAndUserId(Long specimenId, Long userId);
-
-    @Override
-    Optional<Rent> findById(Long id);
 
     @Override
     Rent save(Rent rent);
@@ -42,4 +35,6 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
 
     @Override
     long count();
+
+    boolean existsBySpecimenBookTitle(String title);
 }

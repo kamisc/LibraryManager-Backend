@@ -110,38 +110,6 @@ public class RentServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFindAllByReturnDate() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
-        // Given
-        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
-        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999);
-
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1, 9788375748758L);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2, 1231231231231L);
-
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
-
-        book1.getSpecimenList().add(specimen1);
-        book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1);
-        bookService.saveNewBook(book2);
-
-        specimenService.saveNewSpecimen(specimen1);
-        specimenService.saveNewSpecimen(specimen2);
-
-        userService.saveUser(user);
-
-        rentService.rentBook(specimen1.getId(), user.getId());
-        rentService.rentBook(specimen2.getId(), user.getId());
-
-        // When
-        List<Rent> rents = rentService.findAllRentsByReturnDate(LocalDate.now().plusDays(30));
-
-        // Then
-        Assert.assertEquals(2, rents.size());
-    }
-
-    @Test
-    @Transactional
     public void testFindAllRentsByBookTitleStartsWithIgnoreCase() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
         Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
@@ -206,68 +174,6 @@ public class RentServiceTestSuite {
 
     @Test
     @Transactional
-    public void testFindAllBySpecimenId() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
-        // Given
-        Book book1 = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
-        Book book2 = new Book("Author2", "Title2", Category.categoryFactory(Category.FABLE), 1999);
-
-        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book1, 9788375748758L);
-        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book2, 1231231231231L);
-
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
-
-        book1.getSpecimenList().add(specimen1);
-        book2.getSpecimenList().add(specimen2);
-        bookService.saveNewBook(book1);
-        bookService.saveNewBook(book2);
-
-        specimenService.saveNewSpecimen(specimen1);
-        specimenService.saveNewSpecimen(specimen2);
-
-        userService.saveUser(user);
-
-        rentService.rentBook(specimen1.getId(), user.getId());
-        rentService.rentBook(specimen2.getId(), user.getId());
-
-        // When
-        Rent rent = rentService.findOneRentBySpecimenId(specimen1.getId());
-
-        // Then
-        Assert.assertEquals(LocalDate.now(), rent.getRentDate());
-        Assert.assertEquals(LocalDate.now().plusDays(30), rent.getReturnDate());
-        Assert.assertEquals(Status.RENTED.getStatus(), rent.getSpecimen().getStatus());
-        Assert.assertEquals("Name", rent.getUser().getName());
-    }
-
-    @Test
-    @Transactional
-    public void testFindOneById() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
-        // Given
-        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
-
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
-
-        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
-
-        book.getSpecimenList().add(specimen);
-        bookService.saveNewBook(book);
-
-        specimenService.saveNewSpecimen(specimen);
-
-        userService.saveUser(user);
-
-        Rent rent = rentService.rentBook(specimen.getId(), user.getId());
-
-        // When
-        Rent getRent = rentService.findOneRentById(rent.getId());
-
-        // Then
-        Assert.assertEquals(Status.RENTED.getStatus(), getRent.getSpecimen().getStatus());
-        Assert.assertEquals("Publisher", getRent.getSpecimen().getPublisher());
-    }
-
-    @Test
-    @Transactional
     public void testRentBookAndFindById() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
@@ -283,14 +189,12 @@ public class RentServiceTestSuite {
 
         userService.saveUser(user);
 
+        // When
         Rent rent = rentService.rentBook(specimen.getId(), user.getId());
 
-        // When
-        Rent getRent = rentService.findOneRentById(rent.getId());
-
         // Then
-        Assert.assertEquals(LocalDate.now(), getRent.getRentDate());
-        Assert.assertEquals(LocalDate.now().plusDays(30), getRent.getReturnDate());
+        Assert.assertEquals(LocalDate.now(), rent.getRentDate());
+        Assert.assertEquals(LocalDate.now().plusDays(30), rent.getReturnDate());
     }
 
     @Test
@@ -350,10 +254,33 @@ public class RentServiceTestSuite {
         Assert.assertEquals(rent1.getReturnDate(), LocalDate.now());
     }
 
-    @Test(expected = RentNotExistException.class)
+    @Test
     @Transactional
-    public void testRentNotExistException() throws RentNotExistException {
+    public void testRentExist() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
+        // Given
+        Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
+
+        Specimen specimen1 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+        Specimen specimen2 = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
+
+        book.getSpecimenList().add(specimen1);
+        book.getSpecimenList().add(specimen2);
+        bookService.saveNewBook(book);
+
+        specimenService.saveNewSpecimen(specimen1);
+        specimenService.saveNewSpecimen(specimen2);
+
+        userService.saveUser(user);
+
+        Rent rent1 = rentService.rentBook(specimen1.getId(), user.getId());
+        Rent rent2 = rentService.rentBook(specimen2.getId(), user.getId());
+
         // When
-        rentService.findOneRentById(1L);
+        boolean isExist = rentService.isRentExist("Title1");
+
+        // Then
+        Assert.assertTrue(isExist);
     }
 }

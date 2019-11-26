@@ -89,42 +89,30 @@ public class RentControllerTestSuite {
     }
 
     @Test
-    @WithMockUser
-    public void testGetAllRentsByReturnDate() throws Exception {
-        // Given
-        List<Rent> rentList = new ArrayList<>();
-        when(rentService.findAllRentsByReturnDate(LocalDate.now())).thenReturn(rentList);
-
-        // When & Then
-        mockMvc.perform(get("/v1/rents/date/2019-04-11")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200))
-                .andExpect(jsonPath("$", hasSize(0)));
-    }
-
-    @Test
-    @WithMockUser
+    @WithMockUser(roles = "Admin")
     public void testGetAllRentsByBookTitleStartsWithIgnoreCase() throws Exception {
         // Given
         List<Rent> rentList = new ArrayList<>();
-        when(rentService.findAllRentsByBookTitleStartsWithIgnoreCase(anyString())).thenReturn(rentList);
+        String bookTitle = "Example";
+        when(rentService.findAllRentsByBookTitleStartsWithIgnoreCase(bookTitle)).thenReturn(rentList);
 
         // When & Then
-        mockMvc.perform(get("/v1/rents/titles/example")
+        mockMvc.perform(get("/v1/rents/titles/" + bookTitle)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
     }
 
     @Test
-    @WithMockUser
+    @WithMockUser(roles = "Admin")
     public void testGetAllRentsByUserEmailStartsWithIgnoreCase() throws Exception {
         // Given
         List<Rent> rentList = new ArrayList<>();
+        String email = "example@gmail.com";
         when(rentService.findAllRentsByUserEmailStartsWithIgnoreCase(anyString())).thenReturn(rentList);
 
         // When & Then
-        mockMvc.perform(get("/v1/rents/emails/example")
+        mockMvc.perform(get("/v1/rents/emails/" + email)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -132,55 +120,29 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser
-    public void testGetOneRentBySpecimenId() throws Exception {
+    public void testCountRents() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.HISTORICAL), 2001);
-        book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
-        user.setId(3L);
-
-        Rent rent = new Rent(specimen, user);
-        rent.setId(4L);
-
-
-        RentDto rentDto = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
-
-        when(rentService.findOneRentById(anyLong())).thenReturn(rent);
-        when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(rentDto);
+        when(rentService.countRents()).thenReturn(5L);
 
         // When & Then
-        mockMvc.perform(get("/v1/rents/specimen/" + specimen.getId())
+        mockMvc.perform(get("/v1/rents/count")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().is(200));
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$").value(5));
     }
 
     @Test
-    @WithMockUser
-    public void testGetOneRentById() throws Exception {
+    @WithMockUser(roles = "Admin")
+    public void testIsRentExist() throws Exception {
         // Given
-        Book book = new Book("Author", "Title", Category.categoryFactory(Category.HORROR), 2001);
-        book.setId(1L);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        specimen.setId(2L);
-        User user = new User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
-        user.setId(3L);
-
-        Rent rent = new Rent(specimen, user);
-        rent.setId(4L);
-
-        RentDto rentDto = new RentDto(4L, 3L, book.getTitle(), user.getEmail(), rent.getRentDate(), rent.getReturnDate());
-
-        when(rentService.findOneRentById(anyLong())).thenReturn(rent);
-        when(rentMapper.mapToRentDto(any(Rent.class))).thenReturn(rentDto);
+        String title = "Title";
+        when(rentService.isRentExist(title)).thenReturn(true);
 
         // When & Then
-        mockMvc.perform(get("/v1/rents/rent/" + rent.getId())
+        mockMvc.perform(get("/v1/rents/exist/" + title)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.bookTitle", is("Title")))
-                .andExpect(jsonPath("$.userEmail", is("john@doe.com")));
+                .andExpect(jsonPath("$", is(true)));
     }
 
     @Test
