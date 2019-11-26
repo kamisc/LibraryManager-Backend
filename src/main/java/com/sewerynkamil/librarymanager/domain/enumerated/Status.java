@@ -12,7 +12,8 @@ import lombok.Getter;
 public enum Status {
     AVAILABLE("Available"),
     RENTED("Rented"),
-    LOST("Lost");
+    LOST("Lost"),
+    UNAVAILABLE("Unavailable");
 
     String status;
 }

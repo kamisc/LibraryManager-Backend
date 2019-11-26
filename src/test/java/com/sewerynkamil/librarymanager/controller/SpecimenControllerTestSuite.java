@@ -91,8 +91,8 @@ public class SpecimenControllerTestSuite {
     public void testGetOneSpecimen() throws Exception {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.ACTION), 2001);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
-        SpecimenDto specimenDto = new SpecimenDto(Status.AVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
+        Specimen specimen = new Specimen(Status.UNAVAILABLE.getStatus(), "Publisher", 2001, book, 1234567891011L);
+        SpecimenDto specimenDto = new SpecimenDto(Status.UNAVAILABLE.getStatus(), "Publisher", 2001, book.getTitle(), 1234567891011L);
 
         when(specimenService.findOneSpecimen(anyLong())).thenReturn(specimen);
         when(specimenMapper.mapToSpecimenDto(any(Specimen.class))).thenReturn(specimenDto);
@@ -101,7 +101,7 @@ public class SpecimenControllerTestSuite {
         mockMvc.perform(get("/v1/specimens/get/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
-                .andExpect(jsonPath("$.status", is("Available")))
+                .andExpect(jsonPath("$.status", is("Unavailable")))
                 .andExpect(jsonPath("$.publisher", is("Publisher")))
                 .andExpect(jsonPath("$.bookTitle", is("Title")));
     }

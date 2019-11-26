@@ -108,7 +108,7 @@ public class SpecimenServiceTestSuite {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2008);
         bookService.saveNewBook(book);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2008, book, 9788375748758L);
+        Specimen specimen = new Specimen(Status.UNAVAILABLE.getStatus(), "Publisher", 2008, book, 9788375748758L);
         specimenService.saveNewSpecimen(specimen);
 
         // When

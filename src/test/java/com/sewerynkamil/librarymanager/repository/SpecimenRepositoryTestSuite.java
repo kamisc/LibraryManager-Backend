@@ -118,7 +118,7 @@ public class SpecimenRepositoryTestSuite {
     public void testDeleteSpecimen() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
-        Specimen specimen = new Specimen(Status.AVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
+        Specimen specimen = new Specimen(Status.UNAVAILABLE.getStatus(), "Publisher", 2001, book, 9788375748758L);
 
         specimen.setBook(book);
         book.getSpecimenList().add(specimen);
