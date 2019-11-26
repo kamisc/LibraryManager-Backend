@@ -4,7 +4,6 @@ import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
-import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.RentRepository;
@@ -47,16 +46,16 @@ public class RentService {
                 .collect(Collectors.toList());
     }
 
-    public List<Rent> findAllRentsByUserId(final Long userId) {
-        return rentRepository.findAllByUserId(userId);
-    }
-
     public List<Rent> findAllRentsByBookTitleStartsWithIgnoreCase(String title) {
         return rentRepository.findBySpecimenBookTitleStartsWithIgnoreCase(title);
     }
 
     public List<Rent> findAllRentsByUserEmailStartsWithIgnoreCase(String email) {
         return rentRepository.findByUserEmailStartsWithIgnoreCase(email);
+    }
+
+    public List<Rent> findAllRentsByUserId(final Long userId) {
+        return rentRepository.findAllByUserId(userId);
     }
 
     public Rent rentBook(final Long specimenId, final Long userId) throws SpecimenNotExistException, UserNotExistException {
@@ -86,11 +85,11 @@ public class RentService {
         rentRepository.deleteById(id);
     }
 
-    public Long countRents() {
-        return rentRepository.count();
-    }
-
     public boolean isRentExist(String title) {
         return rentRepository.existsBySpecimenBookTitle(title);
+    }
+
+    public Long countRents() {
+        return rentRepository.count();
     }
 }
