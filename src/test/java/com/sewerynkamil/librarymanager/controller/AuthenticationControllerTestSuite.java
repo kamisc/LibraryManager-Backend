@@ -68,8 +68,8 @@ public class AuthenticationControllerTestSuite {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
-    public void testSaveNewUser() throws Exception {
+    @WithMockUser
+    public void testRegisterNewUser() throws Exception {
         // Given
         com.sewerynkamil.librarymanager.domain.User user = new com.sewerynkamil.librarymanager.domain.
                 User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
