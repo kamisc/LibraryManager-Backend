@@ -1,7 +1,6 @@
 package com.sewerynkamil.librarymanager.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import lombok.*;
 
 /**
