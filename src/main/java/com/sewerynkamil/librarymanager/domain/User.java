@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.domain;
 
-import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.observer.Observer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
