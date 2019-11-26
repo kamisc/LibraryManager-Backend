@@ -19,11 +19,11 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     @Override
     List<Rent> findAll();
 
-    List<Rent> findAllByUserId(Long id);
-
     List<Rent> findBySpecimenBookTitleStartsWithIgnoreCase(String title);
 
     List<Rent> findByUserEmailStartsWithIgnoreCase(String email);
+
+    List<Rent> findAllByUserId(Long id);
 
     Rent findBySpecimenIdAndUserId(Long specimenId, Long userId);
 
@@ -33,8 +33,8 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     @Override
     void deleteById(Long rentId);
 
+    boolean existsBySpecimenBookTitle(String title);
+
     @Override
     long count();
-
-    boolean existsBySpecimenBookTitle(String title);
 }
