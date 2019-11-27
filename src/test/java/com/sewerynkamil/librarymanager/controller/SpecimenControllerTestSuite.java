@@ -7,7 +7,6 @@ import com.sewerynkamil.librarymanager.domain.Book;
 import com.sewerynkamil.librarymanager.domain.Specimen;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
-import com.sewerynkamil.librarymanager.dto.BookDto;
 import com.sewerynkamil.librarymanager.dto.SpecimenDto;
 import com.sewerynkamil.librarymanager.mapper.SpecimenMapper;
 import com.sewerynkamil.librarymanager.service.SpecimenService;
