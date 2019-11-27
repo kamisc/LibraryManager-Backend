@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.controller;
 
-import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.UserDto;
@@ -82,7 +81,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Admin', 'User')")
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotExistException {
+    public UserDto updateUser(@RequestBody UserDto userDto) {
         return userMapper.mapToUserDto(userService.updateUser(userMapper.mapToUser(userDto)));
     }
 

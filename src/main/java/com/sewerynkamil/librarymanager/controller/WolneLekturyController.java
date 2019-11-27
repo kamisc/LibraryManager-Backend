@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.controller;
 
-import com.sewerynkamil.librarymanager.dto.BookDto;
 import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
 import com.sewerynkamil.librarymanager.service.WolneLekturyService;
 import org.springframework.beans.factory.annotation.Autowired;

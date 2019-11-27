@@ -1,17 +1,14 @@
 package com.sewerynkamil.librarymanager.controller;
 
-import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.SpecimenNotExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.RentDto;
 import com.sewerynkamil.librarymanager.mapper.RentMapper;
 import com.sewerynkamil.librarymanager.service.RentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
