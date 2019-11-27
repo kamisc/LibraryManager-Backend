@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.transaction.Transactional;
 import java.util.List;
 
+import static java.util.Optional.ofNullable;
+
 /**
  * Author Kamil Seweryn
  */
@@ -40,6 +42,46 @@ public class UserRepositoryTestSuite {
 
         // Then
         Assert.assertEquals(2, users.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindByNameStartsWithIgnoreCase() {
+        // Given
+        User user1 = new User("Nae1", "Surname1", "email1@gmail.com", 123456789, "123456789", Role.USER.getRole());
+        User user2 = new User("Nae2", "Surname2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER.getRole());
+        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456", Role.USER.getRole());
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+
+        // When
+        List<User> usersNa = userRepository.findByNameStartsWithIgnoreCase("na");
+        List<User> usersNam = userRepository.findByNameStartsWithIgnoreCase("nam");
+
+        // Then
+        Assert.assertEquals(3, usersNa.size());
+        Assert.assertEquals(1, usersNam.size());
+    }
+
+    @Test
+    @Transactional
+    public void testFindBySurnameStartsWithIgnoreCase() {
+        // Given
+        User user1 = new User("Name1", "Surame1", "email1@gmail.com", 123456789, "123456789", Role.USER.getRole());
+        User user2 = new User("Name2", "Surame2", "email2@gmail.com", 234567891, "abcdefgh", Role.USER.getRole());
+        User user3 = new User("Name3", "Surname3", "emil@gmail.com", 345678912, "123abc456", Role.USER.getRole());
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
+
+        // When
+        List<User> usersSur = userRepository.findBySurnameStartsWithIgnoreCase("sur");
+        List<User> usersSurn = userRepository.findBySurnameStartsWithIgnoreCase("surn");
+
+        // Then
+        Assert.assertEquals(3, usersSur.size());
+        Assert.assertEquals(1, usersSurn.size());
     }
 
     @Test
@@ -111,7 +153,7 @@ public class UserRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testIsExistsByEmail() {
+    public void testExistsByEmail() {
         // Given
         User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
         userRepository.save(user);
@@ -135,5 +177,19 @@ public class UserRepositoryTestSuite {
 
         // Then
         Assert.assertFalse(isExist);
+    }
+
+    @Test
+    @Transactional
+    public void testCountBooks() {
+        // Given
+        User user = new User("Name", "Surname", "email@gmail.com", 123456789, "123456789", Role.USER.getRole());
+        userRepository.save(user);
+
+        // When
+        Long count = userRepository.count();
+
+        // Then
+        Assert.assertEquals(ofNullable(1L).get(), count);
     }
 }
