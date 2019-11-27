@@ -177,7 +177,7 @@ public class RentServiceTestSuite {
 
     @Test
     @Transactional
-    public void testRentBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
+    public void testRentBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
 
@@ -202,7 +202,7 @@ public class RentServiceTestSuite {
 
     @Test
     @Transactional
-    public void testProlongationBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException, RentNotExistException {
+    public void testProlongationBook() throws BookExistException, UserExistException, SpecimenNotExistException, UserNotExistException {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
 

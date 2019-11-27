@@ -7,7 +7,6 @@ import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Category;
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.enumerated.Status;
-import com.sewerynkamil.librarymanager.domain.exceptions.RentNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -214,7 +213,7 @@ public class RentRepositoryTestSuite {
 
     @Test
     @Transactional
-    public void testSaveRent() throws RentNotExistException {
+    public void testSaveRent() {
         // Given
         Book book = new Book("Author1", "Title1", Category.categoryFactory(Category.FANTASY), 2011);
 
@@ -234,7 +233,7 @@ public class RentRepositoryTestSuite {
         rentRepository.save(rent);
 
         // When
-        Rent getRent = rentRepository.findById(rent.getId()).orElseThrow(RentNotExistException::new);
+        Rent getRent = rentRepository.findBySpecimenIdAndUserId(specimen.getId(), user.getId());
 
         // Then
         Assert.assertEquals(LocalDate.now(), getRent.getRentDate());
