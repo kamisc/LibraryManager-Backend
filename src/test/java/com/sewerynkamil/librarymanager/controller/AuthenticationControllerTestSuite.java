@@ -75,8 +75,6 @@ public class AuthenticationControllerTestSuite {
                 User("John", "Doe", "john@doe.com", 123456789, "482acv58", Role.USER.getRole());
         user.setId(1L);
 
-        UserDto userDto = new UserDto("John", "Doe", "john@doe.com", 123456789, "482acv58");
-
         when(userService.saveUser(any(com.sewerynkamil.librarymanager.domain.User.class))).thenReturn(user);
         when(userMapper.mapToUser(any(UserDto.class))).thenReturn(user);
 
