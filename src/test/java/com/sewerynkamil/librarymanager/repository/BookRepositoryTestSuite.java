@@ -117,6 +117,22 @@ public class BookRepositoryTestSuite {
 
     @Test
     @Transactional
+    public void testSaveBookAndFindByTitle() {
+        // Given
+        Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
+        bookRepository.save(book);
+
+        // When
+        Book getBook = bookRepository.findByTitle(book.getTitle());
+
+        // Then
+        Assert.assertEquals("Author", getBook.getAuthor());
+        Assert.assertEquals("Title", getBook.getTitle());
+        Assert.assertEquals("Fantasy", getBook.getCategory());
+    }
+
+    @Test
+    @Transactional
     public void testDeleteBook() {
         // Given
         Book book = new Book("Author", "Title", Category.categoryFactory(Category.FANTASY), 2011);
