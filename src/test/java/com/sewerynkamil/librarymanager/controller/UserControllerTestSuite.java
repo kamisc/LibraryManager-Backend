@@ -68,14 +68,44 @@ public class UserControllerTestSuite {
 
     @Test
     @WithMockUser(roles = "Admin")
-    public void testGetAllUsersByEmailStartsWithIgnoreCase() throws Exception {
+    public void testGetAllUsersByNameStartsWithIgnoreCase() throws Exception {
         // Given
         List<User> userList = new ArrayList<>();
-        String test = "use";
+        String name = "use";
+        when(userService.findAllUsersByNameStartsWithIgnoreCase(anyString())).thenReturn(userList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/users/names/" + name)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser(roles = "Admin")
+    public void testGetAllUsersBySurnameStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<User> userList = new ArrayList<>();
+        String surname = "use";
         when(userService.findAllUsersByEmailStartsWithIgnoreCase(anyString())).thenReturn(userList);
 
         // When & Then
-        mockMvc.perform(get("/v1/users/emails/" + test)
+        mockMvc.perform(get("/v1/users/surnames/" + surname)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", hasSize(0)));
+    }
+
+    @Test
+    @WithMockUser(roles = "Admin")
+    public void testGetAllUsersByEmailStartsWithIgnoreCase() throws Exception {
+        // Given
+        List<User> userList = new ArrayList<>();
+        String email = "use";
+        when(userService.findAllUsersByEmailStartsWithIgnoreCase(anyString())).thenReturn(userList);
+
+        // When & Then
+        mockMvc.perform(get("/v1/users/emails/" + email)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -133,6 +163,19 @@ public class UserControllerTestSuite {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", is(true)));
+    }
+
+    @Test
+    @WithMockUser
+    public void testCountBooks() throws Exception {
+        // Given
+        when(userService.countUsers()).thenReturn(2L);
+
+        // When & Then
+        mockMvc.perform(get("/v1/users/count")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$").value(2));
     }
 
     @Test
