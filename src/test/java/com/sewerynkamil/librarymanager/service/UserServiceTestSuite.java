@@ -30,10 +30,6 @@ public class UserServiceTestSuite {
     @Autowired
     private UserService userService;
 
-    /*@Autowired
-    private PasswordEncoder bcryptEncoder;*/
-
-
     @Test
     @Transactional
     public void testFindAllUsersWithLazyLoading() throws UserExistException {
