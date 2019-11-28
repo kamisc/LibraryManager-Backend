@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping(value = "/v1/nytimes")
+@RequestMapping(value = "/v1/topstories")
 public class NYTimesController {
     private NYTimesService nyTimesService;
 
