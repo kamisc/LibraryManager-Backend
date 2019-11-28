@@ -15,8 +15,12 @@ import java.util.stream.Collectors;
 
 @Component
 public class SpecimenMapper {
-    @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    public SpecimenMapper(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
+    }
 
     public SpecimenDto mapToSpecimenDto(final Specimen specimen) {
         SpecimenDto specimenDto = new SpecimenDto(
