@@ -16,11 +16,14 @@ import org.springframework.stereotype.Component;
 public class RentedBooksScheduler {
     private static final String SUBJECT = "LibraryManager: Information about return date of your rents";
 
-    @Autowired
     private EmailService emailService;
+    private UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public RentedBooksScheduler(EmailService emailService, UserRepository userRepository) {
+        this.emailService = emailService;
+        this.userRepository = userRepository;
+    }
 
     @Scheduled(cron = "0 0 23 * * 7")
     public void sendInformationAboutRentedBook() {
