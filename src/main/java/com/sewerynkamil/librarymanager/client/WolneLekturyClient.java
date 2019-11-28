@@ -19,11 +19,14 @@ import static java.util.Optional.ofNullable;
 
 @Component
 public class WolneLekturyClient {
-    @Autowired
     private WolneLekturyConfig wolneLekturyConfig;
+    private RestTemplate restTemplate;
 
     @Autowired
-    private RestTemplate restTemplate;
+    public WolneLekturyClient(WolneLekturyConfig wolneLekturyConfig, RestTemplate restTemplate) {
+        this.wolneLekturyConfig = wolneLekturyConfig;
+        this.restTemplate = restTemplate;
+    }
 
     public List<WolneLekturyAudiobookDto> getWolneLekturyAudiobooks() {
         try {
