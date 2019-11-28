@@ -20,7 +20,7 @@ public class NYTimesController {
         this.nyTimesService = nyTimesService;
     }
 
-    @GetMapping("{section}")
+    @GetMapping("/{section}")
     public NYTimesTopStoriesDto getAllTopStories(@PathVariable String section) {
         return nyTimesService.fetchNYTimesTopStories(section);
     }
