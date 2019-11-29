@@ -21,7 +21,7 @@ public class NYTimesController {
     }
 
     @GetMapping("/{section}")
-    public NYTimesTopStoriesDto getAllTopStories(@PathVariable String section) {
+    public NYTimesTopStoriesDto getAllTopStoriesBySection(@PathVariable String section) {
         return nyTimesService.fetchNYTimesTopStories(section);
     }
 }
