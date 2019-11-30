@@ -50,7 +50,7 @@ public class NYTimesControllerTestSuite {
         // Given
         String home = NYTimesSection.HOME.getSection();
         List<NYTimesResultsDto> result = new ArrayList<>();
-        NYTimesResultsDto nyTimesResultsDto = new NYTimesResultsDto("home", "title", "url", "by Me");
+        NYTimesResultsDto nyTimesResultsDto = new NYTimesResultsDto("home", "title", "url", "by Me", "2005-11-30");
         result.add(nyTimesResultsDto);
         NYTimesTopStoriesDto nyTimesTopStoriesDto = new NYTimesTopStoriesDto(result);
 

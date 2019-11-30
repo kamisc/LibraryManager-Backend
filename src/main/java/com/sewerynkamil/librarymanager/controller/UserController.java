@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserGotRentsException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.UserDto;
 import com.sewerynkamil.librarymanager.mapper.UserMapper;
@@ -87,7 +88,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Admin')")
     @DeleteMapping
-    public void deleteUser(@RequestParam Long id) throws UserNotExistException {
+    public void deleteUser(@RequestParam Long id) throws UserNotExistException, UserGotRentsException {
         userService.deleteUserById(userService.findOneUserById(id));
     }
 }
