@@ -33,11 +33,11 @@ public class SpecimenService {
         return specimenRepository.findById(id).orElseThrow(SpecimenNotExistException::new);
     }
 
-    public Specimen saveNewSpecimen(Specimen specimen) {
+    public Specimen saveNewSpecimen(final Specimen specimen) {
         return specimenRepository.save(specimen);
     }
 
-    public Specimen updateSpecimen(Specimen specimen) {
+    public Specimen updateSpecimen(final Specimen specimen) {
         return specimenRepository.save(specimen);
     }
 

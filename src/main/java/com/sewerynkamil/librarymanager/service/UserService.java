@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
         this.bcryptEncoder = bcryptEncoder;
     }
 
-    public List<User> findAllUsersWithLazyLoading(int offset, int limit) {
+    public List<User> findAllUsersWithLazyLoading(final int offset, final int limit) {
         return userRepository.findAll().stream()
                 .skip(offset)
                 .limit(limit)

@@ -39,18 +39,18 @@ public class RentService {
         this.emailService = emailService;
     }
 
-    public List<Rent> findAllRentsWithLazyLoading(int offset, int limit) {
+    public List<Rent> findAllRentsWithLazyLoading(final int offset, final int limit) {
         return rentRepository.findAll().stream()
                 .skip(offset)
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    public List<Rent> findAllRentsByBookTitleStartsWithIgnoreCase(String title) {
+    public List<Rent> findAllRentsByBookTitleStartsWithIgnoreCase(final String title) {
         return rentRepository.findBySpecimenBookTitleStartsWithIgnoreCase(title);
     }
 
-    public List<Rent> findAllRentsByUserEmailStartsWithIgnoreCase(String email) {
+    public List<Rent> findAllRentsByUserEmailStartsWithIgnoreCase(final String email) {
         return rentRepository.findByUserEmailStartsWithIgnoreCase(email);
     }
 
@@ -76,7 +76,7 @@ public class RentService {
         return rentRepository.save(rent);
     }
 
-    public void returnBook(Long id) {
+    public void returnBook(final Long id) {
         Rent rent = rentRepository.findById(id).get();
         rent.getSpecimen().setStatus(Status.AVAILABLE.getStatus());
         rent.setReturnDate(LocalDate.now());
@@ -85,7 +85,7 @@ public class RentService {
         rentRepository.deleteById(id);
     }
 
-    public boolean isRentExist(String title) {
+    public boolean isRentExist(final String title) {
         return rentRepository.existsBySpecimenBookTitle(title);
     }
 

@@ -18,7 +18,7 @@ public class NYTimesService {
         this.nyTimesClient = nyTimesClient;
     }
 
-    public NYTimesTopStoriesDto fetchNYTimesTopStories(String section) {
+    public NYTimesTopStoriesDto fetchNYTimesTopStories(final String section) {
         return nyTimesClient.getNYTimesTopStories(section.toLowerCase());
     }
 }

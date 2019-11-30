@@ -21,20 +21,20 @@ public class WolneLekturyService {
         this.wolneLekturyClient = wolneLekturyClient;
     }
 
-    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoardsWithLazyLoading(int offset, int limit) {
+    public List<WolneLekturyAudiobookDto> fetchWolneLekturyBoardsWithLazyLoading(final int offset, final int limit) {
         return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
                 .skip(offset)
                 .limit(limit)
                 .collect(Collectors.toList());
     }
 
-    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByAuthorStartsWithIgnoreCase(String author) {
+    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByAuthorStartsWithIgnoreCase(final String author) {
         return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
                 .filter(audiobook -> audiobook.getAuthor().toLowerCase().startsWith(author))
                 .collect(Collectors.toList());
     }
 
-    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByTitleStartsWithIgnoreCase(String title) {
+    public List<WolneLekturyAudiobookDto> fetchAllAudiobooksByTitleStartsWithIgnoreCase(final String title) {
         return wolneLekturyClient.getWolneLekturyAudiobooks().stream()
                 .filter(audiobook -> audiobook.getTitle().toLowerCase().startsWith(title))
                 .collect(Collectors.toList());
