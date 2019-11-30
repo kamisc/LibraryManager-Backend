@@ -153,6 +153,20 @@ public class UserControllerTestSuite {
 
     @Test
     @WithMockUser
+    public void testIsUserHasRents() throws Exception {
+        // Given
+        String email = "user@user.com";
+        when(userService.isUserHasRents(email)).thenReturn(true);
+
+        // When & Then
+        mockMvc.perform(get("/v1/users/hasRents/" + email)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", is(true)));
+    }
+
+    @Test
+    @WithMockUser
     public void testIsUserExist() throws Exception {
         // Given
         String email = "user@user.com";
