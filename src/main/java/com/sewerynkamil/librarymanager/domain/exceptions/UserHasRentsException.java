@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "This user has rents! You can't delete him.")
-public class UserGotRentsException extends Exception {
-    public UserGotRentsException() {
+public class UserHasRentsException extends Exception {
+    public UserHasRentsException() {
         super("This user has rents! You can't delete him.");
     }
 }

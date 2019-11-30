@@ -3,7 +3,7 @@ package com.sewerynkamil.librarymanager.service;
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
-import com.sewerynkamil.librarymanager.domain.exceptions.UserGotRentsException;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserHasRentsException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -168,7 +168,7 @@ public class UserServiceTestSuite {
 
     @Test
     @Transactional
-    public void testDeleteUser() throws UserExistException, UserNotExistException, UserGotRentsException {
+    public void testDeleteUser() throws UserExistException, UserNotExistException, UserHasRentsException {
         // Given
         User user = new User("User", "Surname", "user@gmail.com", 123456789, "1a2b3c4d", Role.USER.getRole());
         userService.saveUser(user);

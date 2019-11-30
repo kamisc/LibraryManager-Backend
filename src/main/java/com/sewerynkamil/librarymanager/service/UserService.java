@@ -2,7 +2,7 @@ package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
-import com.sewerynkamil.librarymanager.domain.exceptions.UserGotRentsException;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserHasRentsException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +76,17 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public void deleteUserById(final User user) throws UserNotExistException, UserGotRentsException {
+    public void deleteUserById(final User user) throws UserNotExistException, UserHasRentsException {
         if(!userRepository.existsByEmail(user.getEmail())) {
             throw new UserNotExistException();
         } else if (!userRepository.findByEmail(user.getEmail()).getRentList().isEmpty()) {
-            throw new UserGotRentsException();
+            throw new UserHasRentsException();
         }
         userRepository.delete(user);
+    }
+
+    public boolean isUserHasRents(final String email) {
+        return !userRepository.findByEmail(email).getRentList().isEmpty();
     }
 
     public boolean isUserExist(final String email) {

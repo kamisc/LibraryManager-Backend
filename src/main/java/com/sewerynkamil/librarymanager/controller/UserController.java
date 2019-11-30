@@ -1,7 +1,7 @@
 package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
-import com.sewerynkamil.librarymanager.domain.exceptions.UserGotRentsException;
+import com.sewerynkamil.librarymanager.domain.exceptions.UserHasRentsException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
 import com.sewerynkamil.librarymanager.dto.UserDto;
 import com.sewerynkamil.librarymanager.mapper.UserMapper;
@@ -64,6 +64,11 @@ public class UserController {
         return userMapper.mapToUserDto(userService.findOneUserByEmail(email));
     }
 
+    @GetMapping("/hasRents/{email}")
+    public boolean isUserHas(@PathVariable String email) {
+        return userService.isUserHasRents(email);
+    }
+
     @GetMapping("/exist/{email}")
     public boolean isUserExist(@PathVariable String email) {
         return userService.isUserExist(email);
@@ -88,7 +93,7 @@ public class UserController {
 
     @PreAuthorize("hasAnyRole('Admin')")
     @DeleteMapping
-    public void deleteUser(@RequestParam Long id) throws UserNotExistException, UserGotRentsException {
+    public void deleteUser(@RequestParam Long id) throws UserNotExistException, UserHasRentsException {
         userService.deleteUserById(userService.findOneUserById(id));
     }
 }
