@@ -133,13 +133,27 @@ public class RentControllerTestSuite {
 
     @Test
     @WithMockUser(roles = "Admin")
-    public void testIsRentExist() throws Exception {
+    public void testIsRentExistBySpecimenId() throws Exception {
         // Given
-        String title = "Title";
-        when(rentService.isRentExist(title)).thenReturn(true);
+        Long id = 1L;
+        when(rentService.isRentExistBySpecimenId(id)).thenReturn(true);
 
         // When & Then
-        mockMvc.perform(get("/v1/rents/exist/" + title)
+        mockMvc.perform(get("/v1/rents/exist/id/" + id)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$", is(true)));
+    }
+
+    @Test
+    @WithMockUser(roles = "Admin")
+    public void testIsRentExistBySpecimenBookTitle() throws Exception {
+        // Given
+        String title = "Title";
+        when(rentService.isRentExistBySpecimenBookTitle(title)).thenReturn(true);
+
+        // When & Then
+        mockMvc.perform(get("/v1/rents/exist/title/" + title)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$", is(true)));
