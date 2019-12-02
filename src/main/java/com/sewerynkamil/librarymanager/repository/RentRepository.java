@@ -31,6 +31,8 @@ public interface RentRepository extends JpaRepository<Rent, Long> {
     @Override
     void deleteById(Long rentId);
 
+    boolean existsBySpecimenId(Long id);
+
     boolean existsBySpecimenBookTitle(String title);
 
     @Override

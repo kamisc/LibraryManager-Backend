@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.domain.User;
+import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserHasRentsException;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserNotExistException;
@@ -67,6 +68,8 @@ public class UserService implements UserDetailsService {
     public User saveUser(final User user) throws UserExistException {
         if(userRepository.existsByEmail(user.getEmail())) {
             throw new UserExistException();
+        } else if(user.getEmail().equals("admin@library.com")) {
+            user.setRole(Role.ADMIN.getRole());
         }
         user.setPassword(bcryptEncoder.encode(user.getPassword()));
         return userRepository.save(user);

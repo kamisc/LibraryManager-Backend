@@ -57,9 +57,15 @@ public class RentController {
     }
 
     @PreAuthorize("hasAnyRole('Admin')")
-    @GetMapping("/exist/{title}")
-    public boolean isRentExist(@PathVariable String title) {
-        return rentService.isRentExist(title);
+    @GetMapping("/exist/id/{id}")
+    public boolean isRentExistBySpecimenId(@PathVariable Long id) {
+        return rentService.isRentExistBySpecimenId(id);
+    }
+
+    @PreAuthorize("hasAnyRole('Admin')")
+    @GetMapping("/exist/title/{title}")
+    public boolean isRentExistBySpecimenBookTitle(@PathVariable String title) {
+        return rentService.isRentExistBySpecimenBookTitle(title);
     }
 
     @PostMapping(value = "/{userId}")

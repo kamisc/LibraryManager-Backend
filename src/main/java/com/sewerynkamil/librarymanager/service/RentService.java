@@ -85,7 +85,11 @@ public class RentService {
         rentRepository.deleteById(id);
     }
 
-    public boolean isRentExist(final String title) {
+    public boolean isRentExistBySpecimenId(final Long id) {
+        return rentRepository.existsBySpecimenId(id);
+    }
+
+    public boolean isRentExistBySpecimenBookTitle(final String title) {
         return rentRepository.existsBySpecimenBookTitle(title);
     }
 
