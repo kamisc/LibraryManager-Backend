@@ -1,4 +1,4 @@
-package com.sewerynkamil.librarymanager.controller;
+package com.sewerynkamil.librarymanager.controller.authentication;
 
 import com.sewerynkamil.librarymanager.config.security.TokenUtilJwt;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;

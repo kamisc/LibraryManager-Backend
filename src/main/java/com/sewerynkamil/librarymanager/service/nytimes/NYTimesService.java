@@ -1,4 +1,4 @@
-package com.sewerynkamil.librarymanager.service;
+package com.sewerynkamil.librarymanager.service.nytimes;
 
 import com.sewerynkamil.librarymanager.client.NYTimesClient;
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesTopStoriesDto;

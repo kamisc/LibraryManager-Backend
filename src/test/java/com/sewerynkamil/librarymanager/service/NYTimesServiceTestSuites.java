@@ -2,6 +2,7 @@ package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesSection;
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesTopStoriesDto;
+import com.sewerynkamil.librarymanager.service.nytimes.NYTimesService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

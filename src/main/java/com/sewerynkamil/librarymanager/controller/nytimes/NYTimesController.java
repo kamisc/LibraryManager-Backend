@@ -1,7 +1,7 @@
-package com.sewerynkamil.librarymanager.controller;
+package com.sewerynkamil.librarymanager.controller.nytimes;
 
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesTopStoriesDto;
-import com.sewerynkamil.librarymanager.service.NYTimesService;
+import com.sewerynkamil.librarymanager.service.nytimes.NYTimesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

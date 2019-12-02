@@ -1,4 +1,4 @@
-package com.sewerynkamil.librarymanager.service;
+package com.sewerynkamil.librarymanager.service.wolnelektury;
 
 import com.sewerynkamil.librarymanager.client.WolneLekturyClient;
 import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;

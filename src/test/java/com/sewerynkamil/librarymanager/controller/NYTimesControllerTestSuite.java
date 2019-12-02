@@ -2,10 +2,11 @@ package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.config.security.AuthenticationEntryPointJwt;
 import com.sewerynkamil.librarymanager.config.security.TokenUtilJwt;
+import com.sewerynkamil.librarymanager.controller.nytimes.NYTimesController;
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesResultsDto;
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesSection;
 import com.sewerynkamil.librarymanager.dto.nytimes.NYTimesTopStoriesDto;
-import com.sewerynkamil.librarymanager.service.NYTimesService;
+import com.sewerynkamil.librarymanager.service.nytimes.NYTimesService;
 import com.sewerynkamil.librarymanager.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

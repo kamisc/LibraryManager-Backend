@@ -1,6 +1,7 @@
 package com.sewerynkamil.librarymanager.service;
 
 import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
+import com.sewerynkamil.librarymanager.service.wolnelektury.WolneLekturyService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

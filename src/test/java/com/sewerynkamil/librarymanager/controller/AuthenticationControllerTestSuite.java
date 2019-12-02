@@ -3,6 +3,7 @@ package com.sewerynkamil.librarymanager.controller;
 import com.google.gson.Gson;
 import com.sewerynkamil.librarymanager.config.security.AuthenticationEntryPointJwt;
 import com.sewerynkamil.librarymanager.config.security.TokenUtilJwt;
+import com.sewerynkamil.librarymanager.controller.authentication.AuthenticationController;
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.dto.authentication.RequestJwtDto;
 import com.sewerynkamil.librarymanager.dto.authentication.ResponseJwtDto;

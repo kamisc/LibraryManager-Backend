@@ -2,9 +2,10 @@ package com.sewerynkamil.librarymanager.controller;
 
 import com.sewerynkamil.librarymanager.config.security.AuthenticationEntryPointJwt;
 import com.sewerynkamil.librarymanager.config.security.TokenUtilJwt;
+import com.sewerynkamil.librarymanager.controller.wolnelektury.WolneLekturyController;
 import com.sewerynkamil.librarymanager.dto.wolneLektury.WolneLekturyAudiobookDto;
 import com.sewerynkamil.librarymanager.service.UserService;
-import com.sewerynkamil.librarymanager.service.WolneLekturyService;
+import com.sewerynkamil.librarymanager.service.wolnelektury.WolneLekturyService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
