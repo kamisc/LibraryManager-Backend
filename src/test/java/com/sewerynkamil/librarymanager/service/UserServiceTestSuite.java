@@ -1,6 +1,5 @@
 package com.sewerynkamil.librarymanager.service;
 
-import com.sewerynkamil.librarymanager.domain.Rent;
 import com.sewerynkamil.librarymanager.domain.User;
 import com.sewerynkamil.librarymanager.domain.enumerated.Role;
 import com.sewerynkamil.librarymanager.domain.exceptions.UserExistException;
@@ -17,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Optional.ofNullable;
