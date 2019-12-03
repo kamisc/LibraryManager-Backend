@@ -1,8 +1,8 @@
-# Libray Manager REST API - Backend
+# Library Manager REST API - Backend
 
 [![Build Status](https://travis-ci.org/kamisc/LibraryManager-Backend.svg?branch=master)](https://travis-ci.org/kamisc/LibraryManager-Backend)
 
-## Descripion
+## Description
 In this repository you can find REST API code written in Java language for Library Manager project. 
 To start working with the application, you should first run the backend app and then frontend app. 
 
