@@ -6,6 +6,11 @@
 In this repository you can find REST API code written in Java language for Library Manager project. 
 To start working with the application, you should first run the backend app and then frontend app. 
 
+##[Check Live Demo](https://library-manager-frontend.herokuapp.com/login)
+   
+        Admin credentials: L: admin@library.com / P: admin
+        User credentials: create an account with your own credentials :-) 
+
 ## Frameworks and Technologies
 Java 8, Spring Boot, Spring Security (Json Web Token), Hibernate, JUnit4, Mockito, Lombok, Gradle, Swagger, H2 In Memory Database
 
